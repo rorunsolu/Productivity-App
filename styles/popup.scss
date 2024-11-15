@@ -58,23 +58,32 @@
         padding: 0.5rem;
     }
 
+    &__options-wrapper {
+        display: flex;
+        gap: 1rem;
+    }
+
     &__priorities {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 0.5rem;
 
         margin-bottom: 1rem;
 
+        width: fit-content;
+
         color: white;
+
     }
 
     &__priorities-open-btn {
-        
     }
 
-    &__priorities-btn-wrapper {
-        display: flex;
-        flex-direction: column;
+    &__priorities-btn-list {
+        position: absolute;
+
+        bottom: -4rem;
 
         border: var(--border-primary);
         border-radius: var(--border-radius);

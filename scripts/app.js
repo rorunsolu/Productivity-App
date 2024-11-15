@@ -15,17 +15,44 @@ function popupCreate() {
                 <textarea class="popup__note-title" placeholder="Title"></textarea>
                 <textarea class="popup__note-content" placeholder="Description"></textarea>
 
-                <div class="popup__priorities">
+                <div class="popup__options-wrapper">
+                
+                    <div class="popup__priorities">
 
-                    <button class="popup__priorities-open-btn"><i class="ri-flag-line"></i>Priority</button>
+                        <button class="popup__priorities-open-btn"><i class="ri-flag-line"></i>Priority</button>
 
-                    <div class="popup__priorities-btn-wrapper">
-                        <button class="popup__priority-btn-1"><i class="ri-flag-fill"></i>Priority 1</button>
-                        <button class="popup__priority-btn-2"><i class="ri-flag-fill"></i>Priority 2</button>
-                        <button class="popup__priority-btn-3"><i class="ri-flag-fill"></i>Priority 3</button>
-                        <button class="popup__priority-btn-4"><i class="ri-flag-fill"></i>Priority 4</button>
+                        <ul class="popup__priorities-btn-list">
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn-1"><i class="ri-flag-fill"></i>Priority 1</button>
+                            </li>
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn-2"><i class="ri-flag-fill"></i>Priority 2</button>
+                            </li>
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn-3"><i class="ri-flag-fill"></i>Priority 3</button>
+                            </li>
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn-4"><i class="ri-flag-fill"></i>Priority 4</button>
+                            </li>
+
+                        </ul>
+
                     </div>
+                
+                    <div class="popup__tags">
 
+                        <button class="popup__tags-open-btn"><i class="ri-price-tag-line"></i>Tags</button>
+
+                        <ul class="popup__tags-btn-list">
+                            
+                        </ul>
+
+                    </div>
+                
                 </div>
 
                 <div class="popup__btn-wrapper">
@@ -43,6 +70,12 @@ function popupCreate() {
 
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
     popupContainer.querySelector('.popup__cancel-btn').addEventListener('click', cancelNote);
+    popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
+
+    const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
+    prioritiesBtnList.style.display = 'none';
+
+    //! these names are long as hell damn
 }
 
 function popupEdit(noteId) {
@@ -89,6 +122,20 @@ function popupEdit(noteId) {
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
     editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', discardChanges);
+}
+
+function togglePriorityOptions() {
+    const prioritiesBtn = document.querySelector('.popup__priorities-open-btn');
+    console.log('Element of the button that toggles the priority options:', prioritiesBtn);
+
+    const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list');
+    console.log('Element of the list of priority options:', prioritiesBtnList);
+
+    console.log('Display of the list of priority options:', prioritiesBtnList.style.display);
+
+    if (prioritiesBtnList) {
+        prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
+    }
 }
 
 function cancelNote() {
@@ -189,11 +236,6 @@ function showNotes() {
             <div class="note__author">
                 <img class="note__author-img" src="/images/profilepic.jpeg"/>
                 <span class="note__author-name">Ray Orunsolu</span>
-            </div>
-
-            <div class="note__tags">
-                <span class="note__tag"><i class="ri-price-tag-3-line"></i>Tag 1</span>
-                <span class="note__tag"><i class="ri-price-tag-3-line"></i>Tag 2</span>
             </div>
 
             <div class="note__date">
@@ -307,19 +349,11 @@ function deleteNote(noteId) {
 
 function updateNoteCount() {
     const unbookmarkedNoteCount = document.getElementById('unbookmarked-count');
-
     const notesList = document.querySelector('.notes-list');
     const notes = notesList.querySelectorAll('.note');
-    //!check for missing full stops bro...
     const unbookmarkedNoteArray = Array.from(notes);
     console.log('All unbookmarked notes:', unbookmarkedNoteArray);
     unbookmarkedNoteCount.textContent = unbookmarkedNoteArray.length;
-
-    //! use console logs to figure out why its not working
-    //const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    //const unbookmarkedNoteArray = Array.from(notes, note => note.textContent);
-    //unbookmarkedNoteCount.textContent = notes.length;
-    //console.log('Unbookmarked Note Count:', unbookmarkedNoteCount.textContent);
 }
 
 function updateBookmarkedNoteCount() {
