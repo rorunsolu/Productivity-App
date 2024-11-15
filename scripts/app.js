@@ -135,6 +135,7 @@ function createNote() {
         popupContainer.remove();
         showNotes();
         updateNoteCount();
+        updateBookmarkedNoteCount();
     }
 
     else {
@@ -252,6 +253,7 @@ function bookmarkNote(noteId) {
 
         showNotes();
         updateNoteCount();
+        updateBookmarkedNoteCount();
     } else {
         console.log('Something went wrong with the bookmarking function.');
     }
@@ -300,6 +302,7 @@ function deleteNote(noteId) {
 
     showNotes();
     updateNoteCount();
+    updateBookmarkedNoteCount();
 }
 
 function updateNoteCount() {
@@ -317,6 +320,20 @@ function updateNoteCount() {
     //const unbookmarkedNoteArray = Array.from(notes, note => note.textContent);
     //unbookmarkedNoteCount.textContent = notes.length;
     //console.log('Unbookmarked Note Count:', unbookmarkedNoteCount.textContent);
+}
+
+function updateBookmarkedNoteCount() {
+    const bookmarkedNoteCount = document.getElementById('bookmarked-count');
+    console.log('ID of number of bookmarked notes:', bookmarkedNoteCount);
+
+    const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
+    console.log('Element of the list of bookmarked notes', bookmarkedNotesList);
+
+    const bookmarkedNotes = bookmarkedNotesList.querySelectorAll('.note');
+    console.log('List of all of the bookmarked notes', bookmarkedNotes);
+
+    const bookmarkedNotesArray = Array.from(bookmarkedNotes);
+    bookmarkedNoteCount.textContent = bookmarkedNotesArray.length;
 }
 
 function displayError() {
@@ -345,6 +362,7 @@ function closeError() {
 
 showNotes();
 updateNoteCount();
+updateBookmarkedNoteCount();
 
 //! --------Tag Functionality--------!//
 //* have a dropdown or modal menu to add tags to notes
