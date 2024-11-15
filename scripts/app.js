@@ -304,9 +304,19 @@ function deleteNote(noteId) {
 
 function updateNoteCount() {
     const unbookmarkedNoteCount = document.getElementById('unbookmarked-count');
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    unbookmarkedNoteCount.textContent = notes.length;
-    console.log('Unbookmarked Note Count:', unbookmarkedNoteCount.textContent);
+
+    const notesList = document.querySelector('.notes-list');
+    const notes = notesList.querySelectorAll('.note');
+    //!check for missing full stops bro...
+    const unbookmarkedNoteArray = Array.from(notes);
+    console.log('All unbookmarked notes:', unbookmarkedNoteArray);
+    unbookmarkedNoteCount.textContent = unbookmarkedNoteArray.length;
+
+    //! use console logs to figure out why its not working
+    //const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    //const unbookmarkedNoteArray = Array.from(notes, note => note.textContent);
+    //unbookmarkedNoteCount.textContent = notes.length;
+    //console.log('Unbookmarked Note Count:', unbookmarkedNoteCount.textContent);
 }
 
 function displayError() {
