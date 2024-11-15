@@ -1,0 +1,63 @@
+.btn-new-tag,
+.btn-new-note {
+    height: 3rem;
+    width: 3rem;
+
+    background: var(--bg-color-btn-add);
+    color: var(--text-color-btn-add);
+
+    &:hover {
+        background: var(--bg-color-btn-add-hover);
+    }
+
+    i {
+        font-size: 1.5rem;
+    }
+}
+
+.btn-new-tag {
+    i {
+        position: relative;
+        bottom: -0.05rem;
+    }
+}
+
+.btn-new-note {
+    height: 3rem;
+    width: 3rem;
+
+    background: var(--bg-color-btn-add);
+    color: var(--text-color-btn-add);
+
+    &:hover {
+        background: var(--bg-color-btn-add-hover);
+    }
+
+    i {
+        font-size: 1.5rem;
+    }
+}
+
+.btn-edit-note,
+.btn-delete-note,
+.btn-bookmark-note {
+    border: var(--border-primary);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+
+    &:hover {
+        background: var(--bg-color-modal-hover);
+    }
+}
+
+.btn-bookmark-note {
+    color: hsl(36, 94%, 53%);
+}
+
+.btn-edit-note {
+    color: var(--text-color-btn-edit);
+}
+
+.btn-delete-note {
+    color: var(--text-color-btn-del);
+}

@@ -1,0 +1,32 @@
+.popup-error {
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 500px;
+    width: 90%;
+
+    border: var(--border-primary);
+    border-radius: var(--border-radius);
+    padding: var(--padding-note);
+
+    background-color: var(--bg-color-modal);
+
+    &__message {
+        font-size: 1.5rem;
+        color: var(--text-color-primary);
+    }
+
+    &__btn {
+        color: var(--text-color-primary);
+
+        &:hover {
+            background: var(--bg-color-modal-hover);
+        }
+    }
+}
