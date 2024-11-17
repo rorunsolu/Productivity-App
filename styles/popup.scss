@@ -61,6 +61,12 @@
     &__options-wrapper {
         display: flex;
         gap: 1rem;
+
+        button {
+                    &:hover {
+            background: var(--bg-color-modal-hover);
+        }
+        }
     }
 
     &__priorities {
@@ -74,10 +80,10 @@
         width: fit-content;
 
         color: white;
-
     }
 
     &__priorities-open-btn {
+
     }
 
     &__priorities-btn-list {
@@ -95,29 +101,27 @@
         button {
             border: none;
             border-radius: none;
+
+            &:hover {
+                background-color: black;
+            }
         }
     }
 
-    &__priority-btn-1 {
-        i {
+    &__priority-btn {
+        &[data-priority="1"] i {
             color: red;
         }
-    }
 
-    &__priority-btn-2 {
-        i {
+        &[data-priority="2"] i {
             color: orange;
         }
-    }
 
-    &__priority-btn-3 {
-        i {
+        &[data-priority="3"] i {
             color: yellow;
         }
-    }
 
-    &__priority-btn-4 {
-        i {
+        &[data-priority="4"] i {
             color: rgb(0, 89, 255);
         }
     }

@@ -24,19 +24,19 @@ function popupCreate() {
                         <ul class="popup__priorities-btn-list">
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn-1"><i class="ri-flag-fill"></i>Priority 1</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-flag-fill"></i>Priority 1</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn-2"><i class="ri-flag-fill"></i>Priority 2</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-2" data-priority="2"><i class="ri-flag-fill"></i>Priority 2</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn-3"><i class="ri-flag-fill"></i>Priority 3</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-3" data-priority="3"><i class="ri-flag-fill"></i>Priority 3</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn-4"><i class="ri-flag-fill"></i>Priority 4</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-4" data-priority="4"><i class="ri-flag-fill"></i>Priority 4</button>
                             </li>
 
                         </ul>
@@ -125,8 +125,8 @@ function popupEdit(noteId) {
 }
 
 function togglePriorityOptions() {
-    const prioritiesBtn = document.querySelector('.popup__priorities-open-btn');
-    console.log('Element of the button that toggles the priority options:', prioritiesBtn);
+    const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
+    console.log('Element of the button that toggles the priority options:', prioritiesBtnOpen);
 
     const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list');
     console.log('Element of the list of priority options:', prioritiesBtnList);
@@ -135,6 +135,45 @@ function togglePriorityOptions() {
 
     if (prioritiesBtnList) {
         prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
+
+        const priorityBtn1 = document.getElementById('popup__priority-btn-1');
+        const priorityBtn2 = document.getElementById('popup__priority-btn-2');
+        const priorityBtn3 = document.getElementById('popup__priority-btn-3');
+        const priorityBtn4 = document.getElementById('popup__priority-btn-4');
+
+        priorityBtn1.addEventListener('click', () => {
+            prioritiesBtnOpen.textContent = 'Priority 1';
+            console.log('Priority set to 1');
+            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
+
+            prioritiesBtnList.style.display = 'none';
+        });
+
+        priorityBtn2.addEventListener('click', () => {
+            prioritiesBtnOpen.textContent = 'Priority 2';
+            console.log('Priority set to 2');
+            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
+
+            prioritiesBtnList.style.display = 'none';
+        });
+
+        priorityBtn3.addEventListener('click', () => {
+            prioritiesBtnOpen.textContent = 'Priority 3';
+            console.log('Priority set to 3');
+            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
+
+            prioritiesBtnList.style.display = 'none';
+        });
+
+        priorityBtn4.addEventListener('click', () => {
+            prioritiesBtnOpen.textContent = 'Priority 4';
+            console.log('Priority set to 4');
+            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
+
+            prioritiesBtnList.style.display = 'none';
+        });
+
+        // set the text content of the main button to 1 and then when loading the note in the show notes function have the shownotes function take the textcontent of the main button as what it should show as the note.priority value hahah
     }
 }
 
@@ -158,6 +197,7 @@ function createNote() {
     const popupContainer = document.querySelector('.popup-container');
     const noteTitle = document.querySelector('.popup__note-title').value;
     const noteContent = document.querySelector('.popup__note-content').value;
+    const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
 
     if (noteTitle.trim() !== "" && noteContent.trim() !== "") {
         const note = {
@@ -167,8 +207,17 @@ function createNote() {
             content: noteContent,
             creationDate: new Date().toISOString(),
             bookmarked: false,
-            //tags: ['Personal', 'Work', 'School', 'Other']
+            priority: prioritiesBtnOpen.textContent,
         };
+
+        //
+        // setItem(key, value) – store key / value pair.
+        //     getItem(key) – get the value by key.
+        //         removeItem(key) – remove the key with its value.
+        //             clear() – delete everything.
+        //                 key(index) – get the key on a given position.
+        //                     length – the number of stored items.;
+
 
         const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
 
@@ -183,6 +232,7 @@ function createNote() {
         showNotes();
         updateNoteCount();
         updateBookmarkedNoteCount();
+        console.log('Properties of the created note:', note);
     }
 
     else {
@@ -233,10 +283,9 @@ function showNotes() {
 
         <div class="note__about">
 
-            <div class="note__author">
-                <img class="note__author-img" src="/images/profilepic.jpeg"/>
-                <span class="note__author-name">Ray Orunsolu</span>
-            </div>
+            <span class="note__priority">
+                ${note.priority}
+            </span>
 
             <div class="note__date">
                 <time datetime="${note.creationDate}">${formattedDate}</time>
@@ -314,7 +363,7 @@ function keepChanges() {
 
         const noteMap = notes.map(note => {
             //if (note.id == noteId) {
-            if (String(note.id) === String(noteId)) { // changed to string
+            if (String(note.id) === String(noteId)) {
                 console.log('12. Updating note:', note);
                 return { ...note, title: noteTitle, content: noteContent };
             }
