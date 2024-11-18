@@ -84,6 +84,7 @@ function popupEdit(noteId) {
     const noteToEdit = notes.find(note => String(note.id) === String(noteId));// changed to string
     const noteTitle = noteToEdit ? noteToEdit.title : "";
     const noteContent = noteToEdit ? noteToEdit.content : "";
+    const notePriority = noteToEdit ? noteToEdit.priority : "";
     const editingPopup = document.createElement('div');
 
     editingPopup.classList.add('popup-container');
@@ -104,8 +105,34 @@ function popupEdit(noteId) {
 
             <div class="popup-edit__note">
             
-                <textarea class="popup-edit__note-title">${noteTitle}</textarea>
+                <label for="popup-edit__note-title">Title</label>
+                <textarea class="popup-edit__note-title" id="popup-edit__note-title">${noteTitle}</textarea>
+
+                <label for="popup-edit__note-content">Description</label>
                 <textarea class="popup-edit__note-content">${noteContent}</textarea>
+
+                <div class="popup-edit__options-wrapper">
+                
+                    <div class="popup-edit__priorities">
+
+                        <button class="popup-edit__priorities-open-btn"><i class="ri-flag-line"></i>${notePriority}</button>
+
+                        <ul class="popup-edit__priorities-btn-list">
+                            <li class="popup-edit__priorities-btn-item">
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-flag-fill"></i>Priority 1</button>
+                            </li>
+                            <li class="popup-edit__priorities-btn-item">
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-2" data-priority="2"><i class="ri-flag-fill"></i>Priority 2</button>
+                            </li>
+                            <li class="popup-edit__priorities-btn-item">
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-3" data-priority="3"><i class="ri-flag-fill"></i>Priority 3</button>
+                            </li>
+                            <li class="popup-edit__priorities-btn-item">
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-flag-fill"></i>Priority 4</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="popup-edit__btn-wrapper">
                     <button class="popup-edit__save-btn"><i class="ri-save-line"></i></button>

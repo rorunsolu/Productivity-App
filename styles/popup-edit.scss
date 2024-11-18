@@ -10,11 +10,14 @@
     border-radius: var(--border-radius);
     padding: var(--padding-note);
 
+    width: 70%;
+    height: 70%;
+
     background-color: var(--bg-color-modal);
 
     textarea {
-        border: var(--border-primary);
-        border-radius: var(--border-radius);
+        //border: var(--border-primary);
+        //border-radius: var(--border-radius);
         margin-bottom: 1rem;
 
         font-size: var(--font-size-btn);
@@ -22,6 +25,10 @@
         background: none;
 
         resize: none;
+    }
+
+    label {
+        color: var(--text-color-muted);
     }
 
     button {
@@ -48,6 +55,83 @@
         min-height: 10rem;
         max-height: 20rem;
         padding: 0.5rem;
+    }
+
+    &__options-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: 1rem;
+
+        button {
+            display: flex;
+            justify-content: left;
+
+            width: 100%;
+
+            //border: 0.0625rem  solid var(--border-primary);
+            border-radius: none;
+
+            &:hover {
+                background: var(--bg-color-modal-hover);
+            }
+        }
+    }
+
+    &__priorities {
+        display: flex;
+        flex-direction: column;
+
+        gap: 0.5rem;
+
+        color: white;
+    }
+
+    &__priorities-open-btn {
+        border: none;
+        border-radius: none;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+    }
+
+    &__priorities-btn-list {
+        //position: absolute;
+        display: none;
+
+        bottom: -4rem;
+
+        border: var(--border-primary);
+        border-radius: var(--border-radius);
+
+        width: fit-content;
+
+        background: var(--bg-color-note);
+
+        button {
+            border-radius: none;
+
+            &:hover {
+                background-color: black;
+            }
+        }
+    }
+
+    &__priority-btn-1 {
+        &[data-priority="1"] i {
+            color: red;
+        }
+
+        &[data-priority="2"] i {
+            color: orange;
+        }
+
+        &[data-priority="3"] i {
+            color: yellow;
+        }
+
+        &[data-priority="4"] i {
+            color: rgb(0, 89, 255);
+        }
     }
 
     &__btn-wrapper {
