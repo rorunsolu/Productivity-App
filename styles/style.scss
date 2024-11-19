@@ -68,6 +68,19 @@ header {
     justify-content: space-between;
 }
 
+    textarea {
+        overflow-y: hidden; /* Hide scrollbar */
+        resize: none; /* Disable manual resizing */
+        width: 100%; /* Full width */
+        box-sizing: border-box;
+
+        font-size: var(--font-size-btn);
+        color: var(--text-color-primary);
+        background: none;
+
+        resize: none;
+    }
+
 p {
     color: var(--text-color-muted);
     font-size: var(--font-size-body);
@@ -78,8 +91,8 @@ button {
     justify-content: center;
     align-items: center;
 
-    border: var(--border-primary);
-    border-radius: var(--border-radius);
+    //border: var(--border-primary);
+    //border-radius: var(--border-radius);
     padding: var(--padding-btn);
 
     height: 2.25rem;

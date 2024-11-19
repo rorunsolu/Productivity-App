@@ -16,9 +16,10 @@
     background-color: var(--bg-color-modal);
 
     textarea {
-        //border: var(--border-primary);
-        //border-radius: var(--border-radius);
-        //margin-bottom: 2rem;
+        overflow-y: hidden; /* Hide scrollbar */
+        resize: none; /* Disable manual resizing */
+        width: 100%; /* Full width */
+        box-sizing: border-box;
 
         font-size: var(--font-size-btn);
         color: var(--text-color-primary);
@@ -63,9 +64,9 @@
         gap: 1rem;
 
         button {
-                    &:hover {
-            background: var(--bg-color-modal-hover);
-        }
+            &:hover {
+                background: var(--bg-color-modal-hover);
+            }
         }
     }
 
@@ -83,7 +84,6 @@
     }
 
     &__priorities-open-btn {
-
     }
 
     &__priorities-btn-list {
