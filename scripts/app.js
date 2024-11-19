@@ -138,6 +138,14 @@ function popupEdit(noteId) {
 
                     </div>
 
+                    <div class="popup-edit__tags">
+
+                        <button class="popup-edit__tags-open-btn"><i class="ri-price-tag-line"></i>Tags</button>
+
+                        <ul class="popup-edit__tags-btn-list">
+                            
+                        </ul>
+
                     </div>
 
                 </div>
