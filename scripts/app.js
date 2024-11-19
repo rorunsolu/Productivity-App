@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.btn-new-note').addEventListener('click', popupCreate);
+
+    document.querySelectorAll('.category__dropdown-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const notesList = button.closest('.category').querySelector('.notes-list');
+            if (notesList) {
+                notesList.classList.toggle('hidden');
+                console.log('Toggled regular notes list:', notesList);
+                return;
+            }
+
+            const bookmarkedNotesList = button.closest('.category').querySelector('.bookmarked-notes-list');
+            if (bookmarkedNotesList) {
+                bookmarkedNotesList.classList.toggle('hidden');
+                console.log('Toggled bookmarked notes list:', bookmarkedNotesList);
+            }
+        });
+    });
 });
 
 function popupCreate() {
@@ -221,7 +238,7 @@ function togglePriorityOptions() {
             prioritiesBtnList.style.display = 'none';
         });
 
-        // set the text content of the main button to 1 and then when loading the note in the show notes function have the shownotes function take the textcontent of the main button as what it should show as the note.priority value hahah
+        // set the text content of the main button to 1 and then when loading the note in the show notes function have the shownotes function take the textcontent of the main button as what it should show as the note.priority value
     }
 }
 
@@ -249,8 +266,7 @@ function createNote() {
 
     if (noteTitle.trim() !== "" && noteContent.trim() !== "") {
         const note = {
-            //id: new Date().getTime(),
-            id: String(new Date().getTime()), // Convert the ID to a string
+            id: String(new Date().getTime()),
             title: noteTitle,
             content: noteContent,
             creationDate: new Date().toISOString(),
@@ -357,18 +373,6 @@ function showNotes() {
         }
     });
 
-    // const notesToOpen = document.querySelectorAll('.note');
-    // notesToOpen.forEach(note => {
-    //     note.addEventListener('click', (event) => {
-    //         let noteId = null;
-    //         if (event.target.classList.contains('note')) {
-    //             noteId = event.target.getAttribute('data-id');
-    //             //viewNote(String(noteId));
-    //             console.log('Note to open:', noteId);
-    //         }
-    //     });
-    // });
-
     const notesToOpen = document.querySelectorAll('.note');
     notesToOpen.forEach(note => {
         note.addEventListener('click', (event) => {
@@ -418,28 +422,6 @@ function showNotes() {
             }
         });
     });
-
-
-
-    // const categories = document.querySelectorAll('.category');
-
-    // categories.forEach(category => {
-    //     category.addEventListener('click', (event) => {
-    //         const noteId = event.target.closest('button').getAttribute('data-id');
-
-    //         if (event.target.closest('.btn-edit-note')) {
-    //             console.log('Edit button clicked. Note ID to edit:', noteId);
-    //             //popupEdit(noteId);
-    //             popupEdit(String(noteId));
-    //         }
-
-    //         if (event.target.closest('.btn-delete-note')) {
-    //             console.log('Delete button clicked. Note ID to delete:', noteId);
-    //             //deleteNote(noteId);
-    //             deleteNote(String(noteId));
-    //         }
-    //     });
-    // });
 }
 
 function bookmarkNote(noteId) {
