@@ -188,6 +188,51 @@ function popupEdit(noteId) {
     editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', discardChanges);
 }
 
+function viewNote(noteId) {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    const noteToView = notes.find(note => String(note.id) === String(noteId));
+    const noteTitle = noteToView ? noteToView.title : "";
+    const noteContent = noteToView ? noteToView.content : "";
+    //*const notePriority = noteToView ? noteToView.priority : "";
+    const viewingPopup = document.createElement('div');
+
+    viewingPopup.classList.add('popup-container');
+    const existingPopup = document.querySelector('.popup-container');
+
+    if (existingPopup) {
+        existingPopup.remove();
+    }
+
+    if (!noteToView) {
+        console.error('Note not found!');
+        return;
+    }
+
+    viewingPopup.innerHTML = `
+    
+        <div class="popup-view" data-id="${noteId}">
+
+            <div class="popup-view__note">
+
+                <label for="popup-view__note-title">Title</label>
+                <textarea class="popup-view__note-title" id="popup-view__note-title">${noteTitle}</textarea>
+
+                <label for="popup-view__note-content">Description</label>
+                <textarea class="popup-view__note-content">${noteContent}</textarea>
+
+            </div>
+
+        </div>
+
+    `;
+
+    document.body.appendChild(viewingPopup);
+
+    //! this isn't working
+    const viewTextArea = document.querySelector('.popup-view__note-content');
+    viewTextArea.addEventListener('input', autoResize);
+    autoResize.call(viewTextArea);
+}
 
 function togglePriorityOptions() {
     const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
