@@ -68,6 +68,10 @@ function popupCreate() {
 
     document.body.appendChild(popupContainer);
 
+    const createTextArea = document.querySelector('.popup__note-content');
+    createTextArea.addEventListener('input', autoResize);
+    autoResize.call(createTextArea);
+
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
     popupContainer.querySelector('.popup__cancel-btn').addEventListener('click', cancelNote);
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
@@ -131,7 +135,11 @@ function popupEdit(noteId) {
                                 <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-flag-fill"></i>Priority 4</button>
                             </li>
                         </ul>
+
                     </div>
+
+                    </div>
+
                 </div>
 
                 <div class="popup-edit__btn-wrapper">
@@ -146,6 +154,10 @@ function popupEdit(noteId) {
     `;
 
     document.body.appendChild(editingPopup);
+
+    const editTextArea = document.querySelector('.popup-edit__note-content');
+    editTextArea.addEventListener('input', autoResize);
+    autoResize.call(editTextArea);
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
     editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', discardChanges);
@@ -314,6 +326,13 @@ function showNotes() {
                 ${note.priority}
             </span>
 
+            <span class="note__tags">
+                <p>Tag 1</p>
+                <p>Tag 2</p>
+                <p>Tag 3</p>
+                <p>Tag 4</p>
+            </span>
+
             <div class="note__date">
                 <time datetime="${note.creationDate}">${formattedDate}</time>
             </div>
@@ -342,6 +361,12 @@ function showNotes() {
     categories.forEach(category => {
         category.addEventListener('click', (event) => {
             const noteId = event.target.closest('button').getAttribute('data-id');
+
+            if (event.target.closest('.note')) {
+                console.log('Note clicked with ID:', noteId);
+
+                viewNote(String(noteId));
+            }
 
             if (event.target.closest('.btn-edit-note')) {
                 console.log('Edit button clicked. Note ID to edit:', noteId);
@@ -444,6 +469,21 @@ function updateBookmarkedNoteCount() {
 
     const bookmarkedNotesArray = Array.from(bookmarkedNotes);
     bookmarkedNoteCount.textContent = bookmarkedNotesArray.length;
+}
+
+function autoResize() {
+    const createTextArea = document.querySelector('.popup__note-content');
+    const editTextArea = document.querySelector('.popup-edit__note-content');
+
+    if (editTextArea) {
+        editTextArea.style.height = 'auto'; 
+        editTextArea.style.height = editTextArea.scrollHeight + 'px';
+    }
+
+    if (createTextArea) {
+        createTextArea.style.height = 'auto'; 
+        createTextArea.style.height = createTextArea.scrollHeight + 'px';
+    }
 }
 
 function displayError() {
