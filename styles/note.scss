@@ -9,11 +9,21 @@
     color: var(--text-color-primary);
     font-size: var(--font-size-heading-note);
 
+    position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-0.25rem);
+    }
+
     &__details {
         display: flex;
         justify-content: space-between;
 
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     &__title {
