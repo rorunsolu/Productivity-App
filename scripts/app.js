@@ -171,6 +171,7 @@ function popupEdit(noteId) {
     editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', discardChanges);
 }
 
+
 function togglePriorityOptions() {
     const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
     console.log('Element of the button that toggles the priority options:', prioritiesBtnOpen);
@@ -372,15 +373,15 @@ function showNotes() {
     notesToOpen.forEach(note => {
         note.addEventListener('click', (event) => {
             if (
-                // if at least one of the btns are clciked then it cancels the execution of the code
-                event.target.closest('btn-edit-note') ||
-                event.target.closest('btn-delete-note') ||
-                event.target.closest('btn-bookmark-note')
+                event.target.closest('.btn-edit-note') ||
+                event.target.closest('.btn-delete-note') ||
+                event.target.closest('.btn-bookmark-note')
             ) {
                 return;
             }
 
             const noteId = note.getAttribute('data-id');
+            viewNote(String(noteId));
             console.log('Note to open:', noteId);
         });
         //! I changed it because due to the sizing of the note element it wold be hard for even a mouse user to click on only the note element itself to even be able to open the note
