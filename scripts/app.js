@@ -356,6 +356,18 @@ function showNotes() {
         }
     });
 
+    const notesToOpen = document.querySelectorAll('.note');
+    notesToOpen.forEach(note => {
+        note.addEventListener('click', (event) => {
+            let noteId = null;
+            if (event.target.classList.contains('note')) {
+                noteId = event.target.getAttribute('data-id');
+                //viewNote(String(noteId));
+                console.log('Note to open:', noteId);
+            }
+        });
+    });
+
     const bookmarkButtons = document.querySelectorAll('.btn-bookmark-note');
     bookmarkButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -364,31 +376,51 @@ function showNotes() {
         });
     });
 
-    const categories = document.querySelectorAll('.category');
-
-    categories.forEach(category => {
-        category.addEventListener('click', (event) => {
-            const noteId = event.target.closest('button').getAttribute('data-id');
-
-            if (event.target.closest('.note')) {
-                console.log('Note clicked with ID:', noteId);
-
-                viewNote(String(noteId));
-            }
-
-            if (event.target.closest('.btn-edit-note')) {
+    const editNoteButtons = document.querySelectorAll('.btn-edit-note');
+    editNoteButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            let noteId = null;
+            if (event.target.classList.contains('btn-edit-note')) {
+                noteId = event.target.getAttribute('data-id');
                 console.log('Edit button clicked. Note ID to edit:', noteId);
-                //popupEdit(noteId);
                 popupEdit(String(noteId));
-            }
-
-            if (event.target.closest('.btn-delete-note')) {
-                console.log('Delete button clicked. Note ID to delete:', noteId);
-                //deleteNote(noteId);
-                deleteNote(String(noteId));
             }
         });
     });
+
+    const deleteNoteButtons = document.querySelectorAll('.btn-delete-note');
+    deleteNoteButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            let noteId = null;
+            if (event.target.classList.contains('btn-delete-note')) {
+                noteId = event.target.getAttribute('data-id');
+                deleteNote(String(noteId));
+                console.log('Delete button clicked. Note ID to delete:', noteId);
+            }
+        });
+    });
+
+
+
+    // const categories = document.querySelectorAll('.category');
+
+    // categories.forEach(category => {
+    //     category.addEventListener('click', (event) => {
+    //         const noteId = event.target.closest('button').getAttribute('data-id');
+
+    //         if (event.target.closest('.btn-edit-note')) {
+    //             console.log('Edit button clicked. Note ID to edit:', noteId);
+    //             //popupEdit(noteId);
+    //             popupEdit(String(noteId));
+    //         }
+
+    //         if (event.target.closest('.btn-delete-note')) {
+    //             console.log('Delete button clicked. Note ID to delete:', noteId);
+    //             //deleteNote(noteId);
+    //             deleteNote(String(noteId));
+    //         }
+    //     });
+    // });
 }
 
 function bookmarkNote(noteId) {
@@ -484,12 +516,12 @@ function autoResize() {
     const editTextArea = document.querySelector('.popup-edit__note-content');
 
     if (editTextArea) {
-        editTextArea.style.height = 'auto'; 
+        editTextArea.style.height = 'auto';
         editTextArea.style.height = editTextArea.scrollHeight + 'px';
     }
 
     if (createTextArea) {
-        createTextArea.style.height = 'auto'; 
+        createTextArea.style.height = 'auto';
         createTextArea.style.height = createTextArea.scrollHeight + 'px';
     }
 }
