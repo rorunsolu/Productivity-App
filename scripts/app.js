@@ -356,16 +356,34 @@ function showNotes() {
         }
     });
 
+    // const notesToOpen = document.querySelectorAll('.note');
+    // notesToOpen.forEach(note => {
+    //     note.addEventListener('click', (event) => {
+    //         let noteId = null;
+    //         if (event.target.classList.contains('note')) {
+    //             noteId = event.target.getAttribute('data-id');
+    //             //viewNote(String(noteId));
+    //             console.log('Note to open:', noteId);
+    //         }
+    //     });
+    // });
+
     const notesToOpen = document.querySelectorAll('.note');
     notesToOpen.forEach(note => {
         note.addEventListener('click', (event) => {
-            let noteId = null;
-            if (event.target.classList.contains('note')) {
-                noteId = event.target.getAttribute('data-id');
-                //viewNote(String(noteId));
-                console.log('Note to open:', noteId);
+            if (
+                // if at least one of the btns are clciked then it cancels the execution of the code
+                event.target.closest('btn-edit-note') ||
+                event.target.closest('btn-delete-note') ||
+                event.target.closest('btn-bookmark-note')
+            ) {
+                return;
             }
+
+            const noteId = note.getAttribute('data-id');
+            console.log('Note to open:', noteId);
         });
+        //! I changed it because due to the sizing of the note element it wold be hard for even a mouse user to click on only the note element itself to even be able to open the note
     });
 
     const bookmarkButtons = document.querySelectorAll('.btn-bookmark-note');
