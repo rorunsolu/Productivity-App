@@ -370,8 +370,8 @@ function showNotes() {
 
         <div class="note__about">
 
-            <span class="note__priority" style="color: ${note.priorityColor}">
-                <i class="ri-circle-fill"></i>
+            <span class="note__priority">
+                <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
                 ${note.priority}
             </span>
 
