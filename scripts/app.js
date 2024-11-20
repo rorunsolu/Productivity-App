@@ -383,14 +383,6 @@ function showNotes() {
 
         `;
 
-        // const notePriority = document.querySelector('.note__priority');
-        // console.log('Priority element is', notePriority);
-
-        // if (notePriority) {
-        //     notePriority.style.color = note.priorityColor;
-        //     console.log('Priority color is', notePriority.style.color);
-        // }
-
         if (note.bookmarked) {
             bookmarkedNotesList.appendChild(noteObject);
         } else {
