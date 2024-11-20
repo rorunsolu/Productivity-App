@@ -90,7 +90,7 @@ function popupCreate() {
     autoResize.call(createTextArea);
 
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
-    popupContainer.querySelector('.popup__cancel-btn').addEventListener('click', cancelNote);
+    popupContainer.querySelector('.popup__cancel-btn').addEventListener('click', closePopup);
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
 
     const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
@@ -185,7 +185,7 @@ function popupEdit(noteId) {
     autoResize.call(editTextArea);
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
-    editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', discardChanges);
+    editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', closePopup);
 }
 
 function viewNote(noteId) {
@@ -240,7 +240,7 @@ function viewNote(noteId) {
     viewTextArea.addEventListener('input', autoResize);
     autoResize.call(viewTextArea);
 
-    viewingPopup.querySelector('.popup-view__close-btn').addEventListener('click', closeViewPopup);
+    viewingPopup.querySelector('.popup-view__close-btn').addEventListener('click', closePopup);
 }
 
 function togglePriorityOptions() {
@@ -296,23 +296,7 @@ function togglePriorityOptions() {
     }
 }
 
-function cancelNote() {
-    const popupContainer = document.querySelector('.popup-container');
-
-    if (popupContainer) {
-        popupContainer.remove();
-    }
-}
-
-function discardChanges() {
-    const popupContainer = document.querySelector('.popup-container');
-
-    if (popupContainer) {
-        popupContainer.remove();
-    }
-}
-
-function closeViewPopup() {
+function closePopup() {
     const popupContainer = document.querySelector('.popup-container');
 
     if (popupContainer) {
