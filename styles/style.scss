@@ -91,8 +91,6 @@ button {
     justify-content: center;
     align-items: center;
 
-    //border: var(--border-primary);
-    //border-radius: var(--border-radius);
     padding: var(--padding-btn);
 
     height: 2.25rem;
@@ -117,6 +115,9 @@ svg {
 }
 
 .popup-container {
+    display: grid;
+    place-items: center;
+
     position: absolute;
     top: 50%;
     left: 50%;
@@ -136,7 +137,6 @@ svg {
 }
 
 .note-app {
-    //padding: 5rem;
     margin-top: 2rem;
 }
 
@@ -153,7 +153,7 @@ svg {
 }
 
 .hidden {
-    display: none; /* Hidden state */
+    display: none;
 }
 
 .bookmarked-note-count,
@@ -224,4 +224,20 @@ svg {
             transform: translateY(-0.15rem);
         }
     }
+}
+
+.red-p1 {
+    color: red;
+}
+
+.orange-p2 {
+    color: orange;
+}
+
+.yellow-p3 {
+    color: yellow;
+}
+
+.blue-p4 {
+    color: rgb(0, 89, 255);
 }

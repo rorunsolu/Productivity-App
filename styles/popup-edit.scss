@@ -1,17 +1,10 @@
 .popup-edit {
-    //display: flex;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
     border: var(--border-primary);
     border-radius: var(--border-radius);
     padding: var(--padding-note);
 
-    width: 70%;
-    height: 70%;
+    width: 90%;
+    min-height: 300px;
 
     background-color: var(--bg-color-modal);
 
@@ -50,20 +43,13 @@
     }
 
     &__note-content {
-        //display: flex;
-        //flex-direction: column;
-
         box-sizing: border-box;
 
         width: 100%;
         min-height: 2.25rem;
-        //min-height: 10rem;
-        //max-height: 20rem;
 
         margin-bottom: 1rem;
         padding: 0.5rem;
-
-        //overflow-y: scroll;
 
         font-size: var(--font-size-btn);
         color: var(--text-color-primary);
@@ -77,8 +63,6 @@
         flex-direction: column;
 
         margin-bottom: 1rem;
-
-
 
         i {
             margin-right: 0.5rem;
@@ -134,7 +118,7 @@
             border-radius: none;
             border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.125);
 
-                        &:hover {
+            &:hover {
                 background: var(--bg-color-modal-hover);
             }
         }
