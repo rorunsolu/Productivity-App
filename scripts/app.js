@@ -214,6 +214,14 @@ function viewNote(noteId) {
 
             <div class="popup-view__note">
 
+                <div class="popup-view__note-top">
+
+                    <img src="images/notepad-icon.png">
+                
+                    <button class="popup-view__close-btn"><i class="ri-close-line"></i></button>
+                
+                </div>
+
                 <label for="popup-view__note-title">Title</label>
                 <textarea class="popup-view__note-title" id="popup-view__note-title">${noteTitle}</textarea>
 
@@ -228,10 +236,11 @@ function viewNote(noteId) {
 
     document.body.appendChild(viewingPopup);
 
-    //! this isn't working
     const viewTextArea = document.querySelector('.popup-view__note-content');
     viewTextArea.addEventListener('input', autoResize);
     autoResize.call(viewTextArea);
+
+    viewingPopup.querySelector('.popup-view__close-btn').addEventListener('click', closeViewPopup);
 }
 
 function togglePriorityOptions() {
@@ -300,6 +309,14 @@ function discardChanges() {
 
     if (editingPopup) {
         editingPopup.remove();
+    }
+}
+
+function closeViewPopup() {
+    const popupContainer = document.querySelector('.popup-container');
+
+    if (popupContainer) {
+        popupContainer.remove();
     }
 }
 
@@ -560,6 +577,7 @@ function updateBookmarkedNoteCount() {
 function autoResize() {
     const createTextArea = document.querySelector('.popup__note-content');
     const editTextArea = document.querySelector('.popup-edit__note-content');
+    const viewTextArea = document.querySelector('.popup-view__note-content');
 
     if (editTextArea) {
         editTextArea.style.height = 'auto';
@@ -569,6 +587,11 @@ function autoResize() {
     if (createTextArea) {
         createTextArea.style.height = 'auto';
         createTextArea.style.height = createTextArea.scrollHeight + 'px';
+    }
+
+    if (viewTextArea) {
+        viewTextArea.style.height = 'auto';
+        viewTextArea.style.height = viewTextArea.scrollHeight + 'px';
     }
 }
 
