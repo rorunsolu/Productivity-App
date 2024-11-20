@@ -68,18 +68,18 @@ header {
     justify-content: space-between;
 }
 
-    textarea {
-        overflow-y: hidden; /* Hide scrollbar */
-        resize: none; /* Disable manual resizing */
-        width: 100%; /* Full width */
-        box-sizing: border-box;
+textarea {
+    overflow-y: hidden; /* Hide scrollbar */
+    resize: none; /* Disable manual resizing */
+    width: 100%; /* Full width */
+    box-sizing: border-box;
 
-        font-size: var(--font-size-btn);
-        color: var(--text-color-primary);
-        background: none;
+    font-size: var(--font-size-btn);
+    color: var(--text-color-primary);
+    background: none;
 
-        resize: none;
-    }
+    resize: none;
+}
 
 p {
     color: var(--text-color-muted);
@@ -134,6 +134,16 @@ svg {
     gap: 1rem;
 }
 
+.bookmarked-notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hidden {
+    display: none; /* Hidden state */
+}
+
 .bookmarked-note-count,
 .note-count {
     display: grid;
@@ -147,12 +157,6 @@ svg {
 
     color: var(--text-color-primary);
     font-size: var(--font-size-body);
-}
-
-.bookmarked-notes-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
 }
 
 .header {
@@ -201,5 +205,11 @@ svg {
         align-items: center;
 
         cursor: pointer;
+
+        transition: var(--transition);
+
+        &:hover {
+            transform: translateY(-0.15rem);
+        }
     }
 }
