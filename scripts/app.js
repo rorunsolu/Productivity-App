@@ -405,7 +405,6 @@ function showNotes() {
             viewNote(String(noteId));
             console.log('Note to open:', noteId);
         });
-        //! I changed it because due to the sizing of the note element it wold be hard for even a mouse user to click on only the note element itself to even be able to open the note
     });
 
     const bookmarkButtons = document.querySelectorAll('.btn-bookmark-note');
