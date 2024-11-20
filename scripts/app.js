@@ -84,6 +84,7 @@ function popupCreate() {
     `;
 
     document.body.appendChild(popupContainer);
+    document.body.style.overflow = 'hidden';
 
     const createTextArea = document.querySelector('.popup__note-content');
     createTextArea.addEventListener('input', autoResize);
@@ -179,6 +180,7 @@ function popupEdit(noteId) {
     `;
 
     document.body.appendChild(editingPopup);
+    document.body.style.overflow = 'hidden';
 
     const editTextArea = document.querySelector('.popup-edit__note-content');
     editTextArea.addEventListener('input', autoResize);
@@ -235,6 +237,7 @@ function viewNote(noteId) {
     `;
 
     document.body.appendChild(viewingPopup);
+    document.body.style.overflow = 'hidden';
 
     const viewTextArea = document.querySelector('.popup-view__note-content');
     viewTextArea.addEventListener('input', autoResize);
@@ -287,6 +290,8 @@ function closePopup() {
 
     if (popupContainer) {
         popupContainer.remove();
+
+        document.body.style.overflow = 'auto';
     }
 }
 
