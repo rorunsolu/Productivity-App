@@ -305,10 +305,10 @@ function cancelNote() {
 }
 
 function discardChanges() {
-    const editingPopup = document.querySelector('.popup-edit');
+    const popupContainer = document.querySelector('.popup-container');
 
-    if (editingPopup) {
-        editingPopup.remove();
+    if (popupContainer) {
+        popupContainer.remove();
     }
 }
 
