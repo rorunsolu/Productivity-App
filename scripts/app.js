@@ -96,7 +96,7 @@ function popupCreate() {
     const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
 
-    //! these names are long as hell damn
+    setupPriorityButtons();
 }
 
 function popupEdit(noteId) {
@@ -244,56 +244,42 @@ function viewNote(noteId) {
 }
 
 function togglePriorityOptions() {
-    const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
-    console.log('Element of the button that toggles the priority options:', prioritiesBtnOpen);
-
     const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list');
-    console.log('Element of the list of priority options:', prioritiesBtnList);
-
-    console.log('Display of the list of priority options:', prioritiesBtnList.style.display);
 
     if (prioritiesBtnList) {
         prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
-
-        const priorityBtn1 = document.getElementById('popup__priority-btn-1');
-        const priorityBtn2 = document.getElementById('popup__priority-btn-2');
-        const priorityBtn3 = document.getElementById('popup__priority-btn-3');
-        const priorityBtn4 = document.getElementById('popup__priority-btn-4');
-
-        priorityBtn1.addEventListener('click', () => {
-            prioritiesBtnOpen.textContent = 'Priority 1';
-            console.log('Priority set to 1');
-            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
-
-            prioritiesBtnList.style.display = 'none';
-        });
-
-        priorityBtn2.addEventListener('click', () => {
-            prioritiesBtnOpen.textContent = 'Priority 2';
-            console.log('Priority set to 2');
-            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
-
-            prioritiesBtnList.style.display = 'none';
-        });
-
-        priorityBtn3.addEventListener('click', () => {
-            prioritiesBtnOpen.textContent = 'Priority 3';
-            console.log('Priority set to 3');
-            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
-
-            prioritiesBtnList.style.display = 'none';
-        });
-
-        priorityBtn4.addEventListener('click', () => {
-            prioritiesBtnOpen.textContent = 'Priority 4';
-            console.log('Priority set to 4');
-            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
-
-            prioritiesBtnList.style.display = 'none';
-        });
-
-        // set the text content of the main button to 1 and then when loading the note in the show notes function have the shownotes function take the textcontent of the main button as what it should show as the note.priority value
     }
+}
+
+function setupPriorityButtons() {
+    const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
+    const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list');
+
+    const priorityButtons = prioritiesBtnList.querySelectorAll('.popup__priority-btn');
+    priorityButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const priority = button.getAttribute('data-priority');
+            const colorMap = {
+                '1': 'red',
+                '2': 'orange',
+                '3': 'yellow',
+                '4': 'hsl(215, 100%, 50%)',
+            };
+
+            prioritiesBtnOpen.textContent = `Priority ${priority}`;
+            console.log('Priority:', priority);
+
+            prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
+
+            prioritiesBtnOpen.style.color = colorMap[priority];
+            console.log('Color being set:', colorMap[priority]);
+
+            prioritiesBtnList.style.display = 'none';
+            console.log(`Priority set to ${priority}`);
+
+
+        });
+    });
 }
 
 function closePopup() {
@@ -318,16 +304,8 @@ function createNote() {
             creationDate: new Date().toISOString(),
             bookmarked: false,
             priority: prioritiesBtnOpen.textContent,
+            priorityColor: prioritiesBtnOpen.style.color
         };
-
-        //
-        // setItem(key, value) – store key / value pair.
-        //     getItem(key) – get the value by key.
-        //         removeItem(key) – remove the key with its value.
-        //             clear() – delete everything.
-        //                 key(index) – get the key on a given position.
-        //                     length – the number of stored items.;
-
 
         const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
 
@@ -363,7 +341,6 @@ function showNotes() {
     notes.forEach(note => {
         const noteObject = document.createElement('div');
         noteObject.classList.add('note');
-        //noteObject.setAttribute('data-id', note.id);
         noteObject.setAttribute('data-id', String(note.id));
 
         const creationDate = new Date(note.creationDate);
@@ -393,15 +370,9 @@ function showNotes() {
 
         <div class="note__about">
 
-            <span class="note__priority">
+            <span class="note__priority" style="color: ${note.priorityColor}">
+                <i class="ri-circle-fill"></i>
                 ${note.priority}
-            </span>
-
-            <span class="note__tags">
-                <p>Tag 1</p>
-                <p>Tag 2</p>
-                <p>Tag 3</p>
-                <p>Tag 4</p>
             </span>
 
             <div class="note__date">
@@ -411,6 +382,14 @@ function showNotes() {
         </div>
 
         `;
+
+        // const notePriority = document.querySelector('.note__priority');
+        // console.log('Priority element is', notePriority);
+
+        // if (notePriority) {
+        //     notePriority.style.color = note.priorityColor;
+        //     console.log('Priority color is', notePriority.style.color);
+        // }
 
         if (note.bookmarked) {
             bookmarkedNotesList.appendChild(noteObject);
