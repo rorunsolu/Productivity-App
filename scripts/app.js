@@ -94,6 +94,9 @@ function popupCreate() {
     popupContainer.querySelector('.popup__cancel-btn').addEventListener('click', closePopup);
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
 
+    //! gonna dd the exact same of the below to the popupEdit function BUT change popupContainer to editingPopup (NOT existingPopup) since thats what .popup-container is called in the popupEdit function
+    //*UPDATE: The toggle works!
+    //* now i need to modify setupPriorityButtons so that it works with the editnote functions priority buttons too 
     const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
 
@@ -121,6 +124,12 @@ function popupEdit(noteId) {
         return;
     }
 
+    //! Changed the classname from "popup-edit__priorities-open-btn" to "popup__priorities-open-btn" to stop the keepChanges function from passing "prioritiesBtnOpen.textContent" as null. I also had to use const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn'); instead of const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn');
+
+    //! I also did the same for the contents of popup-edit__priorities and changed it to popup__priorities
+
+    //* ATM the btn list is displayed by default and is at the bottom of the page so I will need to check that priority toggle function and the styles for this popup and how to get it to behave the same as the one in the popupCreate function
+
     editingPopup.innerHTML = `
     
         <div class="popup-edit" data-id="${noteId}">
@@ -135,23 +144,28 @@ function popupEdit(noteId) {
 
                 <div class="popup-edit__options-wrapper">
                 
-                    <div class="popup-edit__priorities">
+                    <div class="popup__priorities">
 
-                        <button class="popup-edit__priorities-open-btn"><i class="ri-flag-line"></i>${notePriority}</button>
+                        <button class="popup__priorities-open-btn"><i class="ri-flag-line"></i>${notePriority}</button>
 
-                        <ul class="popup-edit__priorities-btn-list">
-                            <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-flag-fill"></i>Priority 1</button>
+                        <ul class="popup__priorities-btn-list">
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-flag-fill"></i>Priority 1</button>
                             </li>
-                            <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-2" data-priority="2"><i class="ri-flag-fill"></i>Priority 2</button>
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn" id="popup__priority-btn-2" data-priority="2"><i class="ri-flag-fill"></i>Priority 2</button>
                             </li>
-                            <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-3" data-priority="3"><i class="ri-flag-fill"></i>Priority 3</button>
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn" id="popup__priority-btn-3" data-priority="3"><i class="ri-flag-fill"></i>Priority 3</button>
                             </li>
-                            <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-flag-fill"></i>Priority 4</button>
+
+                            <li class="popup__priorities-btn-item">
+                                <button class="popup__priority-btn" id="popup__priority-btn-4" data-priority="4"><i class="ri-flag-fill"></i>Priority 4</button>
                             </li>
+
                         </ul>
 
                     </div>
@@ -188,6 +202,13 @@ function popupEdit(noteId) {
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
     editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', closePopup);
+    
+
+    //! added the below last night to see if it would allow my changes to togglePriorityOptions function to work since there are now 2 popup__priorities-open-btn (1 in the popup-create popup and 1 in the popup-edit popup)
+    editingPopup.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
+
+    const prioritiesBtnList = editingPopup.querySelector('.popup__priorities-btn-list');
+    prioritiesBtnList.style.display = 'none';
 }
 
 function viewNote(noteId) {
@@ -246,11 +267,22 @@ function viewNote(noteId) {
 }
 
 function togglePriorityOptions() {
-    const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list');
+    //* changed querySelector to querySelectorAll below
+    const prioritiesBtnLists = document.querySelectorAll('.popup__priorities-btn-list');
 
-    if (prioritiesBtnList) {
-        prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
-    }
+    //* i could just avoid the hassle and just create another of the commented out code from where it checks if prioritiesBtnList exists and change it to use popup-EDIT__priorities-btn-list instead of popup__priorities-btn-list
+
+
+        prioritiesBtnLists.forEach(list => {
+            list.style.display = list.style.display === 'none' ? 'block' : 'none';
+        });
+
+
+    // if (prioritiesBtnLists) {
+    //     prioritiesBtnLists.style.display = prioritiesBtnLists.style.display === 'none' ? 'block' : 'none';
+    // }
+
+    //* changed the variable from "prioritiesBtnList" to "prioritiesBtnLists"
 }
 
 function setupPriorityButtons() {
@@ -467,6 +499,7 @@ function keepChanges() {
     const noteTitle = document.querySelector('.popup-edit__note-title').value.trim();
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
     const editingPopup = document.querySelector('.popup-edit');
+    const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
 
     if (noteTitle !== "" && noteContent !== "") {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -478,7 +511,7 @@ function keepChanges() {
             //if (note.id == noteId) {
             if (String(note.id) === String(noteId)) {
                 console.log('12. Updating note:', note);
-                return { ...note, title: noteTitle, content: noteContent };
+                return { ...note, title: noteTitle, content: noteContent, priority: prioritiesBtnOpen.textContent };
             }
             return note;
         });
