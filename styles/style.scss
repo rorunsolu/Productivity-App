@@ -69,9 +69,9 @@ header {
 }
 
 textarea {
-    overflow-y: hidden; /* Hide scrollbar */
-    resize: none; /* Disable manual resizing */
-    width: 100%; /* Full width */
+    overflow-y: hidden;
+    resize: none;
+    width: 100%;
     box-sizing: border-box;
 
     font-size: var(--font-size-btn);
