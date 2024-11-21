@@ -195,7 +195,6 @@ function viewNote(noteId) {
     const noteToView = notes.find(note => String(note.id) === String(noteId));
     const noteTitle = noteToView ? noteToView.title : "";
     const noteContent = noteToView ? noteToView.content : "";
-    //*const notePriority = noteToView ? noteToView.priority : "";
     const viewingPopup = document.createElement('div');
 
     viewingPopup.classList.add('popup-container');
