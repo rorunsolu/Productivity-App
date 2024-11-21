@@ -202,7 +202,7 @@ function popupEdit(noteId) {
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
     editingPopup.querySelector('.popup-edit__cancel-btn').addEventListener('click', closePopup);
-    
+
 
     //! added the below last night to see if it would allow my changes to togglePriorityOptions function to work since there are now 2 popup__priorities-open-btn (1 in the popup-create popup and 1 in the popup-edit popup)
     editingPopup.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
@@ -272,10 +272,12 @@ function togglePriorityOptions() {
 
     //* i could just avoid the hassle and just create another of the commented out code from where it checks if prioritiesBtnList exists and change it to use popup-EDIT__priorities-btn-list instead of popup__priorities-btn-list
 
+    //* changing the display of the note options container could fix the issue of how the priorties buttons appear in the wrong place
+    //! Update: using dev tools to turn of the absolute positioning fixed it.... but I cant remove that because the other btn list in the createNote popup needs it
 
-        prioritiesBtnLists.forEach(list => {
-            list.style.display = list.style.display === 'none' ? 'block' : 'none';
-        });
+    prioritiesBtnLists.forEach(list => {
+        list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    });
 
 
     // if (prioritiesBtnLists) {
