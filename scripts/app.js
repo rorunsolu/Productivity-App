@@ -104,22 +104,19 @@ function popupCreate() {
     createTextArea.addEventListener('input', autoResize);
     autoResize.call(createTextArea);
 
+    const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
+    prioritiesBtnList.style.display = 'none';
+
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
     popupContainer.querySelector('.popup__close-btn').addEventListener('click', closePopup);
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
 
-    //! gonna dd the exact same of the below to the popupEdit function BUT change popupContainer to editingPopup (NOT existingPopup) since thats what .popup-container is called in the popupEdit function
-    //*UPDATE: The toggle works!
-    //* now i need to modify setupPriorityButtons so that it works with the editnote functions priority buttons too 
-    const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
-    prioritiesBtnList.style.display = 'none';
-
-    setupPriorityButtons(); //! the event listeners for the editing the priorities wasnt working because i fogor to call the function....
+    setupPriorityButtons();
 }
 
 function popupEdit(noteId) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const noteToEdit = notes.find(note => String(note.id) === String(noteId));// changed to string
+    const noteToEdit = notes.find(note => String(note.id) === String(noteId));
     const noteTitle = noteToEdit ? noteToEdit.title : "";
     const noteContent = noteToEdit ? noteToEdit.content : "";
     const notePriority = noteToEdit ? noteToEdit.priority : "";
@@ -136,12 +133,6 @@ function popupEdit(noteId) {
         console.error('Note not found!');
         return;
     }
-
-    //! Changed the class name from "popup-edit__priorities-open-btn" to "popup__priorities-open-btn" to stop the keepChanges function from passing "prioritiesBtnOpen.textContent" as null. I also had to use const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn'); instead of const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn');
-
-    //! I also did the same for the contents of popup-edit__priorities and changed it to popup__priorities
-
-    //* ATM the btn list is displayed by default and is at the bottom of the page so I will need to check that priority toggle function and the styles for this popup and how to get it to behave the same as the one in the popupCreate function
 
     editingPopup.innerHTML = `
     
@@ -228,14 +219,12 @@ function popupEdit(noteId) {
     editTextArea.addEventListener('input', autoResize);
     autoResize.call(editTextArea);
 
-    editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
-    editingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', closePopup);
-
-    //! added the below last night to see if it would allow my changes to togglePriorityOptions function to work since there are now 2 popup__priorities-open-btn (1 in the popup-create popup and 1 in the popup-edit popup)
-    editingPopup.querySelector('.popup-edit__priorities-open-btn').addEventListener('click', togglePriorityOptions);
-
     const prioritiesBtnList = editingPopup.querySelector('.popup-edit__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
+
+    editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
+    editingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', closePopup);
+    editingPopup.querySelector('.popup-edit__priorities-open-btn').addEventListener('click', togglePriorityOptions);
 
     setupPriorityButtons();
 }
@@ -416,7 +405,7 @@ function createNote() {
     }
 
     else {
-        displayError();
+        closePopup();
     }
 }
 
@@ -537,7 +526,6 @@ function showNotes() {
 
 function bookmarkNote(noteId) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    //const note = notes.find(note => note.id == noteId);
     const note = notes.find(note => String(note.id) === String(noteId));
 
     if (note) {
@@ -576,10 +564,6 @@ function keepChanges() {
         });
 
         localStorage.setItem('notes', JSON.stringify(noteMap));
-
-        if (editingPopup) {
-            editingPopup.remove();
-        }
 
         if (popupContainer) {
             popupContainer.remove();
@@ -644,30 +628,6 @@ function autoResize() {
     if (viewTextArea) {
         viewTextArea.style.height = 'auto';
         viewTextArea.style.height = viewTextArea.scrollHeight + 'px';
-    }
-}
-
-function displayError() {
-    const popupError = document.createElement('div');
-    popupError.classList.add('popup-error');
-
-    popupError.innerHTML = `
-
-    <p class="popup-error__title">Please add some text to the note</p>
-    <button class="popup-error__btn">Close</button>
-
-    `;
-
-    document.body.appendChild(popupError);
-
-    popupError.querySelector('.popup-error__btn').addEventListener('click', closeError);
-}
-
-function closeError() {
-    let popupError = document.querySelector('.popup-error');
-
-    if (popupError) {
-        popupError.remove();
     }
 }
 
