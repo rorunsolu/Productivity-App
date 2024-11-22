@@ -296,19 +296,6 @@ function viewNote(noteId) {
 }
 
 function togglePriorityOptions() {
-    //* changed querySelector to querySelectorAll below
-    //const prioritiesBtnLists = document.querySelectorAll('.popup__priorities-btn-list');
-
-    //* i could just avoid the hassle and just create another of the commented out code from where it checks if prioritiesBtnList exists and change it to use popup-EDIT__priorities-btn-list instead of popup__priorities-btn-list
-
-    //* changing the display of the note options container could fix the issue of how the priorities buttons appear in the wrong place
-    //! Update: using dev tools to turn of the absolute positioning fixed it.... but I cant remove that because the other btn list in the createNote popup needs it
-
-    // prioritiesBtnLists.forEach(list => {
-    //     list.style.display = list.style.display === 'none' ? 'block' : 'none';
-    // });
-
-
     const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list'); //*
 
     if (prioritiesBtnList) {
@@ -318,14 +305,6 @@ function togglePriorityOptions() {
 
         prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none'; //*
     }
-
-
-
-    // if (prioritiesBtnListEdit) {
-    //     prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none';
-    // }
-
-    //* changed the variable from "prioritiesBtnList" to "prioritiesBtnLists"
 }
 
 function setupPriorityButtons() {
@@ -458,9 +437,12 @@ function showNotes() {
 
         const creationDate = new Date(note.creationDate);
         const formattedDate = creationDate.toLocaleDateString('en-uk', {
+            minute: 'numeric',
+            hour: 'numeric',
             day: 'numeric',
+            weekday: 'long',
             month: 'short',
-            year: 'numeric'
+            hour12: true,
         });
 
         noteObject.innerHTML = `
@@ -601,6 +583,8 @@ function keepChanges() {
 
         if (popupContainer) {
             popupContainer.remove();
+
+            document.body.style.overflow = 'auto';
         }
 
         showNotes();
