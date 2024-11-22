@@ -615,6 +615,8 @@ function autoResize() {
     const editTextArea = document.querySelector('.popup-edit__note-content');
     const viewTextArea = document.querySelector('.popup-view__note-content');
 
+    //! just realized that this can be made more "performant" by using a loop with forEach, immma do it tomorrow :)
+
     if (editTextArea) {
         editTextArea.style.height = 'auto';
         editTextArea.style.height = editTextArea.scrollHeight + 'px';
