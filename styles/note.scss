@@ -1,5 +1,5 @@
 .note {
-    border: var(--border-primary);
+    border: 1px solid hsl(0, 0%, 80%);
     border-radius: var(--border-radius);
     padding: var(--padding-note);
 
@@ -7,14 +7,8 @@
     color: var(--text-color-primary);
     font-size: var(--font-size-heading-note);
 
-    position: relative;
-    will-change: transform;
-    backface-visibility: hidden;
-    transition: transform 0.2s ease-in-out;
-
     &:hover {
         cursor: pointer;
-        transform: translateY(-0.15rem);
     }
 
     &__details {
