@@ -611,26 +611,14 @@ function updateBookmarkedNoteCount() {
 }
 
 function autoResize() {
-    const createTextArea = document.querySelector('.popup__note-content');
-    const editTextArea = document.querySelector('.popup-edit__note-content');
-    const viewTextArea = document.querySelector('.popup-view__note-content');
+    const textAreas = document.querySelectorAll('.popup__note-content, .popup-edit__note-content, .popup-view__note-content');
 
-    //! just realized that this can be made more "performant" by using a loop with forEach, immma do it tomorrow :)
-
-    if (editTextArea) {
-        editTextArea.style.height = 'auto';
-        editTextArea.style.height = editTextArea.scrollHeight + 'px';
-    }
-
-    if (createTextArea) {
-        createTextArea.style.height = 'auto';
-        createTextArea.style.height = createTextArea.scrollHeight + 'px';
-    }
-
-    if (viewTextArea) {
-        viewTextArea.style.height = 'auto';
-        viewTextArea.style.height = viewTextArea.scrollHeight + 'px';
-    }
+    textAreas.forEach((textArea) => {
+        if (textArea) {
+            textArea.style.height = 'auto';
+            textArea.style.height = `${textArea.scrollHeight}px`;
+        }
+    });
 }
 
 showNotes();
