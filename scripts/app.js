@@ -614,10 +614,8 @@ function autoResize() {
     const textAreas = document.querySelectorAll('.popup__note-content, .popup-edit__note-content, .popup-view__note-content');
 
     textAreas.forEach((textArea) => {
-        if (textArea) {
-            textArea.style.height = 'auto';
-            textArea.style.height = `${textArea.scrollHeight}px`;
-        }
+        textArea.style.height = 'auto';
+        textArea.style.height = `${textArea.scrollHeight}px`;
     });
 }
 
