@@ -78,6 +78,9 @@ textarea {
     color: var(--text-color-primary);
     background: none;
 
+    font-family: "Inter", serif;
+    line-height: 1.5;
+
     resize: none;
 }
 
@@ -99,6 +102,7 @@ button {
     background: none;
 
     font-size: var(--font-size-btn);
+    font-family: "Inter", serif;
 
     cursor: pointer;
 
@@ -125,6 +129,7 @@ svg {
 
     width: 100vw;
     height: 100vh;
+    max-height: 100vh;
 
     background-color: hsla(0, 0%, 0%, 0.7);
 }
@@ -219,12 +224,13 @@ svg {
         cursor: pointer;
 
         transition: var(--transition);
-
-        &:hover {
-            transform: translateY(-0.15rem);
-        }
     }
 }
+
+.rotate {
+    transform: rotate(90deg);
+}
+
 
 .red-p1 {
     color: red;

@@ -1,5 +1,5 @@
 .note {
-    border: 1px solid hsl(0, 0%, 80%);
+    border: (var(--border-primary));
     border-radius: var(--border-radius);
     padding: var(--padding-note);
 
