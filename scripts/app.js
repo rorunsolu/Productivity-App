@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.category__dropdown-btn').forEach(button => {
         button.addEventListener('click', () => {
             const notesList = button.closest('.category').querySelector('.notes-list');
+
+            button.classList.toggle('rotate');
+
             if (notesList) {
                 notesList.classList.toggle('hidden');
                 console.log('Toggled regular notes list:', notesList);
@@ -170,7 +173,9 @@ function popupEdit(noteId) {
                 
                     <div class="popup-edit__priorities">
 
-                        <button class="popup-edit__priorities-open-btn"><i class="ri-bookmark-line"></i>${notePriority}</button>
+                        <button class="popup-edit__priorities-open-btn">
+                            <i class="ri-bookmark-line"></i>${notePriority}
+                        </button>
 
                         <ul class="popup-edit__priorities-btn-list">
 
@@ -230,14 +235,13 @@ function popupEdit(noteId) {
 }
 
 function togglePriorityOptions() {
-    const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list'); //*
+    const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list');
+    const prioritiesBtnListEdit = document.querySelector('.popup-edit__priorities-btn-list');
 
     if (prioritiesBtnList) {
-        prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none'; //*
+        prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none'; 
     } else {
-        const prioritiesBtnListEdit = document.querySelector('.popup-edit__priorities-btn-list'); //*
-
-        prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none'; //*
+        prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none';
     }
 }
 
