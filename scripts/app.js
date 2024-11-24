@@ -229,61 +229,6 @@ function popupEdit(noteId) {
     setupPriorityButtons();
 }
 
-function viewNote(noteId) {
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const noteToView = notes.find(note => String(note.id) === String(noteId));
-    const noteTitle = noteToView ? noteToView.title : "";
-    const noteContent = noteToView ? noteToView.content : "";
-    const viewingPopup = document.createElement('div');
-
-    viewingPopup.classList.add('popup-container');
-    const existingPopup = document.querySelector('.popup-container');
-
-    if (existingPopup) {
-        existingPopup.remove();
-    }
-
-    if (!noteToView) {
-        console.error('Note not found!');
-        return;
-    }
-
-    viewingPopup.innerHTML = `
-    
-        <div class="popup-view" data-id="${noteId}">
-
-            <div class="popup-view__note">
-
-                <div class="popup-view__note-top">
-
-                    <img src="images/notepad-icon.png">
-                
-                    <button class="popup-view__close-btn"><i class="ri-close-line"></i></button>
-                
-                </div>
-
-                <label for="popup-view__note-title">Title</label>
-                <textarea class="popup-view__note-title" id="popup-view__note-title">${noteTitle}</textarea>
-
-                <label for="popup-view__note-content">Description</label>
-                <textarea class="popup-view__note-content">${noteContent}</textarea>
-
-            </div>
-
-        </div>
-
-    `;
-
-    document.body.appendChild(viewingPopup);
-    document.body.style.overflow = 'hidden';
-
-    const viewTextArea = document.querySelector('.popup-view__note-content');
-    viewTextArea.addEventListener('input', autoResize);
-    autoResize.call(viewTextArea);
-
-    viewingPopup.querySelector('.popup-view__close-btn').addEventListener('click', closePopup);
-}
-
 function togglePriorityOptions() {
     const prioritiesBtnList = document.querySelector('.popup__priorities-btn-list'); //*
 
@@ -441,7 +386,6 @@ function showNotes() {
             <h3 class="note__title">${note.title}</h3>
 
             <div class="note__options">
-                <button class="btn-edit-note" type="button" data-id="${note.id}"><i class="ri-pencil-line"></i></button>
                 <button class="btn-delete-note" type="button" data-id="${note.id}"><i class="ri-delete-bin-6-line"></i></button>
                 <button class="btn-bookmark-note" type="button" data-id="${note.id}"><i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i></button>
             </div>
@@ -486,7 +430,7 @@ function showNotes() {
             }
 
             const noteId = note.getAttribute('data-id');
-            viewNote(String(noteId));
+            popupEdit(String(noteId));
             console.log('Note to open:', noteId);
         });
     });
@@ -496,18 +440,6 @@ function showNotes() {
         button.addEventListener('click', (event) => {
             const noteId = event.target.closest('button').getAttribute('data-id');
             bookmarkNote(String(noteId));
-        });
-    });
-
-    const editNoteButtons = document.querySelectorAll('.btn-edit-note');
-    editNoteButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            let noteId = null;
-            if (event.target.classList.contains('btn-edit-note')) {
-                noteId = event.target.getAttribute('data-id');
-                console.log('Edit button clicked. Note ID to edit:', noteId);
-                popupEdit(String(noteId));
-            }
         });
     });
 
@@ -622,13 +554,6 @@ function autoResize() {
 showNotes();
 updateNoteCount();
 updateBookmarkedNoteCount();
-
-//! --------Tag Functionality--------!//
-//* have a dropdown or modal menu to add tags to notes
-//? refer to https://javascript.info/searching-elements-dom#live-collections on methods
-//? user can add multiple tags to a note
-//? user can create their own tags (future feature)
-
 
 
 
