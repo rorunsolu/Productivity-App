@@ -547,7 +547,7 @@ function updateBookmarkedNoteCount() {
 }
 
 function autoResize() {
-    const textAreas = document.querySelectorAll('.popup__note-content, .popup-edit__note-content, .popup-view__note-content');
+    const textAreas = document.querySelectorAll('.popup__note-content, .popup-edit__note-content');
 
     textAreas.forEach((textArea) => {
         textArea.style.height = 'auto';
