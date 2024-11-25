@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.btn-new-note').addEventListener('click', popupCreate);
 
+    // clicking the btn opens the popup for creating tags
+    document.querySelector('.btn-new-tag').addEventListener('click', popupCreateTag);
+
     document.querySelectorAll('.category__dropdown-btn').forEach(button => {
         button.addEventListener('click', () => {
             const notesList = button.closest('.category').querySelector('.notes-list');
@@ -21,6 +24,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function popupCreateTag() {
+    const popupContainer = document.createElement('div');
+    popupContainer.classList.add('popup-container');
+
+    const tagsList = document.querySelector('popup__tags-list');
+    const tagsInput = document.querySelector('.popup__tags-input');
+    const tags = [];
+
+    popupContainer.innerHTML = `
+    
+        <div class="popup__tags">
+
+            <input type="text" class="popup__tags-input" placeholder="Add a tag" />
+
+            <button class="popup__tags-add-btn">Add Tag</button>
+
+            <ul class="popup__tags-list"></ul>
+
+        </div>
+    
+    `;
+}
 
 function popupCreate() {
     const popupContainer = document.createElement('div');
@@ -239,7 +265,7 @@ function togglePriorityOptions() {
     const prioritiesBtnListEdit = document.querySelector('.popup-edit__priorities-btn-list');
 
     if (prioritiesBtnList) {
-        prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none'; 
+        prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
     } else {
         prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none';
     }
@@ -334,7 +360,8 @@ function createNote() {
             creationDate: new Date().toISOString(),
             bookmarked: false,
             priority: prioritiesBtnOpen.textContent,
-            priorityColor: prioritiesBtnOpen.style.color
+            priorityColor: prioritiesBtnOpen.style.color,
+            tags: [],
         };
 
         const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -559,6 +586,14 @@ showNotes();
 updateNoteCount();
 updateBookmarkedNoteCount();
 
+//* Tagging feature (multiple tags per note)
+// 1. Clicking the add new tag btn opens a popup 
+// 2. The popup will allow the user to create tags by typing them into an input field
+// 3. Clicking the add tag button (next to the input field) will add the tag to the array of tags OF THE TAGLIST NOT THE NOTES TAG ARRAY (the tagList var)
+// 4. When creating or editing a note, the user can click the tags option btn and the dropdown will display the list of tags pulled from the tagsList var array
+// 5. Clicking a tag from the dropdown will add it to that specific note's tags array
+// 6. Clicking the remove tag button (small X icon inside the tag itself) will remove the tag from the note OBJECT's tags array
+//! Obvs the tags added to the notes will need to be displayed everytime notes are shown so I'll need to update the functions accordingly
 
 
 
