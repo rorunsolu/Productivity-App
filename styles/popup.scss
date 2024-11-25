@@ -153,6 +153,8 @@
         flex-direction: column;
         gap: 0.5rem;
 
+        display: none;
+
         &-open-btn {
             display: flex;
             justify-content: left;
