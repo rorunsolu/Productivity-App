@@ -29,25 +29,54 @@ function popupCreateTag() {
     const popupContainer = document.createElement('div');
     popupContainer.classList.add('popup-container');
 
-    const tagsList = document.querySelector('popup__tags-list');
-    const tagsInput = document.querySelector('.popup__tags-input');
-    const tags = [];
-
     popupContainer.innerHTML = `
     
-        <div class="popup__tags">
+        <div class="popup-tags">
 
-            <input type="text" class="popup__tags-input" placeholder="Add a tag" />
+            <div class="popup-tags__top">
+            
+                <div class="popup-tags__context">
 
-            <button class="popup__tags-add-btn">Add Tag</button>
+                    <img src="images/tags-icon.png">
 
-            <ul class="popup__tags-list"></ul>
+                    <h3 class="popup-tags__header">Tags</h3>
+
+                </div>
+
+                <div class="popup-tags__btn-wrapper">
+
+                    <button class="popup-tags__close-btn"><i class="ri-close-line"></i></button>
+
+                </div>
+            
+            </div>
+
+            <div class="popup-tags__middle">
+            
+                <input type="text" class="popup-tags__input" placeholder="Add a tag" />
+
+                <button class="popup-tags__add-btn">Add Tag</button>
+            
+            </div>
+
+            <div class="popup-tags__bottom">
+            
+                <ul class="popup-tags__list"></ul>
+            
+            </div>
 
         </div>
     
     `;
 
-    popupContainer.querySelector('.popup__tags-add-btn').addEventListener('click', () => {
+    //check that all variables actually exists in the DOM before doing anything with them man...
+    document.body.appendChild(popupContainer);
+
+    const tagsList = document.querySelector('.popup-tags__list');
+    const tagsInput = document.querySelector('.popup-tags__input');
+    const tags = [];
+
+    document.querySelector('.popup-tags__add-btn').addEventListener('click', () => {
         //trim whitespace from the end of what the user typed into the input and pass it as a variable
         const tag = tagsInput.value.trim();
 
@@ -56,19 +85,21 @@ function popupCreateTag() {
             // add the tag to the start of the array
             tags.unshift(tag);
 
-            //an li element is then created and added to the tagsList aka the popup__tags-list
+            //an li element is then created and added to the tagsList aka the popup-tags__list
             const tagItem = document.createElement('li');
 
             // the text of the tagItem is then set to be whatever the tag that was created was (the word the user typed to be the tag)
             tagItem.textContent = tag;
 
-            // append the tagItem to the start of the tagsList (popup__tags-list)
+            // append the tagItem to the start of the tagsList (popup-tags__list)
             tagsList.appendChild(tagItem);
 
             // reset/clear the input field so the user can add another tag if needed
             tagsInput.value = '';
         }
     });
+
+    document.querySelector('.popup-tags__close-btn').addEventListener('click', closePopup);
 }
 
 function popupCreate() {
