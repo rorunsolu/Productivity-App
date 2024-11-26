@@ -598,6 +598,41 @@ function showNotes() {
     });
 }
 
+//? I don't know if I actually need noteId passed into here but I'll keep it for now
+function renderTags(noteId) {
+    const tagsBtnOpen = document.querySelectorAll('.popup__tags-open-btn, .popup-edit__tags-open-btn');
+    console.log('Classes for toggling tag list:', tagsBtnOpen);
+
+    const tagListDropdowns = document.querySelectorAll('.popup__tags-btn-list, .popup-edit__tags-btn-list');
+    console.log('Classes for tag list dropdowns:', tagListDropdowns);
+
+    const tags = JSON.parse(localStorage.getItem('tags')) || [];
+
+    //! the below does the exact same thing as forEach but and i guess is somewhat easier to read but since I've used forEach elsehwere in this file multiple times idk if it would cause an issue at some point while i'm dealing with this whole tags feature nonsense ffs
+    for (const tag of tags) {
+        for (const dropdown of tagListDropdowns) {
+            const tagButton = document.createElement('li');
+
+            tagButton.classList.add('btn-tag');
+            tagButton.textContent = tag;
+
+            dropdown.appendChild(tagButton);
+        }
+        //* at this stage the list is hidden along with the buttons inside it so i'll need to make it so that isn't the case which should be fairly simple
+    }
+
+    // tags.forEach(tag => {
+    //     tagListDropdowns.forEach(dropdown => {
+    //         const tagButton = document.createElement('li');
+
+    //         tagButton.classList.add('btn-tag');
+    //         tagButton.textContent = tag;
+
+    //         dropdown.appendChild(tagButton);
+    //     });
+    // });
+}
+
 function setupTagButtons() {
     const tagsBtnOpen = document.querySelector('.popup__tags-open-btn');
     const tagsBtnList = document.querySelector('.popup__tags-btn-list');
