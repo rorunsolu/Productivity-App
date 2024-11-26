@@ -17,7 +17,6 @@
 }
 
 .btn-new-tag {
-    //display: none;
     i {
         position: relative;
         bottom: -0.05rem;
@@ -45,6 +44,7 @@
 .btn-bookmark-note {
     border: var(--border-primary);
     border-radius: var(--border-radius);
+
     padding: 0.75rem;
 
     &:hover {
