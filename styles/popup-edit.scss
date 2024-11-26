@@ -178,7 +178,6 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        display: none;
 
         &-open-btn {
             display: flex;
@@ -195,7 +194,7 @@
         }
 
         &-btn-list {
-            display: none;
+            //display: none;
 
             border: var(--border-primary);
             border-radius: var(--border-radius);
@@ -203,19 +202,6 @@
             width: fit-content;
 
             background: var(--bg-color-note);
-        }
-
-        &-btn-item {
-            overflow: hidden;
-
-            transition: var(--transition);
-
-            &:hover {
-                background: var(--bg-color-modal-hover);
-            }
-        }
-
-        &-btn {
         }
     }
 }
