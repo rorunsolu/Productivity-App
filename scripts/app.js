@@ -52,10 +52,13 @@ function popupCreateTag() {
             </div>
 
             <div class="popup-tags__middle">
-            
-                <input type="text" class="popup-tags__input" placeholder="Add a tag" />
 
-                <button class="popup-tags__add-btn">Add Tag</button>
+                <div class="input-wrapper">
+                
+                    <input type="text" class="input-field" id="popup-tags__input" placeholder="" />
+                    <label for="popup-tags__input" class="input-label">Tag name</label>
+                
+                </div>
             
             </div>
 
@@ -73,31 +76,50 @@ function popupCreateTag() {
     document.body.appendChild(popupContainer);
 
     const tagsList = document.querySelector('.popup-tags__list');
-    const tagsInput = document.querySelector('.popup-tags__input');
+    const tagsInput = document.getElementById('popup-tags__input');
     const tags = [];
 
-    document.querySelector('.popup-tags__add-btn').addEventListener('click', () => {
-        //trim whitespace from the end of what the user typed into the input and pass it as a variable
-        const tag = tagsInput.value.trim();
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            const tag = tagsInput.value.trim();
 
-        //check if the tag exists and also if the tag is not currently inside the tags array
-        if (tag && !tags.includes(tag)) {
-            // add the tag to the start of the array
-            tags.unshift(tag);
+            if (tag && !tags.includes(tag)) {
+                tags.unshift(tag);
 
-            //an li element is then created and added to the tagsList aka the popup-tags__list
-            const tagItem = document.createElement('li');
+                const tagItem = document.createElement('li');
+                tagItem.classList.add('tag-item');
 
-            // the text of the tagItem is then set to be whatever the tag that was created was (the word the user typed to be the tag)
-            tagItem.textContent = tag;
+                tagItem.textContent = tag;
+                tagsList.appendChild(tagItem);
+                tagsInput.value = '';
 
-            // append the tagItem to the start of the tagsList (popup-tags__list)
-            tagsList.appendChild(tagItem);
-
-            // reset/clear the input field so the user can add another tag if needed
-            tagsInput.value = '';
+                console.log('Tag Created:', tag);
+            }
         }
     });
+
+    // document.querySelector('.popup-tags__add-btn').addEventListener('click', () => {
+    //     //trim whitespace from the end of what the user typed into the input and pass it as a variable
+    //     const tag = tagsInput.value.trim();
+
+    //     //check if the tag exists and also if the tag is not currently inside the tags array
+    //     if (tag && !tags.includes(tag)) {
+    //         // add the tag to the start of the array
+    //         tags.unshift(tag);
+
+    //         //an li element is then created and added to the tagsList aka the popup-tags__list
+    //         const tagItem = document.createElement('li');
+
+    //         // the text of the tagItem is then set to be whatever the tag that was created was (the word the user typed to be the tag)
+    //         tagItem.textContent = tag;
+
+    //         // append the tagItem to the start of the tagsList (popup-tags__list)
+    //         tagsList.appendChild(tagItem);
+
+    //         // reset/clear the input field so the user can add another tag if needed
+    //         tagsInput.value = '';
+    //     }
+    // });
 
     document.querySelector('.popup-tags__close-btn').addEventListener('click', closePopup);
 }
