@@ -238,6 +238,7 @@ function popupCreate() {
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
     popupContainer.querySelector('.popup__close-btn').addEventListener('click', closePopup);
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
+    popupContainer.querySelector('.popup__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     setupPriorityButtons();
     setupTagButtons();
@@ -362,6 +363,7 @@ function popupEdit(noteId) {
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
     editingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', closePopup);
     editingPopup.querySelector('.popup-edit__priorities-open-btn').addEventListener('click', togglePriorityOptions);
+    editingPopup.querySelector('.popup-edit__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     setupPriorityButtons();
     renderTags();
@@ -375,6 +377,17 @@ function togglePriorityOptions() {
         prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
     } else {
         prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
+function toggleTagOptions() {
+    const tagsBtnList = document.querySelector('.popup__tags-btn-list');
+    const tagsBtnListEdit = document.querySelector('.popup-edit__tags-btn-list');
+
+    if (tagsBtnList) {
+        tagsBtnList.style.display = tagsBtnList.style.display === 'none' ? 'block' : 'none';
+    } else {
+        tagsBtnListEdit.style.display = tagsBtnListEdit.style.display === 'none' ? 'block' : 'none';
     }
 }
 
