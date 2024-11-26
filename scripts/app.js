@@ -237,6 +237,7 @@ function popupCreate() {
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
 
     setupPriorityButtons();
+    setupTagButtons();
 }
 
 function popupEdit(noteId) {
@@ -473,6 +474,10 @@ function createNote() {
         showNotes();
         updateNoteCount();
         updateBookmarkedNoteCount();
+
+        //* this function should be used to display the local storages list of tags as li elements inside both the popup & popup-edit tag dropdown lists
+        renderTags();
+
         console.log('Properties of the created note:', note);
     }
 
@@ -581,6 +586,21 @@ function showNotes() {
             }
         });
     });
+}
+
+function setupTagButtons() {
+    const tagsBtnOpen = document.querySelector('.popup__tags-open-btn');
+    const tagsBtnList = document.querySelector('.popup__tags-btn-list');
+
+    console.log('Open tag button class:', tagsBtnOpen);
+    console.log('List tag button class:', tagsBtnList);
+
+    if (tagsBtnOpen && tagsBtnList) {
+        //let tagButtons = tagsBtnList.querySelectorAll('.popup__tag-btn');
+    }
+
+    const openTagBtnEdit = document.querySelector('.popup-edit__tags-open-btn');
+    console.log('Open Tag Button Edit:', openTagBtnEdit);
 }
 
 function bookmarkNote(noteId) {
