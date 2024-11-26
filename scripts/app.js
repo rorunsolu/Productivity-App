@@ -232,6 +232,9 @@ function popupCreate() {
     const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
 
+    const tagsBtnList = popupContainer.querySelector('.popup__tags-btn-list');
+    tagsBtnList.style.display = 'none';
+
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
     popupContainer.querySelector('.popup__close-btn').addEventListener('click', closePopup);
     popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
@@ -349,6 +352,9 @@ function popupEdit(noteId) {
 
     const prioritiesBtnList = editingPopup.querySelector('.popup-edit__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
+
+    const tagsBtnList = editingPopup.querySelector('.popup-edit__tags-btn-list');
+    tagsBtnList.style.display = 'none';
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
     editingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', closePopup);
