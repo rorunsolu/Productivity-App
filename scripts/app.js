@@ -47,7 +47,7 @@ function popupCreateTag() {
     
     `;
 
-    document.querySelector('.popup__tags-add-btn').addEventListener('click', () => {
+    popupContainer.querySelector('.popup__tags-add-btn').addEventListener('click', () => {
         //trim whitespace from the end of what the user typed into the input and pass it as a variable
         const tag = tagsInput.value.trim();
 
@@ -63,7 +63,7 @@ function popupCreateTag() {
             tagItem.textContent = tag;
 
             // append the tagItem to the start of the tagsList (popup__tags-list)
-            tagsList.unshift(tagItem);
+            tagsList.appendChild(tagItem);
 
             // reset/clear the input field so the user can add another tag if needed
             tagsInput.value = '';
