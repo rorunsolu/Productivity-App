@@ -80,7 +80,7 @@ function popupCreateTag() {
     const tagsInput = document.getElementById('popup-tags__input');
     const tags = [];
 
-    document.addEventListener("keydown", function (event) {
+    tagsInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             const tag = tagsInput.value.trim();
 
