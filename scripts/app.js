@@ -485,9 +485,6 @@ function createNote() {
         updateNoteCount();
         updateBookmarkedNoteCount();
 
-        //* this function should be used to display the local storages list of tags as li elements inside both the popup & popup-edit tag dropdown lists
-        renderTags();
-
         console.log('Properties of the created note:', note);
     }
 
@@ -641,7 +638,7 @@ function setupTagButtons() {
     console.log('List tag button class:', tagsBtnList);
 
     if (tagsBtnOpen && tagsBtnList) {
-        //let tagButtons = tagsBtnList.querySelectorAll('.popup__tag-btn');
+
     }
 
     const openTagBtnEdit = document.querySelector('.popup-edit__tags-open-btn');
