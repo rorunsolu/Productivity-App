@@ -50,13 +50,28 @@
         }
     }
     &__middle {
+        //display: flex;
+        gap: 0.75rem;
     }
     &__input {
     }
-    &__add-btn {
-    }
     &__bottom {
     }
+    &__list-header {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+
+        color: white;
+
+        font-weight: 500;
+    }
     &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        width: 100%;
+        width: 500px;
+        min-height: 2.25rem;
     }
 }
