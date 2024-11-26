@@ -46,6 +46,29 @@ function popupCreateTag() {
         </div>
     
     `;
+
+    document.querySelector('.popup__tags-add-btn').addEventListener('click', () => {
+        //trim whitespace from the end of what the user typed into the input and pass it as a variable
+        const tag = tagsInput.value.trim();
+
+        //check if the tag exists and also if the tag is not currently inside the tags array
+        if (tag && !tags.includes(tag)) {
+            // add the tag to the start of the array
+            tags.unshift(tag);
+
+            //an li element is then created and added to the tagsList aka the popup__tags-list
+            const tagItem = document.createElement('li');
+
+            // the text of the tagItem is then set to be whatever the tag that was created was (the word the user typed to be the tag)
+            tagItem.textContent = tag;
+
+            // append the tagItem to the start of the tagsList (popup__tags-list)
+            tagsList.unshift(tagItem);
+
+            // reset/clear the input field so the user can add another tag if needed
+            tagsInput.value = '';
+        }
+    });
 }
 
 function popupCreate() {
@@ -587,18 +610,10 @@ updateNoteCount();
 updateBookmarkedNoteCount();
 
 //* Tagging feature (multiple tags per note)
-// 1. Clicking the add new tag btn opens a popup 
+// 1. Clicking the add new tag btn opens a popup
 // 2. The popup will allow the user to create tags by typing them into an input field
 // 3. Clicking the add tag button (next to the input field) will add the tag to the array of tags OF THE TAGLIST NOT THE NOTES TAG ARRAY (the tagList var)
 // 4. When creating or editing a note, the user can click the tags option btn and the dropdown will display the list of tags pulled from the tagsList var array
 // 5. Clicking a tag from the dropdown will add it to that specific note's tags array
 // 6. Clicking the remove tag button (small X icon inside the tag itself) will remove the tag from the note OBJECT's tags array
-//! Obvs the tags added to the notes will need to be displayed everytime notes are shown so I'll need to update the functions accordingly
-
-
-
-
-
-
-
-
+//! Obvs the tags added to the notes will need to be displayed every time notes are shown so I'll need to update the functions accordingly
