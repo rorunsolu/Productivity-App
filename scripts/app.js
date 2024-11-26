@@ -241,6 +241,9 @@ function popupCreate() {
 
     setupPriorityButtons();
     setupTagButtons();
+
+    //* this function should be used to display the local storages list of tags as li elements inside both the popup & popup-edit tag dropdown lists
+    renderTags();
 }
 
 function popupEdit(noteId) {
@@ -361,6 +364,7 @@ function popupEdit(noteId) {
     editingPopup.querySelector('.popup-edit__priorities-open-btn').addEventListener('click', togglePriorityOptions);
 
     setupPriorityButtons();
+    renderTags();
 }
 
 function togglePriorityOptions() {
