@@ -605,7 +605,7 @@ function renderTags(noteId) {
 
     const tags = JSON.parse(localStorage.getItem('tags')) || [];
 
-    //! the below does the exact same thing as forEach but and i guess is somewhat easier to read but since I've used forEach elsehwere in this file multiple times idk if it would cause an issue at some point while i'm dealing with this whole tags feature nonsense ffs
+    //! the below does the exact same thing as forEach but and i guess is somewhat easier to read but since I've used forEach elsehwere in this file multiple times idk if it would cause an issue at some point while i'm dealing with this whole tags feature nonsense ffs (see https://stackoverflow.com/questions/50844095/should-one-use-for-of-or-foreach-when-iterating-through-an-array for reference)
     for (const tag of tags) {
         for (const dropdown of tagListDropdowns) {
             const tagButton = document.createElement('li');
