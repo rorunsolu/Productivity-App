@@ -1,0 +1,62 @@
+.popup-tags {
+    border: var(--border-primary);
+    border-radius: var(--border-radius);
+    padding: var(--padding-note);
+
+    width: 90%;
+    min-height: 300px;
+
+    background-color: var(--bg-color-modal);
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 1rem;
+    }
+    &__context {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    &__header {
+        color: var(--text-color-primary);
+        font-size: var(--font-size-note-title);
+    }
+    &__btn-wrapper {
+        display: flex;
+        gap: 0.75rem;
+    }
+    &__close-btn {
+        border: var(--border-primary);
+        border-radius: var(--border-radius);
+
+        width: 3rem;
+        height: 3rem;
+
+        padding: 0;
+
+        color: var(--text-color-primary);
+
+        &:hover {
+            background: var(--bg-color-modal-hover);
+        }
+
+        i {
+            position: relative;
+            top: 0.09rem;
+
+            font-size: 1.5rem;
+        }
+    }
+    &__middle {
+    }
+    &__input {
+    }
+    &__add-btn {
+    }
+    &__bottom {
+    }
+    &__list {
+    }
+}
