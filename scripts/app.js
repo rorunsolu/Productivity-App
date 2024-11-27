@@ -241,7 +241,6 @@ function popupCreate() {
     popupContainer.querySelector('.popup__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     setupPriorityButtons();
-    setupTagButtons();
 
     //* this function should be used to display the local storages list of tags as li elements inside both the popup & popup-edit tag dropdown lists
     renderTags();
@@ -641,6 +640,7 @@ function renderTags(noteId) {
     //         dropdown.appendChild(tagButton);
     //     });
     // });
+    setupTagButtons();
 }
 
 function setupTagButtons() {
@@ -651,11 +651,23 @@ function setupTagButtons() {
     console.log('List tag button class:', tagsBtnList);
 
     if (tagsBtnOpen && tagsBtnList) {
+        let tagButtons = tagsBtnList.querySelectorAll('.btn-tag');
+        console.log('HTML elements for every tag button:', tagButtons);
+        //! there's an issue here. The script goes through the if statement but the above console logs (tagButtons) is showing up as empty (but it does run)
+        //* EDIT (now fixed): I had to move the call of the setupTagButtons function to the rendertags function since if it was kept at the popupCreate function, the tag's according to the console dont actually exist at that point....
 
+        for (const button of tagButtons) {
+            button.addEventListener('click', () => {
+                let tag = button.textContent;
+                console.log('Tag:', tag);
+                button.classList.add('testClass');
+
+                tagsBtnOpen.textContent = tag;
+                tagsBtnList.style.display = 'none';
+                //! there is a noticeable delay if I change the tags in quick succession so i'm assuming this is where it would be better to delegate the event listener to the parent element of the tag buttons (tagsBtnList)
+            });
+        }
     }
-
-    const openTagBtnEdit = document.querySelector('.popup-edit__tags-open-btn');
-    console.log('Open Tag Button Edit:', openTagBtnEdit);
 }
 
 function bookmarkNote(noteId) {
