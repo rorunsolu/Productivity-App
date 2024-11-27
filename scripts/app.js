@@ -252,6 +252,7 @@ function popupEdit(noteId) {
     const noteTitle = noteToEdit ? noteToEdit.title : "";
     const noteContent = noteToEdit ? noteToEdit.content : "";
     const notePriority = noteToEdit ? noteToEdit.priority : "";
+    const noteTag = noteToEdit ? noteToEdit.tags : "";
     const editingPopup = document.createElement('div');
 
     editingPopup.classList.add('popup-container');
@@ -336,6 +337,10 @@ function popupEdit(noteId) {
                             
                         </ul>
 
+                    </div>
+
+                    <div class="popup-edit__current-tags">
+                        ${noteTag}
                     </div>
 
                 </div>
@@ -471,6 +476,9 @@ function createNote() {
     const noteContent = document.querySelector('.popup__note-content').value;
     const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
 
+    //const tags = JSON.parse(localStorage.getItem('tags')) || [];
+    const tagName = document.querySelector('.popup__tags-open-btn');
+
     if (noteTitle.trim() !== "" && noteContent.trim() !== "") {
         const note = {
             id: String(new Date().getTime()),
@@ -480,7 +488,8 @@ function createNote() {
             bookmarked: false,
             priority: prioritiesBtnOpen.textContent,
             priorityColor: prioritiesBtnOpen.style.color,
-            tags: [],
+            tags: tagName.textContent,
+            //! for the sake of simplicity, i'll limit the number of tags to ONE
         };
 
         const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -554,6 +563,11 @@ function showNotes() {
                 ${note.priority}
             </span>
 
+            <div class="note__tag">
+                <i class="ri-price-tag-3-fill"></i>
+                ${note.tags}
+            </div>
+
             <div class="note__date">
                 <time datetime="${note.creationDate}">${formattedDate}</time>
             </div>
@@ -608,7 +622,7 @@ function showNotes() {
 }
 
 //? I don't know if I actually need noteId passed into here but I'll keep it for now
-function renderTags(noteId) {
+function renderTags() {
     const tagsBtnOpen = document.querySelectorAll('.popup__tags-open-btn, .popup-edit__tags-open-btn');
     console.log('Classes for toggling tag list:', tagsBtnOpen);
 
@@ -627,19 +641,8 @@ function renderTags(noteId) {
 
             dropdown.appendChild(tagButton);
         }
-        //* at this stage the list is hidden along with the buttons inside it so i'll need to make it so that isn't the case which should be fairly simple
     }
 
-    // tags.forEach(tag => {
-    //     tagListDropdowns.forEach(dropdown => {
-    //         const tagButton = document.createElement('li');
-
-    //         tagButton.classList.add('btn-tag');
-    //         tagButton.textContent = tag;
-
-    //         dropdown.appendChild(tagButton);
-    //     });
-    // });
     setupTagButtons();
 }
 
@@ -666,6 +669,22 @@ function setupTagButtons() {
                 tagsBtnList.style.display = 'none';
                 //! there is a noticeable delay if I change the tags in quick succession so i'm assuming this is where it would be better to delegate the event listener to the parent element of the tag buttons (tagsBtnList)
             });
+        }
+    } else {
+        const tagsBtnOpenEdit = document.querySelector('.popup-edit__tags-open-btn');
+        const tagsBtnListEdit = document.querySelector('.popup-edit__tags-btn-list');
+
+        if (tagsBtnOpenEdit && tagsBtnListEdit) {
+            let tagButtons = tagsBtnListEdit.querySelectorAll('.btn-tag');
+            for (const button of tagButtons) {
+                button.addEventListener('click', () => {
+                    let tag = button.textContent;
+                    console.log('Tag:', tag);
+
+                    tagsBtnOpenEdit.textContent = tag;
+                    tagsBtnListEdit.style.display = 'none';
+                });
+            }
         }
     }
 }
