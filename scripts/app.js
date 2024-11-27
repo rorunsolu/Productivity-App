@@ -241,8 +241,6 @@ function popupCreate() {
     popupContainer.querySelector('.popup__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     setupPriorityButtons();
-
-    //* this function should be used to display the local storages list of tags as li elements inside both the popup & popup-edit tag dropdown lists
     renderTags();
 }
 
@@ -650,20 +648,14 @@ function setupTagButtons() {
     const tagsBtnOpen = document.querySelector('.popup__tags-open-btn');
     const tagsBtnList = document.querySelector('.popup__tags-btn-list');
 
-    console.log('Open tag button class:', tagsBtnOpen);
-    console.log('List tag button class:', tagsBtnList);
-
     if (tagsBtnOpen && tagsBtnList) {
         let tagButtons = tagsBtnList.querySelectorAll('.btn-tag');
         console.log('HTML elements for every tag button:', tagButtons);
-        //! there's an issue here. The script goes through the if statement but the above console logs (tagButtons) is showing up as empty (but it does run)
-        //* EDIT (now fixed): I had to move the call of the setupTagButtons function to the rendertags function since if it was kept at the popupCreate function, the tag's according to the console dont actually exist at that point....
 
         for (const button of tagButtons) {
             button.addEventListener('click', () => {
                 let tag = button.textContent;
                 console.log('Tag:', tag);
-                button.classList.add('testClass');
 
                 tagsBtnOpen.textContent = tag;
                 tagsBtnList.style.display = 'none';
