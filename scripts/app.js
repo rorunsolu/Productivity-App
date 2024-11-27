@@ -329,16 +329,12 @@ function popupEdit(noteId) {
 
                     <div class="popup-edit__tags">
 
-                        <button class="popup-edit__tags-open-btn"><i class="ri-hashtag"></i>Tags</button>
+                        <button class="popup-edit__tags-open-btn"><i class="ri-hashtag"></i>${noteTag}</button>
 
                         <ul class="popup-edit__tags-btn-list">
                             
                         </ul>
 
-                    </div>
-
-                    <div class="popup-edit__current-tags">
-                        ${noteTag}
                     </div>
 
                 </div>
@@ -619,7 +615,6 @@ function showNotes() {
     });
 }
 
-//? I don't know if I actually need noteId passed into here but I'll keep it for now
 function renderTags() {
     const tagsBtnOpen = document.querySelectorAll('.popup__tags-open-btn, .popup-edit__tags-open-btn');
     console.log('Classes for toggling tag list:', tagsBtnOpen);
@@ -703,6 +698,7 @@ function keepChanges() {
     const noteTitle = document.querySelector('.popup-edit__note-title').value.trim();
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
     const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn').textContent;
+    const tagsBtnOpen = document.querySelector('.popup-edit__tags-open-btn').textContent;
     const editingPopup = document.querySelector('.popup-edit');
 
     if (noteTitle !== "" && noteContent !== "") {
@@ -714,7 +710,7 @@ function keepChanges() {
         const noteMap = notes.map(note => {
             if (String(note.id) === String(noteId)) {
                 console.log('12. Updating note:', note);
-                return { ...note, title: noteTitle, content: noteContent, priority: prioritiesBtnOpen, priorityColor: document.querySelector('.popup-edit__priorities-open-btn').style.color };
+                return { ...note, title: noteTitle, content: noteContent, priority: prioritiesBtnOpen, priorityColor: document.querySelector('.popup-edit__priorities-open-btn').style.color, tags: tagsBtnOpen };
                 //! for updating the priority color, if I want to use the variable "prioritiesBtnOpen" I would have to change the initial declaration to let prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn').textContent and then also use "let prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn')" but inside this if statement
             }
             return note;
