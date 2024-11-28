@@ -23,6 +23,33 @@
     }
 }
 
+.btn-tag {
+    display: flex;
+    align-items: center;
+
+    padding: var(--padding-btn);
+
+    height: 2.25rem;
+    width: 100%;
+
+    font-size: var(--font-size-btn);
+    font-family: "Inter", serif;
+
+    color: var(--text-color-primary);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    &:hover {
+        background: var(--bg-color-modal-hover);
+    }
+
+    i {
+        pointer-events: none;
+    }
+}
+
 .btn-new-note {
     height: 3rem;
     width: 3rem;
