@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.btn-new-note').addEventListener('click', popupCreate);
 
-    // clicking the btn opens the popup for creating tags
     document.querySelector('.btn-new-tag').addEventListener('click', popupCreateTag);
 
     document.querySelectorAll('.category__dropdown-btn').forEach(button => {
