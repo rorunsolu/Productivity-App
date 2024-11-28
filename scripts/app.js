@@ -32,13 +32,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         notes.sort((a, b) => {
             if (isAscending) {
-                return a.title.localeCompare(b.title);
+                // it could be that since I have the text-transform: capitalize; for the note titles then I might not need to use the "sensitivity option" but i'll leave it there since it there's no harm in the extra assurance that comes with it
+                return a.title.localeCompare(b.title, undefined, { sensitivity: 'base'});
             } else {
-                return b.title.localeCompare(a.title);
+                return b.title.localeCompare(a.title, undefined, { sensitivity: 'base'});
             }
         });
 
         localStorage.setItem('notes', JSON.stringify(notes));
+
+        showNotes();
+    });
+
+    let isOldestFirst = true;
+
+    document.querySelector('.btn-sort-by-date').addEventListener('click', () => {
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+        isOldestFirst = !isOldestFirst;
+
+        notes.sort((a, b) => {
+            if (isOldestFirst) {
+                return new Date(a.creationDate) - new Date(b.creationDate);
+            } else {
+                return new Date(b.creationDate) - new Date(a.creationDate);
+            }
+        });
+
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        showNotes();
+    });
+
+    document.querySelector('.btn-filter-by-priority').addEventListener('click', () => {
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+       
 
         showNotes();
     });
