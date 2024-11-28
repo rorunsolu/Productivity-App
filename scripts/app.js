@@ -23,6 +23,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    let isAscending = true;
+
+    document.querySelector('.btn-sort-alphabetically').addEventListener('click', () => {
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+        isAscending = !isAscending;
+
+        notes.sort((a, b) => {
+            if (isAscending) {
+                return a.title.localeCompare(b.title);
+            } else {
+                return b.title.localeCompare(a.title);
+            }
+        });
+
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        showNotes();
+    });
 });
 
 function popupCreateTag() {
