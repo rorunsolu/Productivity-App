@@ -71,6 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showNotes();
     });
+
+    //! this needs to be be ran when the DOM is fully loaded NOT when the popup is created
+    const sidebarTagList = document.querySelector('.sidebar__tag-list');
+    const tags = JSON.parse(localStorage.getItem('tags')) || [];
+
+    tags.forEach(tag => {
+        const sidebarTagItem = document.createElement('li');
+        sidebarTagItem.classList.add('sidebar__tag-item');
+        sidebarTagItem.textContent = tag;
+        sidebarTagList.appendChild(sidebarTagItem);
+    })
 });
 
 function popupCreateTag() {
