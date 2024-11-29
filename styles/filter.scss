@@ -1,0 +1,128 @@
+.filter {
+    display: none;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    color: #ffffff !important;
+
+    button {
+        color: #000000 !important;
+        background-color: #f9f9f9;
+    }
+
+    select {
+        width: 200px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        font-size: 16px;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    &__view-selector {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        &-label {
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        &-btn {
+            background: none;
+            background: aqua;
+            border: 1px solid #333333;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+
+            &--active {
+                background-color: #ff7f50;
+                border-color: #ff7f50;
+                color: #1e1e1e;
+            }
+
+            &:hover {
+                background-color: #ff7f50;
+                color: #1e1e1e;
+            }
+        }
+    }
+
+    &__toggle-completed {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &-label {
+            font-size: 0.875rem;
+        }
+
+        &-input {
+            transform: scale(1.2);
+        }
+    }
+
+    &__options {
+        margin-bottom: 1.5rem;
+
+        &-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        &-section {
+            margin-bottom: 1rem;
+
+            &-label {
+                display: block;
+                font-size: 0.875rem;
+                margin-bottom: 0.25rem;
+            }
+
+            &-select {
+                width: 100%;
+                padding: 0.5rem;
+                background-color: #1e1e1e;
+                border: 1px solid #333333;
+                border-radius: 4px;
+                color: #ffffff;
+                font-size: 0.875rem;
+
+                &:hover {
+                    border-color: #ff7f50;
+                }
+            }
+        }
+    }
+
+    &__footer {
+        text-align: right;
+
+        &-reset-btn {
+            background-color: #ff7f50;
+            color: #1e1e1e;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+
+            &:hover {
+                background-color: #e67045;
+            }
+        }
+    }
+}
