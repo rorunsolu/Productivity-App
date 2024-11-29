@@ -1,0 +1,114 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    width: 500px;
+
+    &__options {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__priority {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        border: (var(--border-primary));
+        border-radius: var(--border-radius);
+        padding: var(--padding-note);
+
+        background: var(--bg-color-note);
+
+        &-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            text-align: left;
+
+            height: 2.25rem;
+            width: 100%;
+
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+
+            background: var(--bg-color-note);
+            color: var(--text-color-primary);
+
+            text-transform: capitalize;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+            i {
+                pointer-events: none;
+
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    &__tag {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        border: (var(--border-primary));
+        border-radius: var(--border-radius);
+        padding: var(--padding-note);
+
+        background: var(--bg-color-note);
+
+        &-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            text-align: left;
+
+            height: 2.25rem;
+            width: 100%;
+
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+
+            background: var(--bg-color-note);
+            color: var(--text-color-primary);
+
+            text-transform: capitalize;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+            i {
+                pointer-events: none;
+
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    &__header {
+        color: #ffffff;
+    }
+}
+
+.sidebar-view {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
