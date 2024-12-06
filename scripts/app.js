@@ -848,7 +848,7 @@ function bookmarkNote(noteId) {
     }
 }
 
-function keepChanges() {
+function saveChangesToNote(tagName) {
     const noteTitle = document.querySelector('.popup-edit__note-title').value.trim();
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
     const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn').textContent;
@@ -857,28 +857,30 @@ function keepChanges() {
 
     if (noteTitle !== "" && noteContent !== "") {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
-        const noteId = editingPopup.getAttribute('data-id');
-        const popupContainer = document.querySelector('.popup-container');
-        console.log('11. Noted Updated:', noteId);
+        const noteId = noteEditingPopup.getAttribute('data-id');
 
         const noteMap = notes.map(note => {
             if (String(note.id) === String(noteId)) {
                 console.log('12. Updating note:', note);
                 return { ...note, title: noteTitle, content: noteContent, priority: prioritiesBtnOpen, priorityColor: document.querySelector('.popup-edit__priorities-open-btn').style.color, tags: tagsBtnOpen };
-                //! for updating the priority color, if I want to use the variable "prioritiesBtnOpen" I would have to change the initial declaration to let prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn').textContent and then also use "let prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn')" but inside this if statement
             }
             return note;
         });
 
         localStorage.setItem('notes', JSON.stringify(noteMap));
 
-        if (popupContainer) {
-            popupContainer.remove();
+        const noteFilteringPopup = document.querySelector('.note-filtering-popup');
 
+        if (noteFilteringPopup) {
+            reDisplayFilteredNotes(tagName);
+        } else {
             document.body.style.overflow = 'auto';
+
+            noteEditingPopup.remove();
         }
 
         showNotes();
+
     }
 }
 
