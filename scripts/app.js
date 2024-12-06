@@ -292,7 +292,7 @@ function noteCreation() {
     const noteCreationPopup = document.createElement('div');
     noteCreationPopup.classList.add('note-creation-popup');
 
-    popupContainer.innerHTML = `
+    noteCreationPopup.innerHTML = `
 
         <div class="popup">
         
@@ -379,10 +379,10 @@ function noteCreation() {
     const tagsBtnList = noteCreationPopup.querySelector('.popup__tags-btn-list');
     tagsBtnList.style.display = 'none';
 
-    popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
-    popupContainer.querySelector('.popup__close-btn').addEventListener('click', closePopup);
-    popupContainer.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
-    popupContainer.querySelector('.popup__tags-open-btn').addEventListener('click', toggleTagOptions);
+    noteCreationPopup.querySelector('.popup__save-btn').addEventListener('click', createNote);
+    noteCreationPopup.querySelector('.popup__close-btn').addEventListener('click', () => noteCreationPopup.remove());
+    noteCreationPopup.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
+    noteCreationPopup.querySelector('.popup__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     setupPriorityButtons();
     renderTags();
