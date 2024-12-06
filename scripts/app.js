@@ -694,7 +694,7 @@ function showNotes() {
             <h3 class="note__title">${note.title}</h3>
 
             <div class="note__options">
-                <button class="btn-delete-note" type="button" data-id="${note.id}"><i class="ri-delete-bin-6-line"></i></button>
+                <button class="btn-delete-note" type="button" data-id="${note.id}"><i class="ri-delete-bin-line"></i></button>
                 <button class="btn-bookmark-note" type="button" data-id="${note.id}"><i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i></button>
             </div>
 
