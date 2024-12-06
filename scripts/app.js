@@ -617,9 +617,7 @@ function createNote() {
     const noteTitle = document.querySelector('.popup__note-title').value;
     const noteContent = document.querySelector('.popup__note-content').value;
     const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
-
-    //const tags = JSON.parse(localStorage.getItem('tags')) || [];
-    const tagName = document.querySelector('.popup__tags-open-btn');
+    const tagName = document.querySelector('.popup__tags-open-btn').textContent;
 
     if (noteTitle.trim() !== "" && noteContent.trim() !== "") {
         const note = {
@@ -630,8 +628,7 @@ function createNote() {
             bookmarked: false,
             priority: prioritiesBtnOpen.textContent,
             priorityColor: prioritiesBtnOpen.style.color,
-            tags: tagName.textContent,
-            //! for the sake of simplicity, i'll limit the number of tags to ONE
+            tags: [tagName]
         };
 
         let storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
