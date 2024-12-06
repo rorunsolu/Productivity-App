@@ -711,14 +711,14 @@ function showNotes() {
                 ${note.priority}
             </span>
 
-            <div class="note__tag">
-                <i class="ri-price-tag-3-fill"></i>
-                ${note.tags}
-            </div>
+            <span class="note__tag ${note.tags ? '' : 'hidden'}">
+                <i class="ri-price-tag-3-fill ${note.tags ? '' : 'hidden'}"></i>
+                ${note.tags || ''}
+            </span>
 
-            <div class="note__date">
+            <span class="note__date">
                 <time datetime="${note.creationDate}">${formattedDate}</time>
-            </div>
+            </span>
 
         </div>
 
