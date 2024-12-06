@@ -27,6 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.querySelectorAll('.custom__select-choice').forEach(choice => {
+        choice.addEventListener('click', () => {
+            const trigger = choice.closest('.custom__select').querySelector('.custom__select-trigger');
+            trigger.textContent = choice.textContent;
+
+            const dropdown = choice.closest('.custom__select-options');
+            dropdown.classList.add('hidden');
+
+            const sortValue = choice.getAttribute('data-value');
+
+            if (sortValue === 'ascending-name' || sortValue === 'descending-name') {
+                sortByTitle(sortValue);
+            } else if (sortValue === 'latest-date' || sortValue === 'oldest-date') {
+                sortByDate(sortValue);
+            } else if (sortValue === 'ascending-priority' || sortValue === 'descending-priority') {
+                sortByPriority(sortValue);
+            }
+        });
+    });
+
     function sortByTitle(sortValue) {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
