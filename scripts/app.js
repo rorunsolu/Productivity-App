@@ -27,26 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    let isAscending = true;
-
-    document.querySelector('.btn-sort-alphabetically').addEventListener('click', () => {
+    function sortByTitle(sortValue) {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-        isAscending = !isAscending;
+        if (!Array.isArray(notes)) {
+            console.error('Notes is not an array:', notes);
+            return;
+        }
 
         notes.sort((a, b) => {
-            if (isAscending) {
-                // it could be that since I have the text-transform: capitalize; for the note titles then I might not need to use the "sensitivity option" but i'll leave it there since it there's no harm in the extra assurance that comes with it
-                return a.title.localeCompare(b.title, undefined, { sensitivity: 'base'});
-            } else {
-                return b.title.localeCompare(a.title, undefined, { sensitivity: 'base'});
+            if (sortValue === 'ascending-name') {
+                return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
+            } else if (sortValue === 'descending-name') {
+                return b.title.localeCompare(a.title, undefined, { sensitivity: 'base' });
             }
         });
 
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-    });
+    }
 
     let isOldestFirst = true;
 
