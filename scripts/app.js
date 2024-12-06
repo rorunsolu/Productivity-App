@@ -630,7 +630,12 @@ function createNote() {
             //! for the sake of simplicity, i'll limit the number of tags to ONE
         };
 
-        const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+        let storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+
+        if (!Array.isArray(storedNotes)) {
+            console.error('Stored notes is not an array:', storedNotes);
+            storedNotes = [];
+        }
 
         storedNotes.unshift(note);
 
