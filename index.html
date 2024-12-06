@@ -19,27 +19,108 @@
 
     <div class="note-app">
 
-      <div class="main">
+      <div class="navbar">
 
-        <div class="container header">
+        <h1 class="navbar__title">Inbox</h1>
 
-          <h1 class="header-title">Your Notes</h1>
+        <div class="navbar__btn-wrapper">
 
-          <div class="header-btn-wrapper">
-            <button class="btn-filter-by-tag" type="button"><i class="ri-price-tag-3-line"></i></button>
-            <button class="btn-filter-by-priority" type="button"><i class="ri-sort-alphabet-asc"></i></i></button>
-            <button class="btn-sort-by-date" type="button"><i class="ri-calendar-line"></i></button>
-            <button class="btn-sort-alphabetically" type="button"><i class="ri-line-height"></i></button>
-            <button class="btn-change-view" type="button"><i class="ri-eye-line"></i></button>
-            <button class="btn-new-tag" type="button"><i class="ri-price-tag-3-line"></i></button>
-            <button class="btn-new-note" type="button"><i class="ri-sticky-note-add-line"></i></button>
+          <button class="btn-sort-alphabetically" type="button"><i class="ri-line-height"></i></button>
+          <button class="btn-new-tag" type="button"><i class="ri-price-tag-3-line"></i></button>
+          <button class="btn-new-note" type="button"><i class="ri-sticky-note-add-line"></i></button>
+
+          <div class="btn-toggle-options-wrapper">
+
+            <button class="btn-toggle-options" type="button"><i class="ri-menu-line"></i></button>
+
+            <div class="custom hidden">
+
+              <header class="custom__top">
+
+                <div class="custom__view">
+
+                  <div class="custom__view-top">
+                    <h3 class="custom__view-title">View</h3>
+                  </div>
+
+                  <div class="custom__view-btn-wrapper">
+                    <button class="custom__view-btn" data="list"><i
+                         class="ri-list-view"></i>List</button>
+                    <button class="custom__view-btn" data="grid"><i class="ri-layout-grid-line"></i>Grid</button>
+                  </div>
+
+                </div>
+
+              </header>
+
+              <section class="custom__sort">
+
+                <h3 class="custom__sort-title">Sort by</h3>
+
+                <div class="custom__sort-main">
+
+                  <div class="custom__sort-options">
+                    <div>
+                      <i class="ri-calendar-line"></i>
+                      <label class="custom__label">Date</label>
+                    </div>
+                    <div class="custom__select">
+                      <div class="custom__select-trigger" id="date-trigger">Latest (default)</div>
+                      <ul class="custom__select-options hidden">
+                        <li class="custom__select-choice" data-value="latest-date">Latest (default)</li>
+                        <li class="custom__select-choice" data-value="oldest-date">Oldest</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="custom__sort-options">
+                    <div>
+                      <i class="ri-sort-alphabet-desc"></i>
+                      <label class="custom__label">Name</label>
+                    </div>
+                    <div class="custom__select">
+                      <div class="custom__select-trigger">Ascending (default)</div>
+                      <ul class="custom__select-options hidden">
+                        <li class="custom__select-choice" data-value="ascending-name">Ascending (default)</li>
+                        <li class="custom__select-choice" data-value="descending-name">Descending</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="custom__sort-options">
+                    <div>
+                      <i class="ri-sort-number-asc"></i>
+                      <label class="custom__label">Priority</label>
+                    </div>
+                    <div class="custom__select">
+                      <div class="custom__select-trigger">Descending (default)</div>
+                      <ul class="custom__select-options hidden">
+                        <li class="custom__select-choice" data-value="descending-priority">Descending (default)</li>
+                        <li class="custom__select-choice" data-value="ascending-priority">Ascending</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+
+              </section>
+
+              <footer class="custom__footer">
+                <button class="custom__reset-btn">Reset all</button>
+              </footer>
+            </div>
+
           </div>
 
         </div>
 
-        <div class="container note-wrapper">
+      </div>
 
-          <div class="category">
+      <div class="main">
+
+        <div class="note-wrapper">
+
+          <div class="category" id="unbookmarked-category">
 
             <div class="category__details">
 
@@ -62,7 +143,7 @@
 
           </div>
 
-          <div class="category">
+          <div class="category" id="bookmarked-category">
 
             <div class="category__details">
 
@@ -87,153 +168,40 @@
 
         </div>
 
-      </div>
+        <div class="sidebar">
 
-      <div class="container sidebar">
+          <div class="sidebar-view">
 
-        <div class="sidebar__options">
+            <div class="sidebar__priority">
 
-          <button class="btn-toggle-options" type="button"><i class="ri-menu-line"></i></button>
+              <h2 class="sidebar__header">Priorities</h2>
 
-        </div>
+              <ul class="sidebar__priority-list">
 
-        <div class="sidebar-view">
+                <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 1</li>
 
-          <div class="sidebar__priority">
+                <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 2</li>
 
-            <div class="category__details">
+                <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 3</li>
 
-              <h2 class="category__header">
-                <span class="category__dropdown-btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                       viewBox="0 0 24 24"
-                       stroke-width="1.5" stroke="currentColor"
-                       class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                  </svg>
-                </span>
-                Priorities
-              </h2>
+                <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 4</li>
 
-              <div class="priority-count"></div>
+              </ul>
 
             </div>
 
-            <ul class="sidebar__priority-list">
+            <div class="sidebar__tag">
 
-              <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 1</li>
+              <h2 class="sidebar__header">Tags</h2>
 
-              <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 2</li>
+              <ul class="sidebar__tag-list">
 
-              <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 3</li>
+              </ul>
 
-              <li class="sidebar__priority-item"><i class="ri-price-tag-3-fill"></i>Priority 4</li>
-
-            </ul>
+            </div>
 
           </div>
 
-          <div class="sidebar__tag">
-
-            <div class="category__details">
-
-              <h2 class="category__header">
-                <span class="category__dropdown-btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                       viewBox="0 0 24 24"
-                       stroke-width="1.5" stroke="currentColor"
-                       class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                  </svg>
-                </span>
-                Tags
-              </h2>
-
-              <div class="tag-count"></div>
-
-            </div>
-
-            <ul class="sidebar__tag-list">
-
-              <!-- <li class="sidebar__tag-item"><i class="ri-price-tag-3-fill"></i>Tag 1</li>
-
-              <li class="sidebar__tag-item"><i class="ri-price-tag-3-fill"></i>Tag 2</li>
-
-              <li class="sidebar__tag-item"><i class="ri-price-tag-3-fill"></i>Tag 3</li>
-
-              <li class="sidebar__tag-item"><i class="ri-price-tag-3-fill"></i>Tag 4</li> -->
-
-            </ul>
-
-          </div>
-
-        </div>
-
-
-        <div class="filter">
-          <header class="filter__header">
-            <div class="filter__view-selector">
-              <span class="filter__view-label">View:</span>
-              <button class="filter__view-btn filter__view-btn--active" data="list">List</button>
-              <button class="filter__view-btn" data="board">Board</button>
-              <button class="filter__view-btn" data="calendar">Calendar</button>
-            </div>
-            <div class="filter__toggle-completed">
-              <label for="completed-tasks" class="filter__toggle-label">
-                <input type="checkbox" id="completed-tasks" class="filter__toggle-input" />
-                Completed tasks
-              </label>
-            </div>
-          </header>
-
-          <section class="filter__options">
-            <div class="filter__sort">
-              <h3 class="filter__section-title">Sort by</h3>
-              <div class="filter__grouping">
-                <label for="grouping" class="filter__label">Grouping</label>
-                <select id="grouping" class="filter__select">
-                  <option value="none">None (default)</option>
-                </select>
-              </div>
-              <div class="filter__sorting">
-                <label for="sorting" class="filter__label">Sorting</label>
-                <select id="sorting" class="filter__select">
-                  <option value="date-added">Date added</option>
-                </select>
-              </div>
-              <div class="filter__direction">
-                <label for="direction" class="filter__label">Direction</label>
-                <select id="direction" class="filter__select">
-                  <option value="ascending">Ascending (default)</option>
-                  <option value="descending">Descending</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="filter__filter-by">
-              <h3 class="filter__section-title">filter by</h3>
-              <div class="filter__due-date">
-                <label for="due-date" class="filter__label">Due date</label>
-                <select id="due-date" class="filter__select">
-                  <option value="all">All (default)</option>
-                </select>
-              </div>
-              <div class="filter__priority">
-                <label for="priority" class="filter__label">Priority</label>
-                <select id="priority" class="filter__select">
-                  <option value="all">All (default)</option>
-                </select>
-              </div>
-              <div class="filter__label-filter">
-                <label for="label" class="filter__label">Label</label>
-                <select id="label" class="filter__select">
-                  <option value="all">All (default)</option>
-                </select>
-              </div>
-            </div>
-          </section>
-
-          <footer class="filter__footer">
-            <button class="filter__reset-btn">Reset all</button>
-          </footer>
         </div>
 
       </div>
