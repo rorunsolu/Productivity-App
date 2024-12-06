@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.btn-new-tag').addEventListener('click', popupCreateTag);
 
     document.querySelector('.btn-toggle-options').addEventListener('click', () => {
-        const filterTab = document.querySelector('.filter');
+        const filterTab = document.querySelector('.custom');
         filterTab.classList.toggle('hidden');
     });
 
