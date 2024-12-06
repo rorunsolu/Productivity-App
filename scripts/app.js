@@ -1177,6 +1177,20 @@ function updateBookmarkedNoteCount() {
     bookmarkedNoteCount.textContent = bookmarkedNotesArray.length;
 }
 
+function updateSidebarTagList() {
+    const sidebarTagList = document.querySelector('.sidebar__tag-list');
+    const tags = JSON.parse(localStorage.getItem('tags')) || [];
+
+    sidebarTagList.innerHTML = '';
+
+    tags.forEach(tag => {
+        const sidebarTagItem = document.createElement('li');
+        sidebarTagItem.classList.add('sidebar__tag-item');
+        sidebarTagItem.textContent = tag;
+        sidebarTagList.appendChild(sidebarTagItem);
+    });
+}
+
 function autoResize() {
     const textAreas = document.querySelectorAll('.popup__note-content, .popup-edit__note-content');
 
