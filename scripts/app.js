@@ -68,25 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
         showNotes();
     }
 
-    let isOldestFirst = true;
-
-    document.querySelector('.btn-sort-by-date').addEventListener('click', () => {
+    function sortByDate(sortValue) {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-        isOldestFirst = !isOldestFirst;
+        if (!Array.isArray(notes)) {
+            console.error('Notes is not an array:', notes);
+            return;
+        }
 
         notes.sort((a, b) => {
-            if (isOldestFirst) {
-                return new Date(a.creationDate) - new Date(b.creationDate);
-            } else {
+            if (sortValue === 'latest-date') {
                 return new Date(b.creationDate) - new Date(a.creationDate);
+            } else if (sortValue === 'oldest-date') {
+                return new Date(a.creationDate) - new Date(b.creationDate);
             }
         });
 
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-    });
+    }
 
     document.querySelector('.btn-filter-by-priority').addEventListener('click', () => {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
