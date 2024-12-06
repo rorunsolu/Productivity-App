@@ -1,24 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.btn-new-note').addEventListener('click', popupCreate);
+    document.querySelectorAll('.custom__select-trigger').forEach(trigger => {
+        trigger.addEventListener('click', (event) => {
+            const dropdown = trigger.nextElementSibling;
 
-    document.querySelector('.btn-new-tag').addEventListener('click', popupCreateTag);
+            const isVisible = !dropdown.classList.contains('hidden');
 
-    document.querySelectorAll('.category__dropdown-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const notesList = button.closest('.category').querySelector('.notes-list');
+            document.querySelectorAll('.custom__select-options').forEach(otherDropdown => {
+                otherDropdown.classList.add('hidden');
+            });
 
-            button.classList.toggle('rotate');
-
-            if (notesList) {
-                notesList.classList.toggle('hidden');
-                console.log('Toggled regular notes list:', notesList);
-                return;
+            if (!isVisible) {
+                dropdown.classList.toggle('hidden');
             }
 
-            const bookmarkedNotesList = button.closest('.category').querySelector('.bookmarked-notes-list');
-            if (bookmarkedNotesList) {
-                bookmarkedNotesList.classList.toggle('hidden');
-                console.log('Toggled bookmarked notes list:', bookmarkedNotesList);
+            event.stopPropagation();
+
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        document.querySelectorAll('.custom__select-options').forEach(dropdown => {
+            const eachSortingParent = dropdown.closest('.custom__select');
+            if (!eachSortingParent.contains(event.target)) {
+                dropdown.classList.add('hidden');
             }
         });
     });
