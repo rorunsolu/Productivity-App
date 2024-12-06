@@ -882,6 +882,253 @@ function keepChanges() {
     }
 }
 
+function filterByTag(tagName) {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    const filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
+    const notesList = document.querySelector('.notes-list');
+    const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
+
+    if (notesList && bookmarkedNotesList) {
+        document.body.querySelector('.note-app').classList.add('hidden');
+    }
+
+    const noteFilteringPopup = document.createElement('div');
+
+    const popupFilterHTML = `
+                <div class="popup-filter">
+                    <div class="popup-filter__top">
+                        <div class="popup-filter__context">
+                            <img src="images/tags-icon.png">
+                            <h3 class="popup-filter__header">Notes Tagged: ${tagName}</h3>
+                        </div>
+                        <button type="button" class="popup-filter__close-btn">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    </div>
+                    <div class="popup-filter__notes-list">
+
+                        ${filteredNotes.map(note => {
+        const date = new Date(note.creationDate);
+        const formattedDate = date.toLocaleDateString('en-uk', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        return `
+
+                        <div class="popup-filter__note" data-id="${note.id}">
+
+                            <div class="popup-filter__note-details">
+
+                                <h3 class="popup-filter__note-title">${note.title}</h3>
+
+                                <div class="popup-filter__note-options">
+
+                                    <button class="btn-delete-note" type="button" data-id="${note.id}">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </button>
+
+                                    <button class="btn-bookmark-note" type="button" data-id="${note.id}">
+                                        <i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <div class="popup-filter__note-content">
+                                <p class="popup-filter__note-text">${note.content}</p>
+                            </div>
+
+                            <div class="popup-filter__note-about">
+
+                                <span class="popup-filter__note-priority">
+                                    <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+                                    ${note.priority}
+                                </span>
+
+                                <span class="popup-filter__note-tag">
+                                    <i class="ri-price-tag-3-fill"></i>
+                                    ${note.tags}
+                                </span>
+
+                                <span class="popup-filter__note-date">
+                                    <time datetime="${note.creationDate}">${formattedDate}</time>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    `;
+
+    }).join('')}
+
+                    </div>
+
+                </div>
+            `;
+
+    noteFilteringPopup.innerHTML = popupFilterHTML;
+    noteFilteringPopup.classList.add('note-filtering-popup');
+
+    document.body.appendChild(noteFilteringPopup);
+    document.body.style.overflow = 'hidden';
+
+    noteFilteringPopup.querySelector('.popup-filter__close-btn').addEventListener('click', () => {
+        noteFilteringPopup.remove();
+        document.body.style.overflow = 'auto';
+        document.body.querySelector('.note-app').classList.remove('hidden');
+    });
+
+    const filteredNotesList = document.querySelector('.popup-filter__notes-list');
+
+    filteredNotesList.addEventListener('click', (event) => {
+        const note = event.target.closest('.popup-filter__note');
+
+        if (!note || !filteredNotesList.contains(note)) {
+            return;
+        }
+
+        if (
+            event.target.closest('.btn-delete-note') ||
+            event.target.closest('.btn-bookmark-note')
+        ) {
+            return;
+        }
+
+        const noteId = note.getAttribute('data-id');
+        popupEdit(noteId);
+    });
+
+    filteredNotesList.addEventListener('click', (event) => {
+        const deleteButton = event.target.closest('.btn-delete-note');
+        if (deleteButton) {
+            const noteId = deleteButton.getAttribute('data-id');
+            deleteNote(noteId);
+
+            reDisplayFilteredNotes(tagName);
+
+            // if (!noteFilteringPopup) {
+            //     document.body.style.overflow = 'auto';
+            // }
+        }
+    });
+
+    //! Delete below after confirmation that new method works in all cases
+    // noteFilteringPopup.addEventListener('click', (event) => {
+    //     if (event.target.closest('.popup-filter__note')) {
+    //         const noteId = event.target.closest('.popup-filter__note').getAttribute('data-id');
+    //         popupEdit(noteId);
+    //     }
+    // });
+}
+
+function reDisplayFilteredNotes(tagName) {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    const filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
+    const noteFilteringPopup = document.querySelector('.note-filtering-popup');
+    const noteEditingPopup = document.querySelector('.note-editing-popup');
+
+    noteFilteringPopup.innerHTML = '';
+    noteFilteringPopup.remove();
+
+    const noteFilteringPopupAfterChangesSaved = document.createElement('div');
+    noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
+
+    console.log('Notes found with tag:', tagName, filteredNotes);
+    console.log('The HTML element that displays the filtered notes:', noteFilteringPopupAfterChangesSaved);
+
+    const popupFilterHTML = `
+                <div class="popup-filter">
+                    <div class="popup-filter__top">
+                        <div class="popup-filter__context">
+                            <img src="images/tags-icon.png">
+                            <h3 class="popup-filter__header">Notes Tagged: ${tagName}</h3>
+                        </div>
+                        <button type="button" id="popup-filter__close-btn">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    </div>
+                    <div class="popup-filter__notes-list">
+
+                        ${filteredNotes.map(note => {
+        const date = new Date(note.creationDate);
+        const formattedDate = date.toLocaleDateString('en-uk', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        return `
+
+                        <div class="popup-filter__note" data-id="${note.id}">
+
+                            <div class="popup-filter__note-details">
+
+                                <h3 class="popup-filter__note-title">${note.title}</h3>
+
+                                <div class="popup-filter__note-options">
+
+                                    <button class="btn-delete-note" type="button" data-id="${note.id}">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </button>
+
+                                    <button class="btn-bookmark-note" type="button" data-id="${note.id}">
+                                        <i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <div class="popup-filter__note-content">
+                                <p class="popup-filter__note-text">${note.content}</p>
+                            </div>
+
+                            <div class="popup-filter__note-about">
+
+                                <span class="popup-filter__note-priority">
+                                    <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+                                    ${note.priority}
+                                </span>
+
+                                <span class="popup-filter__note-tag">
+                                    <i class="ri-price-tag-3-fill"></i>
+                                    ${note.tags}
+                                </span>
+
+                                <span class="popup-filter__note-date">
+                                    <time datetime="${note.creationDate}">${formattedDate}</time>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    `;
+
+    }).join('')}
+
+                    </div>
+
+                </div>
+            `;
+
+    noteFilteringPopupAfterChangesSaved.innerHTML = popupFilterHTML;
+
+    document.body.appendChild(noteFilteringPopupAfterChangesSaved);
+    document.body.style.overflow = 'hidden';
+
+    noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
+        document.body.querySelector('.note-app').classList.remove('hidden');
+
+        noteFilteringPopupAfterChangesSaved.remove();
+        document.body.style.overflow = 'auto';
+
+        if (noteEditingPopup) {
+            noteEditingPopup.remove();
+        }
+    });
+}
+
 function deleteNote(noteId) {
     let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
