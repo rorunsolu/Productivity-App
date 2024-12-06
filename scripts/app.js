@@ -212,13 +212,16 @@ function popupCreateTag() {
     const tagsInput = document.getElementById('popup-tags__input');
     const tags = JSON.parse(localStorage.getItem('tags')) || [];
 
-
-    //? Now that I think about it, it might be a good idea to have a sidebar that displays all of the tags when the page loads but i'll need to create a new function for that. Would also need to get called as frequently as the showNotes function too
     tags.forEach(tag => {
         const tagItem = document.createElement('li');
+        const icon = document.createElement('i');
 
         tagItem.classList.add('tag-item');
+        icon.classList.add('ri-delete-bin-line');
+
         tagItem.textContent = tag;
+
+        tagItem.appendChild(icon);
         tagsList.appendChild(tagItem);
 
         //*upon opening the popup the script will display the existing tags so yes I do need to "do this" twice plus ion have to do another function like showNotes since i won't be assigning an ID for any of the tags
@@ -246,14 +249,16 @@ function popupCreateTag() {
 
                 console.log('Tag Created:', tag);
                 console.log('Tags in localStorage:', tags);
+
+                updateSidebarTagList();
             }
         }
     });
 
     tagsList.addEventListener('click', function (event) {
-        if (event.target.classList.contains('tag-item')) {
-            const tagItem = event.target;
-            const tag = tagItem.textContent;
+        if (event.target.classList.contains('ri-delete-bin-line')) {
+            const tagItem = event.target.parentElement;
+            const tag = tagItem.textContent.trim();
             const tagIndex = tags.indexOf(tag);
 
             if (tagIndex > -1) {
@@ -265,15 +270,22 @@ function popupCreateTag() {
                 console.log('Tag Deleted:', tag);
                 console.log('Updated list of tags in localStorage:', tags);
 
-                //? do i even need this here??
-                showNotes();
+                const sidebarTags = document.querySelectorAll('.sidebar__tag-item');
+                sidebarTags.forEach(sidebarTag => {
+                    if (sidebarTag.textContent.trim() === tag) {
+                        sidebarTag.remove();
+                    }
+                });
 
-                //* the function that for refreshing the display of tags (if i do end up creating another area that displays them) will need to be called once the deletion happens
+                showNotes();
+                updateSidebarTagList();
             }
         }
     });
 
-    document.querySelector('.popup-tags__close-btn').addEventListener('click', closePopup);
+    document.querySelector('.popup-tags__close-btn').addEventListener('click', () => {
+        tagCreatingPopup.remove();
+    });
 }
 
 function noteCreation() {
