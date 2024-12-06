@@ -63,7 +63,6 @@
     }
 
     &__sort {
-        margin-bottom: 0.25rem;
         padding-bottom: 0.75rem;
 
         &-title {
@@ -130,22 +129,6 @@
             &:hover {
                 background-color: hsl(0, 0%, 38%);
             }
-        }
-    }
-
-    &__reset-btn {
-        display: inline-block;
-        text-align: left;
-
-        width: 100%;
-
-        padding: 0.5rem 1rem;
-
-        background: none;
-        color: var(--text-color-btn-del);
-
-        &:hover {
-            background-color: var(--bg-color-modal-hover);
         }
     }
 }
