@@ -655,6 +655,7 @@ function createNote() {
         updateBookmarkedNoteCount();
 
         console.log('Properties of the created note:', note);
+        console.log('Notes in localStorage after creation:', storedNotes);
     }
 
     else {
