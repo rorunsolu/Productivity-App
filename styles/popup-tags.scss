@@ -4,7 +4,7 @@
     padding: var(--padding-note);
 
     width: 90%;
-    min-height: 300px;
+    max-width: 300px;
 
     background-color: var(--bg-color-modal);
 
@@ -70,8 +70,8 @@
         flex-direction: column;
         gap: 0.5rem;
 
-        width: 100%;
-        width: 300px;
+        //width: 100%;
+        //width: 300px;
         min-height: 2.25rem;
     }
 }
