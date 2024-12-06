@@ -868,6 +868,19 @@ function deleteNote(noteId) {
 
     localStorage.setItem('notes', JSON.stringify(notes));
 
+    document.body.style.overflow = 'auto';
+
+    // const noteFilteringPopup = document.querySelector('.note-filtering-popup');
+
+    // if (noteFilteringPopup) {
+    //     //const tagName = noteEditingPopup.querySelector('.popup-edit__tags-open-btn').textContent.trim();
+    //     const tagName = noteId.tags;
+    //     console.log('Tag name:', tagName);
+    //     noteFilteringPopup.remove();
+
+    //     reDisplayFilteredNotes(tagName);
+    // }
+
     showNotes();
     updateNoteCount();
     updateBookmarkedNoteCount();
