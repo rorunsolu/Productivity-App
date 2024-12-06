@@ -740,8 +740,8 @@ function showNotes() {
         button.addEventListener('click', (event) => {
             let noteId = null;
             if (event.target.classList.contains('btn-delete-note')) {
-                noteId = event.target.getAttribute('data-id');
-                deleteNote(String(noteId));
+                const noteId = event.target.getAttribute('data-id');
+                deleteNote(noteId);
                 console.log('Delete button clicked. Note ID to delete:', noteId);
             }
         });
