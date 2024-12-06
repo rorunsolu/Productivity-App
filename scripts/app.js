@@ -89,24 +89,73 @@ document.addEventListener('DOMContentLoaded', () => {
         showNotes();
     }
 
-    document.querySelector('.btn-filter-by-priority').addEventListener('click', () => {
+    function sortByPriority(sortValue) {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-       
+        if (!Array.isArray(notes)) {
+            console.error('Notes is not an array:', notes);
+            return;
+        }
+
+        notes.forEach(note => {
+            if (typeof note.priority !== 'string') {
+                console.error('Note priority is not a string:', note);
+            }
+        });
+
+        notes.sort((a, b) => {
+            if (sortValue === 'descending-priority') {
+                return a.priority.localeCompare(b.priority, undefined, { sensitivity: 'base' });
+            } else if (sortValue === 'ascending-priority') {
+                return b.priority.localeCompare(a.priority, undefined, { sensitivity: 'base' });
+            }
+        });
+
+        localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
+    }
+
+    document.querySelector('.btn-new-note').addEventListener('click', noteCreation);
+
+    document.querySelector('.btn-new-tag').addEventListener('click', popupCreateTag);
+
+    document.querySelector('.btn-toggle-options').addEventListener('click', () => {
+        const filterTab = document.querySelector('.filter');
+        filterTab.classList.toggle('hidden');
     });
 
-    //! this needs to be be ran when the DOM is fully loaded NOT when the popup is created
-    const sidebarTagList = document.querySelector('.sidebar__tag-list');
-    const tags = JSON.parse(localStorage.getItem('tags')) || [];
+    document.querySelectorAll('.category__dropdown-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const notesList = button.closest('.category').querySelector('.notes-list');
 
-    tags.forEach(tag => {
-        const sidebarTagItem = document.createElement('li');
-        sidebarTagItem.classList.add('sidebar__tag-item');
-        sidebarTagItem.textContent = tag;
-        sidebarTagList.appendChild(sidebarTagItem);
-    })
+            button.classList.toggle('rotate');
+
+            if (notesList) {
+                notesList.classList.toggle('hidden');
+                console.log('Toggled regular notes list:', notesList);
+                return;
+            }
+
+            const bookmarkedNotesList = button.closest('.category').querySelector('.bookmarked-notes-list');
+            if (bookmarkedNotesList) {
+                bookmarkedNotesList.classList.toggle('hidden');
+                console.log('Toggled bookmarked notes list:', bookmarkedNotesList);
+            }
+        });
+    });
+
+    document.querySelector('.sidebar__tag-list').addEventListener('click', (event) => {
+        const clickedTag = event.target;
+
+        if (clickedTag.classList.contains('sidebar__tag-item')) {
+            const tagName = clickedTag.textContent.trim();
+            console.log('Clicked Tag:', tagName);
+            filterByTag(tagName);
+        }
+    });
+
+    updateSidebarTagList();
 });
 
 function popupCreateTag() {
