@@ -159,10 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function popupCreateTag() {
-    const popupContainer = document.createElement('div');
-    popupContainer.classList.add('popup-container');
+    const tagCreatingPopup = document.createElement('div');
+    tagCreatingPopup.classList.add('tag-creation-popup');
 
-    popupContainer.innerHTML = `
+    tagCreatingPopup.innerHTML = `
     
         <div class="popup-tags">
 
@@ -206,8 +206,7 @@ function popupCreateTag() {
     
     `;
 
-    //check that all variables actually exists in the DOM before doing anything with them man...
-    document.body.appendChild(popupContainer);
+    document.body.appendChild(tagCreatingPopup);
 
     const tagsList = document.querySelector('.popup-tags__list');
     const tagsInput = document.getElementById('popup-tags__input');
@@ -277,9 +276,9 @@ function popupCreateTag() {
     document.querySelector('.popup-tags__close-btn').addEventListener('click', closePopup);
 }
 
-function popupCreate() {
-    const popupContainer = document.createElement('div');
-    popupContainer.classList.add('popup-container');
+function noteCreation() {
+    const noteCreationPopup = document.createElement('div');
+    noteCreationPopup.classList.add('note-creation-popup');
 
     popupContainer.innerHTML = `
 
@@ -355,17 +354,17 @@ function popupCreate() {
 
     `;
 
-    document.body.appendChild(popupContainer);
+    document.body.appendChild(noteCreationPopup);
     document.body.style.overflow = 'hidden';
 
     const createTextArea = document.querySelector('.popup__note-content');
     createTextArea.addEventListener('input', autoResize);
     autoResize.call(createTextArea);
 
-    const prioritiesBtnList = popupContainer.querySelector('.popup__priorities-btn-list');
+    const prioritiesBtnList = noteCreationPopup.querySelector('.popup__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
 
-    const tagsBtnList = popupContainer.querySelector('.popup__tags-btn-list');
+    const tagsBtnList = noteCreationPopup.querySelector('.popup__tags-btn-list');
     tagsBtnList.style.display = 'none';
 
     popupContainer.querySelector('.popup__save-btn').addEventListener('click', createNote);
@@ -478,17 +477,17 @@ function popupEdit(noteId) {
 
     `;
 
-    document.body.appendChild(editingPopup);
+    document.body.appendChild(noteEditingPopup);
     document.body.style.overflow = 'hidden';
 
     const editTextArea = document.querySelector('.popup-edit__note-content');
     editTextArea.addEventListener('input', autoResize);
     autoResize.call(editTextArea);
 
-    const prioritiesBtnList = editingPopup.querySelector('.popup-edit__priorities-btn-list');
+    const prioritiesBtnList = noteEditingPopup.querySelector('.popup-edit__priorities-btn-list');
     prioritiesBtnList.style.display = 'none';
 
-    const tagsBtnList = editingPopup.querySelector('.popup-edit__tags-btn-list');
+    const tagsBtnList = noteEditingPopup.querySelector('.popup-edit__tags-btn-list');
     tagsBtnList.style.display = 'none';
 
     editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
@@ -598,7 +597,7 @@ function closePopup() {
 }
 
 function createNote() {
-    const popupContainer = document.querySelector('.popup-container');
+    const noteCreationPopup = document.querySelector('.note-creation-popup');
     const noteTitle = document.querySelector('.popup__note-title').value;
     const noteContent = document.querySelector('.popup__note-content').value;
     const prioritiesBtnOpen = document.querySelector('.popup__priorities-open-btn');
@@ -628,7 +627,8 @@ function createNote() {
         document.querySelector('.popup__note-title').value = "";
         document.querySelector('.popup__note-content').value = "";
 
-        popupContainer.remove();
+        noteCreationPopup.remove();
+
         showNotes();
         updateNoteCount();
         updateBookmarkedNoteCount();
@@ -637,7 +637,7 @@ function createNote() {
     }
 
     else {
-        closePopup();
+        noteCreationPopup.remove();
     }
 }
 
@@ -832,7 +832,7 @@ function keepChanges() {
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
     const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn').textContent;
     const tagsBtnOpen = document.querySelector('.popup-edit__tags-open-btn').textContent;
-    const editingPopup = document.querySelector('.popup-edit');
+    const noteEditingPopup = document.querySelector('.note-editing-popup');
 
     if (noteTitle !== "" && noteContent !== "") {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
