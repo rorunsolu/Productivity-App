@@ -395,21 +395,17 @@ function popupEdit(noteId) {
     const noteContent = noteToEdit ? noteToEdit.content : "";
     const notePriority = noteToEdit ? noteToEdit.priority : "";
     const noteTag = noteToEdit ? noteToEdit.tags : "";
-    const editingPopup = document.createElement('div');
+    const noteEditingPopup = document.createElement('div');
 
-    editingPopup.classList.add('popup-container');
-    const existingPopup = document.querySelector('.popup-container');
-
-    if (existingPopup) {
-        existingPopup.remove();
-    }
+    noteEditingPopup.classList.add('note-editing-popup');
+    noteEditingPopup.dataset.id = noteId;
 
     if (!noteToEdit) {
         console.error('Note not found!');
         return;
     }
 
-    editingPopup.innerHTML = `
+    noteEditingPopup.innerHTML = `
     
         <div class="popup-edit" data-id="${noteId}">
 
@@ -502,10 +498,18 @@ function popupEdit(noteId) {
     const tagsBtnList = noteEditingPopup.querySelector('.popup-edit__tags-btn-list');
     tagsBtnList.style.display = 'none';
 
-    editingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', keepChanges);
-    editingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', closePopup);
-    editingPopup.querySelector('.popup-edit__priorities-open-btn').addEventListener('click', togglePriorityOptions);
-    editingPopup.querySelector('.popup-edit__tags-open-btn').addEventListener('click', toggleTagOptions);
+    noteEditingPopup.querySelector('.popup-edit__priorities-open-btn').addEventListener('click', togglePriorityOptions);
+    noteEditingPopup.querySelector('.popup-edit__tags-open-btn').addEventListener('click', toggleTagOptions);
+
+    noteEditingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', () => {
+        const tagName = noteEditingPopup.querySelector('.popup-edit__tags-open-btn').textContent.trim();
+        saveChangesToNote(tagName);
+    });
+
+    noteEditingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', () => {
+        noteEditingPopup.remove();
+        document.body.style.overflow = 'auto';
+    });
 
     setupPriorityButtons();
     renderTags();
