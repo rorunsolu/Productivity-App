@@ -602,16 +602,6 @@ function setupPriorityButtons() {
     }
 }
 
-function closePopup() {
-    const popupContainer = document.querySelector('.popup-container');
-
-    if (popupContainer) {
-        popupContainer.remove();
-
-        document.body.style.overflow = 'auto';
-    }
-}
-
 function createNote() {
     const noteCreationPopup = document.querySelector('.note-creation-popup');
     const noteTitle = document.querySelector('.popup__note-title').value;
@@ -661,8 +651,6 @@ function createNote() {
 }
 
 function showNotes() {
-    console.log('Current Notes State:', JSON.parse(localStorage.getItem('notes')));
-
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const notesList = document.querySelector('.notes-list');
     const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
@@ -733,7 +721,6 @@ function showNotes() {
     notesToOpen.forEach(note => {
         note.addEventListener('click', (event) => {
             if (
-                event.target.closest('.btn-edit-note') ||
                 event.target.closest('.btn-delete-note') ||
                 event.target.closest('.btn-bookmark-note')
             ) {
@@ -757,7 +744,6 @@ function showNotes() {
     const deleteNoteButtons = document.querySelectorAll('.btn-delete-note');
     deleteNoteButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-            let noteId = null;
             if (event.target.classList.contains('btn-delete-note')) {
                 const noteId = event.target.getAttribute('data-id');
                 deleteNote(noteId);
@@ -1159,7 +1145,6 @@ function updateNoteCount() {
     const notesList = document.querySelector('.notes-list');
     const notes = notesList.querySelectorAll('.note');
     const unbookmarkedNoteArray = Array.from(notes);
-    console.log('All unbookmarked notes:', unbookmarkedNoteArray);
     unbookmarkedNoteCount.textContent = unbookmarkedNoteArray.length;
 }
 
@@ -1203,12 +1188,3 @@ function autoResize() {
 showNotes();
 updateNoteCount();
 updateBookmarkedNoteCount();
-
-//* Tagging feature (multiple tags per note)
-// 1. Clicking the add new tag btn opens a popup
-// 2. The popup will allow the user to create tags by typing them into an input field
-// 3. Clicking the add tag button (next to the input field) will add the tag to the array of tags OF THE TAGLIST NOT THE NOTES TAG ARRAY (the tagList var)
-// 4. When creating or editing a note, the user can click the tags option btn and the dropdown will display the list of tags pulled from the tagsList var array
-// 5. Clicking a tag from the dropdown will add it to that specific note's tags array
-// 6. Clicking the remove tag button (small X icon inside the tag itself) will remove the tag from the note OBJECT's tags array
-//! Obvs the tags added to the notes will need to be displayed every time notes are shown so I'll need to update the functions accordingly
