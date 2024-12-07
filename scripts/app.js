@@ -564,22 +564,14 @@ function setupPriorityButtons() {
                 };
 
                 prioritiesBtnOpen.textContent = `Priority ${priority}`.trim();
-                console.log('Priority:', priority);
-
                 prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
-
                 prioritiesBtnOpen.style.color = colorMap[priority];
-                console.log('Color being set:', colorMap[priority]);
-
                 prioritiesBtnList.style.display = 'none';
-                console.log(`Priority set to ${priority}`);
             });
         });
     } else {
         const prioritiesBtnOpenEdit = document.querySelector('.popup-edit__priorities-open-btn');
         const prioritiesBtnListEdit = document.querySelector('.popup-edit__priorities-btn-list');
-        console.log('prioritiesBtnOpenEdit class is:', prioritiesBtnOpenEdit);
-        console.log('prioritiesBtnListEdit class is:', prioritiesBtnListEdit);
 
         if (prioritiesBtnOpenEdit && prioritiesBtnListEdit) {
             let priorityButtons = prioritiesBtnListEdit.querySelectorAll('.popup-edit__priority-btn');
@@ -595,15 +587,9 @@ function setupPriorityButtons() {
                     };
 
                     prioritiesBtnOpenEdit.textContent = `Priority ${priority}`.trim();
-                    console.log('Priority after edit:', priority);
-
                     prioritiesBtnOpenEdit.style.backgroundColor = 'hsl(0, 0%, 25%)';
-
                     prioritiesBtnOpenEdit.style.color = colorMap[priority];
-                    console.log('Color being changed to:', colorMap[priority], 'after edit');
-
                     prioritiesBtnListEdit.style.display = 'none';
-                    console.log(`Priority has been changed to ${priority}`);
                 });
             });
         } else {
