@@ -1012,10 +1012,6 @@ function filterByTag(tagName) {
             deleteNote(noteId);
 
             reDisplayFilteredNotes(tagName);
-
-            // if (!noteFilteringPopup) {
-            //     document.body.style.overflow = 'auto';
-            // }
         }
     });
 }
