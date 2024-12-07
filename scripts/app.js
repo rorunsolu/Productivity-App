@@ -831,8 +831,8 @@ function bookmarkNote(noteId) {
 function saveChangesToNote(tagName) {
     const noteTitle = document.querySelector('.popup-edit__note-title').value.trim();
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
-    const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn').textContent;
-    const tagsBtnOpen = document.querySelector('.popup-edit__tags-open-btn').textContent;
+    const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn');
+    const tagsBtnOpen = document.querySelector('.popup-edit__tags-open-btn').textContent.trim();
     const noteEditingPopup = document.querySelector('.note-editing-popup');
 
     if (noteTitle !== "" && noteContent !== "") {
@@ -845,8 +845,8 @@ function saveChangesToNote(tagName) {
                     ...note,
                     title: noteTitle,
                     content: noteContent,
-                    priority: prioritiesBtnOpen,
-                    priorityColor: document.querySelector('.popup-edit__priorities-open-btn').style.color,
+                    priority: prioritiesBtnOpen.textContent.trim(),
+                    priorityColor: prioritiesBtnOpen.style.color || note.priorityColor,
                     tags: tagsBtnOpen
                 };
 
