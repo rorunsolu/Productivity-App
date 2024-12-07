@@ -1,24 +1,7 @@
-.sidebar-view {
-    //width: 300px;
-    //padding-left: 1rem;
-
-        padding: var(--padding-note);
-        padding-top: 0;
-
-        //background: var(--bg-color-note);
-}
-
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-
-    min-width: 300px;
     width: 30%;
 
     margin-top: 3rem;
-
-    //margin: 0 auto;
 
     &__options {
         display: flex;
@@ -35,10 +18,6 @@
         margin-bottom: 1.5rem;
         padding: var(--padding-note);
 
-        max-height: 300px;
-
-        overflow-y: scroll;
-
         background: var(--bg-color-note);
 
         &-list {
@@ -50,10 +29,8 @@
         &-item {
             display: flex;
             align-items: center;
-            text-align: left;
 
             height: 2.25rem;
-            width: 100%;
 
             border: 1px solid rgba(255, 255, 255, 0.125);
             border-radius: var(--border-radius);
@@ -66,6 +43,10 @@
             cursor: pointer;
 
             transition: var(--transition);
+
+            &:hover {
+                background: var(--bg-color-modal-hover);
+            }
 
             i {
                 pointer-events: none;
@@ -87,8 +68,6 @@
         margin-bottom: 1.5rem;
         padding: var(--padding-note);
 
-        //max-height: 300px;
-
         overflow-y: scroll;
 
         background: var(--bg-color-note);
@@ -105,7 +84,6 @@
             text-align: left;
 
             height: 2.25rem;
-            width: 100%;
 
             border: 1px solid rgba(255, 255, 255, 0.125);
             border-radius: var(--border-radius);
@@ -119,6 +97,10 @@
 
             transition: var(--transition);
 
+            &:hover {
+                background: var(--bg-color-modal-hover);
+            }
+
             i {
                 pointer-events: none;
 
@@ -128,8 +110,6 @@
     }
 
     &__header {
-        margin-bottom: 1rem;
-
         font-size: var(--font-size-heading-category);
 
         color: #ffffff;
