@@ -155,6 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.querySelector('.sidebar__priority-list').addEventListener('click', (event) => {
+        const clickedPriority = event.target;
+
+        if (clickedPriority.classList.contains('sidebar__priority-item')) {
+            const priorityValue = clickedPriority.textContent.trim();
+            console.log('Clicked Priority:', priorityValue);
+            filterByPriority(priorityValue);
+        }
+    });
+
     updateSidebarTagList();
 });
 
@@ -1008,14 +1018,15 @@ function filterByTag(tagName) {
             // }
         }
     });
+}
 
-    //! Delete below after confirmation that new method works in all cases
-    // noteFilteringPopup.addEventListener('click', (event) => {
-    //     if (event.target.closest('.popup-filter__note')) {
-    //         const noteId = event.target.closest('.popup-filter__note').getAttribute('data-id');
-    //         popupEdit(noteId);
-    //     }
-    // });
+function filterByPriority(priorityValue) {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    const filteredNotes = notes.filter(note => note.priority == priorityValue);
+    console.log('Notes found with priority:', priorityValue, filteredNotes);
+
+    //! I dont think this is gonna work as intended because i have an issue where if i edit the note text for example but dont update or re-select the prioritiy then the prioritiy ends up blank everywhere for that specific note. and using console log to show the values of a note the it shows this for the priority "priority: "\n                            Priority 1\n                        ""
+
 }
 
 function reDisplayFilteredNotes(tagName) {
