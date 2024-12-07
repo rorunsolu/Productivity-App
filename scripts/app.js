@@ -553,7 +553,7 @@ function setupPriorityButtons() {
                     '4': 'hsl(215, 100%, 50%)',
                 };
 
-                prioritiesBtnOpen.textContent = `Priority ${priority}`;
+                prioritiesBtnOpen.textContent = `Priority ${priority}`.trim();
                 console.log('Priority:', priority);
 
                 prioritiesBtnOpen.style.backgroundColor = 'hsl(0, 0%, 25%)';
@@ -584,7 +584,7 @@ function setupPriorityButtons() {
                         '4': 'hsl(215, 100%, 50%)',
                     };
 
-                    prioritiesBtnOpenEdit.textContent = `Priority ${priority}`;
+                    prioritiesBtnOpenEdit.textContent = `Priority ${priority}`.trim();
                     console.log('Priority after edit:', priority);
 
                     prioritiesBtnOpenEdit.style.backgroundColor = 'hsl(0, 0%, 25%)';
@@ -616,7 +616,7 @@ function createNote() {
             content: noteContent,
             creationDate: new Date().toISOString(),
             bookmarked: false,
-            priority: prioritiesBtnOpen.textContent,
+            priority: prioritiesBtnOpen.textContent.trim(),
             priorityColor: prioritiesBtnOpen.style.color,
             tags: [tagName]
         };
