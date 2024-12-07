@@ -845,8 +845,17 @@ function saveChangesToNote(tagName) {
 
         const noteMap = notes.map(note => {
             if (String(note.id) === String(noteId)) {
-                console.log('12. Updating note:', note);
-                return { ...note, title: noteTitle, content: noteContent, priority: prioritiesBtnOpen, priorityColor: document.querySelector('.popup-edit__priorities-open-btn').style.color, tags: tagsBtnOpen };
+                const updatedNote = {
+                    ...note,
+                    title: noteTitle,
+                    content: noteContent,
+                    priority: prioritiesBtnOpen,
+                    priorityColor: document.querySelector('.popup-edit__priorities-open-btn').style.color,
+                    tags: tagsBtnOpen
+                };
+
+                console.log('12. Updating note:', updatedNote);
+                return updatedNote;
             }
             return note;
         });
