@@ -398,7 +398,7 @@ function noteCreation() {
     renderTags();
 }
 
-function popupEdit(noteId) {
+function popupEdit(noteId, originalTagName) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const noteToEdit = notes.find(note => String(note.id) === String(noteId));
     const noteTitle = noteToEdit ? noteToEdit.title : "";
@@ -512,8 +512,9 @@ function popupEdit(noteId) {
     noteEditingPopup.querySelector('.popup-edit__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     noteEditingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', () => {
-        const tagName = noteEditingPopup.querySelector('.popup-edit__tags-open-btn').textContent.trim();
-        saveChangesToNote(tagName);
+        //const tagName = noteEditingPopup.querySelector('.popup-edit__tags-open-btn').textContent.trim();
+        //saveChangesToNote(tagName);
+        saveChangesToNote(originalTagName);
     });
 
     noteEditingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', () => {
@@ -828,7 +829,7 @@ function bookmarkNote(noteId) {
     }
 }
 
-function saveChangesToNote(tagName) {
+function saveChangesToNote(originalTagName) {
     const noteTitle = document.querySelector('.popup-edit__note-title').value.trim();
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
     const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn');
@@ -861,7 +862,7 @@ function saveChangesToNote(tagName) {
         const noteFilteringPopup = document.querySelector('.note-filtering-popup');
 
         if (noteFilteringPopup) {
-            refreshFilterByTagPopup(tagName);
+            refreshFilterByTagPopup(originalTagName);
         } else {
             document.body.style.overflow = 'auto';
 
@@ -988,7 +989,7 @@ function filterByTag(tagName) {
         }
 
         const noteId = note.getAttribute('data-id');
-        popupEdit(noteId);
+        popupEdit(noteId, tagName);
     });
 
     filteredNotesList.addEventListener('click', (event) => {
@@ -1339,7 +1340,6 @@ function refreshFilterByPriorityPopup(priorityValue) {
         }
     });
 }
-
 
 function deleteNote(noteId) {
     let notes = JSON.parse(localStorage.getItem('notes')) || [];
