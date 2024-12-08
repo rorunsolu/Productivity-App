@@ -398,7 +398,7 @@ function noteCreation() {
     renderTags();
 }
 
-function popupEdit(noteId, originalTagName) {
+function popupEdit(noteId, originalTagName, originalPriority) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const noteToEdit = notes.find(note => String(note.id) === String(noteId));
     const noteTitle = noteToEdit ? noteToEdit.title : "";
@@ -512,9 +512,7 @@ function popupEdit(noteId, originalTagName) {
     noteEditingPopup.querySelector('.popup-edit__tags-open-btn').addEventListener('click', toggleTagOptions);
 
     noteEditingPopup.querySelector('.popup-edit__save-btn').addEventListener('click', () => {
-        //const tagName = noteEditingPopup.querySelector('.popup-edit__tags-open-btn').textContent.trim();
-        //saveChangesToNote(tagName);
-        saveChangesToNote(originalTagName);
+        saveChangesToNote(originalTagName, originalPriority);
     });
 
     noteEditingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', () => {
@@ -829,7 +827,7 @@ function bookmarkNote(noteId) {
     }
 }
 
-function saveChangesToNote(originalTagName) {
+function saveChangesToNote(originalTagName, originalPriority) {
     const noteTitle = document.querySelector('.popup-edit__note-title').value.trim();
     const noteContent = document.querySelector('.popup-edit__note-content').value.trim();
     const prioritiesBtnOpen = document.querySelector('.popup-edit__priorities-open-btn');
@@ -862,7 +860,7 @@ function saveChangesToNote(originalTagName) {
         const noteFilteringPopup = document.querySelector('.note-filtering-popup');
 
         if (noteFilteringPopup) {
-            refreshFilterByTagPopup(originalTagName);
+            refreshFilterPopup(originalTagName, originalPriority);
         } else {
             document.body.style.overflow = 'auto';
 
@@ -870,7 +868,6 @@ function saveChangesToNote(originalTagName) {
         }
 
         showNotes();
-
     }
 }
 
@@ -998,7 +995,8 @@ function filterByTag(tagName) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
 
-            refreshFilterByTagPopup(tagName);
+            //refreshFilterByTagPopup(tagName);
+            refreshFilterPopup(tagName, null);
         }
     });
 }
@@ -1120,7 +1118,8 @@ function filterByPriority(priorityValue) {
         }
 
         const noteId = note.getAttribute('data-id');
-        popupEdit(noteId);
+        //popupEdit(noteId);
+        popupEdit(noteId, null, priorityValue);
     });
 
     filteredNotesList.addEventListener('click', (event) => {
@@ -1129,16 +1128,301 @@ function filterByPriority(priorityValue) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
 
-            refreshFilterByPriorityPopup(priorityValue);
+            //refreshFilterByPriorityPopup(priorityValue);
+            refreshFilterPopup(null, priorityValue);
         }
     });
 }
 
-function refreshFilterByTagPopup(tagName) {
+// function refreshFilterByTagPopup(tagName) {
+//     const notes = JSON.parse(localStorage.getItem('notes')) || [];
+//     const filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
+//     const noteFilteringPopup = document.querySelector('.note-filtering-popup');
+//     const noteEditingPopup = document.querySelector('.note-editing-popup');
+
+//     noteFilteringPopup.innerHTML = '';
+//     noteFilteringPopup.remove();
+
+//     const noteFilteringPopupAfterChangesSaved = document.createElement('div');
+//     noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
+
+//     console.log('Notes found with tag:', tagName, filteredNotes);
+//     console.log('The HTML element that displays the filtered notes:', noteFilteringPopupAfterChangesSaved);
+
+//     const popupFilterHTML = `
+//                 <div class="popup-filter">
+//                     <div class="popup-filter__top">
+//                         <div class="popup-filter__context">
+//                             <img src="images/tags-icon.png">
+//                             <h3 class="popup-filter__header">Notes with the Tag ${tagName}</h3>
+//                         </div>
+//                         <button type="button" id="popup-filter__close-btn">
+//                             <i class="ri-close-line"></i>
+//                         </button>
+//                     </div>
+//                     <div class="popup-filter__notes-list">
+
+//                         ${filteredNotes.map(note => {
+//         const date = new Date(note.creationDate);
+//         const formattedDate = date.toLocaleDateString('en-uk', {
+//             year: 'numeric',
+//             month: 'long',
+//             day: 'numeric'
+//         });
+
+//         return `
+
+//                         <div class="popup-filter__note" data-id="${note.id}">
+
+//                             <div class="popup-filter__note-details">
+
+//                                 <h3 class="popup-filter__note-title">${note.title}</h3>
+
+//                                 <div class="popup-filter__note-options">
+
+//                                     <button class="btn-delete-note" type="button" data-id="${note.id}">
+//                                         <i class="ri-delete-bin-line"></i>
+//                                     </button>
+
+//                                     <button class="btn-bookmark-note" type="button" data-id="${note.id}">
+//                                         <i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i>
+//                                     </button>
+
+//                                 </div>
+//                             </div>
+
+//                             <div class="popup-filter__note-content">
+//                                 <p class="popup-filter__note-text">${note.content}</p>
+//                             </div>
+
+//                             <div class="popup-filter__note-about">
+
+//                                 <span class="popup-filter__note-priority">
+//                                     <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+//                                     ${note.priority}
+//                                 </span>
+
+//                                 <span class="popup-filter__note-tag">
+//                                     <i class="ri-price-tag-3-fill"></i>
+//                                     ${note.tags}
+//                                 </span>
+
+//                                 <span class="popup-filter__note-date">
+//                                     <time datetime="${note.creationDate}">${formattedDate}</time>
+//                                 </span>
+
+//                             </div>
+
+//                         </div>
+//                     `;
+
+//     }).join('')}
+
+//                     </div>
+
+//                 </div>
+//             `;
+
+//     noteFilteringPopupAfterChangesSaved.innerHTML = popupFilterHTML;
+
+//     document.body.appendChild(noteFilteringPopupAfterChangesSaved);
+//     document.body.style.overflow = 'hidden';
+
+//     noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
+//         document.body.querySelector('.note-app').classList.remove('hidden');
+
+//         noteFilteringPopupAfterChangesSaved.remove();
+//         document.body.style.overflow = 'auto';
+
+//         if (noteEditingPopup) {
+//             noteEditingPopup.remove();
+//         }
+//     });
+
+//     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
+
+//     filteredNotesList.addEventListener('click', (event) => {
+//         const note = event.target.closest('.popup-filter__note');
+
+//         if (!note || !filteredNotesList.contains(note)) {
+//             return;
+//         }
+
+//         if (
+//             event.target.closest('.btn-delete-note') ||
+//             event.target.closest('.btn-bookmark-note')
+//         ) {
+//             return;
+//         }
+
+//         const noteId = note.getAttribute('data-id');
+//         popupEdit(noteId, tagName);
+//     });
+
+//     filteredNotesList.addEventListener('click', (event) => {
+//         const deleteButton = event.target.closest('.btn-delete-note');
+//         if (deleteButton) {
+//             const noteId = deleteButton.getAttribute('data-id');
+//             deleteNote(noteId);
+
+//             refreshFilterByTagPopup(tagName);
+//         }
+//     });
+// }
+
+
+
+
+// function refreshFilterByPriorityPopup(priorityValue) {
+//     const notes = JSON.parse(localStorage.getItem('notes')) || [];
+//     const filteredNotes = notes.filter(note => note.priority == priorityValue);
+//     const noteFilteringPopup = document.querySelector('.note-filtering-popup');
+//     const noteEditingPopup = document.querySelector('.note-editing-popup');
+
+//     noteFilteringPopup.innerHTML = '';
+//     noteFilteringPopup.remove();
+
+//     const noteFilteringPopupAfterChangesSaved = document.createElement('div');
+//     noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
+
+//     const popupFilterHTML = `
+//                 <div class="popup-filter">
+//                     <div class="popup-filter__top">
+//                         <div class="popup-filter__context">
+//                             <img src="images/priority-icon.png">
+//                             <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
+//                         </div>
+//                         <button type="button" id="popup-filter__close-btn">
+//                             <i class="ri-close-line"></i>
+//                         </button>
+//                     </div>
+//                     <div class="popup-filter__notes-list">
+
+//                         ${filteredNotes.map(note => {
+//         const date = new Date(note.creationDate);
+//         const formattedDate = date.toLocaleDateString('en-uk', {
+//             year: 'numeric',
+//             month: 'long',
+//             day: 'numeric'
+//         });
+
+//         return `
+
+//                         <div class="popup-filter__note" data-id="${note.id}">
+
+//                             <div class="popup-filter__note-details">
+
+//                                 <h3 class="popup-filter__note-title">${note.title}</h3>
+
+//                                 <div class="popup-filter__note-options">
+
+//                                     <button class="btn-delete-note" type="button" data-id="${note.id}">
+//                                         <i class="ri-delete-bin-line"></i>
+//                                     </button>
+
+//                                     <button class="btn-bookmark-note" type="button" data-id="${note.id}">
+//                                         <i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i>
+//                                     </button>
+
+//                                 </div>
+//                             </div>
+
+//                             <div class="popup-filter__note-content">
+//                                 <p class="popup-filter__note-text">${note.content}</p>
+//                             </div>
+
+//                             <div class="popup-filter__note-about">
+
+//                                 <span class="popup-filter__note-priority">
+//                                     <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+//                                     ${note.priority}
+//                                 </span>
+
+//                                 <span class="popup-filter__note-tag">
+//                                     <i class="ri-price-tag-3-fill"></i>
+//                                     ${note.tags}
+//                                 </span>
+
+//                                 <span class="popup-filter__note-date">
+//                                     <time datetime="${note.creationDate}">${formattedDate}</time>
+//                                 </span>
+
+//                             </div>
+
+//                         </div>
+//                     `;
+
+//     }).join('')}
+
+//                     </div>
+
+//                 </div>
+//             `;
+
+//     noteFilteringPopupAfterChangesSaved.innerHTML = popupFilterHTML;
+
+//     document.body.appendChild(noteFilteringPopupAfterChangesSaved);
+//     document.body.style.overflow = 'hidden';
+
+//     noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
+//         document.body.querySelector('.note-app').classList.remove('hidden');
+
+//         noteFilteringPopupAfterChangesSaved.remove();
+//         document.body.style.overflow = 'auto';
+
+//         if (noteEditingPopup) {
+//             noteEditingPopup.remove();
+//         }
+//     });
+
+//     // const filteredNotesList = document.querySelector('.popup-filter__notes-list');
+
+//     // filteredNotesList.addEventListener('click', (event) => {
+//     //     const note = event.target.closest('.popup-filter__note');
+
+//     //     if (!note || !filteredNotesList.contains(note)) {
+//     //         return;
+//     //     }
+
+//     //     if (
+//     //         event.target.closest('.btn-delete-note') ||
+//     //         event.target.closest('.btn-bookmark-note')
+//     //     ) {
+//     //         return;
+//     //     }
+
+//     //     const noteId = note.getAttribute('data-id');
+//     //     popupEdit(noteId);
+//     // });
+
+//     // filteredNotesList.addEventListener('click', (event) => {
+//     //     const deleteButton = event.target.closest('.btn-delete-note');
+//     //     if (deleteButton) {
+//     //         const noteId = deleteButton.getAttribute('data-id');
+//     //         deleteNote(noteId);
+
+//     //         refreshFilterByPriorityPopup(priorityValue);
+//     //     }
+//     // });
+// }
+
+
+//////////////////////////////////////////////////////
+
+function refreshFilterPopup(tagName, priorityValue) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
+    let filteredNotes;
+
+    if (tagName) {
+        filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
+    } else if (priorityValue) {
+        filteredNotes = notes.filter(note => note.priority == priorityValue);
+    } else {
+        console.error('No tagName or priorityValue provided for filtering.');
+        return;
+    }
+
     const noteFilteringPopup = document.querySelector('.note-filtering-popup');
-    const noteEditingPopup = document.querySelector('.note-editing-popup');
 
     noteFilteringPopup.innerHTML = '';
     noteFilteringPopup.remove();
@@ -1146,7 +1430,7 @@ function refreshFilterByTagPopup(tagName) {
     const noteFilteringPopupAfterChangesSaved = document.createElement('div');
     noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
 
-    console.log('Notes found with tag:', tagName, filteredNotes);
+    console.log('Filtered notes:', filteredNotes);
     console.log('The HTML element that displays the filtered notes:', noteFilteringPopupAfterChangesSaved);
 
     const popupFilterHTML = `
@@ -1154,7 +1438,7 @@ function refreshFilterByTagPopup(tagName) {
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
                             <img src="images/tags-icon.png">
-                            <h3 class="popup-filter__header">Notes with the Tag ${tagName}</h3>
+                            <h3 class="popup-filter__header">Notes with ${tagName ? `Tag: ${tagName}` : `Priority: ${priorityValue}`}</h3>
                         </div>
                         <button type="button" id="popup-filter__close-btn">
                             <i class="ri-close-line"></i>
@@ -1171,55 +1455,38 @@ function refreshFilterByTagPopup(tagName) {
         });
 
         return `
-
                         <div class="popup-filter__note" data-id="${note.id}">
-
                             <div class="popup-filter__note-details">
-
                                 <h3 class="popup-filter__note-title">${note.title}</h3>
-
                                 <div class="popup-filter__note-options">
-
                                     <button class="btn-delete-note" type="button" data-id="${note.id}">
                                         <i class="ri-delete-bin-line"></i>
                                     </button>
-
                                     <button class="btn-bookmark-note" type="button" data-id="${note.id}">
                                         <i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i>
                                     </button>
-
                                 </div>
                             </div>
-
                             <div class="popup-filter__note-content">
                                 <p class="popup-filter__note-text">${note.content}</p>
                             </div>
-
                             <div class="popup-filter__note-about">
-
                                 <span class="popup-filter__note-priority">
                                     <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
                                     ${note.priority}
                                 </span>
-
                                 <span class="popup-filter__note-tag">
                                     <i class="ri-price-tag-3-fill"></i>
                                     ${note.tags}
                                 </span>
-
                                 <span class="popup-filter__note-date">
                                     <time datetime="${note.creationDate}">${formattedDate}</time>
                                 </span>
-
                             </div>
-
                         </div>
                     `;
-
     }).join('')}
-
                     </div>
-
                 </div>
             `;
 
@@ -1227,6 +1494,12 @@ function refreshFilterByTagPopup(tagName) {
 
     document.body.appendChild(noteFilteringPopupAfterChangesSaved);
     document.body.style.overflow = 'hidden';
+
+    const noteEditingPopup = document.querySelector('.note-editing-popup');
+
+    if (noteEditingPopup) {
+        noteEditingPopup.classList.add('hidden');
+    }
 
     noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
         document.body.querySelector('.note-app').classList.remove('hidden');
@@ -1238,107 +1511,34 @@ function refreshFilterByTagPopup(tagName) {
             noteEditingPopup.remove();
         }
     });
-}
 
-function refreshFilterByPriorityPopup(priorityValue) {
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const filteredNotes = notes.filter(note => note.priority == priorityValue);
-    const noteFilteringPopup = document.querySelector('.note-filtering-popup');
-    const noteEditingPopup = document.querySelector('.note-editing-popup');
+    const filteredNotesList = document.querySelector('.popup-filter__notes-list');
 
-    noteFilteringPopup.innerHTML = '';
-    noteFilteringPopup.remove();
+    filteredNotesList.addEventListener('click', (event) => {
+        const note = event.target.closest('.popup-filter__note');
 
-    const noteFilteringPopupAfterChangesSaved = document.createElement('div');
-    noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
+        if (!note || !filteredNotesList.contains(note)) {
+            return;
+        }
 
-    const popupFilterHTML = `
-                <div class="popup-filter">
-                    <div class="popup-filter__top">
-                        <div class="popup-filter__context">
-                            <img src="images/priority-icon.png">
-                            <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
-                        </div>
-                        <button type="button" id="popup-filter__close-btn">
-                            <i class="ri-close-line"></i>
-                        </button>
-                    </div>
-                    <div class="popup-filter__notes-list">
+        if (
+            event.target.closest('.btn-delete-note') ||
+            event.target.closest('.btn-bookmark-note')
+        ) {
+            return;
+        }
 
-                        ${filteredNotes.map(note => {
-        const date = new Date(note.creationDate);
-        const formattedDate = date.toLocaleDateString('en-uk', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        const noteId = note.getAttribute('data-id');
+        popupEdit(noteId, tagName, priorityValue);
+    });
 
-        return `
+    filteredNotesList.addEventListener('click', (event) => {
+        const deleteButton = event.target.closest('.btn-delete-note');
+        if (deleteButton) {
+            const noteId = deleteButton.getAttribute('data-id');
+            deleteNote(noteId);
 
-                        <div class="popup-filter__note" data-id="${note.id}">
-
-                            <div class="popup-filter__note-details">
-
-                                <h3 class="popup-filter__note-title">${note.title}</h3>
-
-                                <div class="popup-filter__note-options">
-
-                                    <button class="btn-delete-note" type="button" data-id="${note.id}">
-                                        <i class="ri-delete-bin-line"></i>
-                                    </button>
-
-                                    <button class="btn-bookmark-note" type="button" data-id="${note.id}">
-                                        <i class="ri-star-${note.bookmarked ? 'fill' : 'line'}"></i>
-                                    </button>
-
-                                </div>
-                            </div>
-
-                            <div class="popup-filter__note-content">
-                                <p class="popup-filter__note-text">${note.content}</p>
-                            </div>
-
-                            <div class="popup-filter__note-about">
-
-                                <span class="popup-filter__note-priority">
-                                    <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
-                                    ${note.priority}
-                                </span>
-
-                                <span class="popup-filter__note-tag">
-                                    <i class="ri-price-tag-3-fill"></i>
-                                    ${note.tags}
-                                </span>
-
-                                <span class="popup-filter__note-date">
-                                    <time datetime="${note.creationDate}">${formattedDate}</time>
-                                </span>
-
-                            </div>
-
-                        </div>
-                    `;
-
-    }).join('')}
-
-                    </div>
-
-                </div>
-            `;
-
-    noteFilteringPopupAfterChangesSaved.innerHTML = popupFilterHTML;
-
-    document.body.appendChild(noteFilteringPopupAfterChangesSaved);
-    document.body.style.overflow = 'hidden';
-
-    noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
-        document.body.querySelector('.note-app').classList.remove('hidden');
-
-        noteFilteringPopupAfterChangesSaved.remove();
-        document.body.style.overflow = 'auto';
-
-        if (noteEditingPopup) {
-            noteEditingPopup.remove();
+            refreshFilterPopup(tagName, priorityValue);
         }
     });
 }
@@ -1362,7 +1562,7 @@ function updateNoteCount() {
     const notesList = document.querySelector('.notes-list');
     const notes = notesList.querySelectorAll('.note');
     const unbookmarkedNoteArray = Array.from(notes);
-    
+
     unbookmarkedNoteCount.textContent = unbookmarkedNoteArray.length;
 }
 
