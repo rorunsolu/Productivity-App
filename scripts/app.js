@@ -1118,7 +1118,6 @@ function filterByPriority(priorityValue) {
         }
 
         const noteId = note.getAttribute('data-id');
-        //popupEdit(noteId);
         popupEdit(noteId, null, priorityValue);
     });
 
@@ -1128,7 +1127,6 @@ function filterByPriority(priorityValue) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
 
-            //refreshFilterByPriorityPopup(priorityValue);
             refreshFilterPopup(null, priorityValue);
         }
     });
