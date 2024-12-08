@@ -1362,20 +1362,16 @@ function updateNoteCount() {
     const notesList = document.querySelector('.notes-list');
     const notes = notesList.querySelectorAll('.note');
     const unbookmarkedNoteArray = Array.from(notes);
+    
     unbookmarkedNoteCount.textContent = unbookmarkedNoteArray.length;
 }
 
 function updateBookmarkedNoteCount() {
     const bookmarkedNoteCount = document.getElementById('bookmarked-count');
-    console.log('ID of number of bookmarked notes:', bookmarkedNoteCount);
-
     const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
-    console.log('Element of the list of bookmarked notes', bookmarkedNotesList);
-
     const bookmarkedNotes = bookmarkedNotesList.querySelectorAll('.note');
-    console.log('List of all of the bookmarked notes', bookmarkedNotes);
-
     const bookmarkedNotesArray = Array.from(bookmarkedNotes);
+
     bookmarkedNoteCount.textContent = bookmarkedNotesArray.length;
 }
 
