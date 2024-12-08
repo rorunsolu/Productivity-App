@@ -1433,11 +1433,13 @@ function refreshFilterPopup(tagName, priorityValue) {
     console.log('Filtered notes:', filteredNotes);
     console.log('The HTML element that displays the filtered notes:', noteFilteringPopupAfterChangesSaved);
 
+    const imgSrc = tagName ? 'images/tags-icon.png' : 'images/priority-icon.png';
+
     const popupFilterHTML = `
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="images/tags-icon.png">
+                            <img src="${imgSrc}">
                             <h3 class="popup-filter__header">Notes with ${tagName ? `Tag: ${tagName}` : `Priority: ${priorityValue}`}</h3>
                         </div>
                         <button type="button" id="popup-filter__close-btn">
