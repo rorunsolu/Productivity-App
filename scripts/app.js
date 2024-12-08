@@ -891,7 +891,7 @@ function filterByTag(tagName) {
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
                             <img src="images/tags-icon.png">
-                            <h3 class="popup-filter__header">Notes Tagged: ${tagName}</h3>
+                            <h3 class="popup-filter__header">Notes with the Tag ${tagName}</h3>
                         </div>
                         <button type="button" class="popup-filter__close-btn">
                             <i class="ri-close-line"></i>
@@ -1021,8 +1021,8 @@ function filterByPriority(priorityValue) {
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="images/tags-icon.png">
-                            <h3 class="popup-filter__header">Notes with Priority: ${priorityValue}</h3>
+                            <img src="images/priority-icon.png">
+                            <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
                         </div>
                         <button type="button" class="popup-filter__close-btn">
                             <i class="ri-close-line"></i>
@@ -1128,6 +1128,8 @@ function filterByPriority(priorityValue) {
         if (deleteButton) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
+
+            refreshFilterByPriorityPopup(priorityValue);
         }
     });
 }
@@ -1152,7 +1154,7 @@ function refreshFilterByTagPopup(tagName) {
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
                             <img src="images/tags-icon.png">
-                            <h3 class="popup-filter__header">Notes Tagged: ${tagName}</h3>
+                            <h3 class="popup-filter__header">Notes with the Tag ${tagName}</h3>
                         </div>
                         <button type="button" id="popup-filter__close-btn">
                             <i class="ri-close-line"></i>
@@ -1254,8 +1256,8 @@ function refreshFilterByPriorityPopup(priorityValue) {
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="images/tags-icon.png">
-                            <h3 class="popup-filter__header">Notes with Priority: ${priorityValue}</h3>
+                            <img src="images/priority-icon.png">
+                            <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
                         </div>
                         <button type="button" id="popup-filter__close-btn">
                             <i class="ri-close-line"></i>
