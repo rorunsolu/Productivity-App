@@ -597,9 +597,6 @@ function setupPriorityButtons() {
     }
 }
 
-//! Note editing stops working for the filter popup after doing it once already in the same popup. Clicking save btn doesnt actually save the changes. This applies for changing the tags and priority as well
-//! The editing popup doesn't get removed when doing this either but the filterpop will appear over it makingit look like it has
-
 function createNote() {
     const noteCreationPopup = document.querySelector('.note-creation-popup');
     const noteTitle = document.querySelector('.popup__note-title').value;
@@ -867,6 +864,7 @@ function saveChangesToNote(originalTagName, originalPriority) {
 
         if (noteFilteringPopup) {
             refreshFilterPopup(originalTagName, originalPriority);
+            //noteEditingPopup.remove();
         } else {
             document.body.style.overflow = 'auto';
 
@@ -1229,7 +1227,8 @@ function refreshFilterPopup(tagName, priorityValue) {
     const noteEditingPopup = document.querySelector('.note-editing-popup');
 
     if (noteEditingPopup) {
-        noteEditingPopup.classList.add('hidden');
+        //noteEditingPopup.classList.add('hidden');
+        noteEditingPopup.remove();
     }
 
     noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
