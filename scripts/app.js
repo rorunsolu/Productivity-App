@@ -712,6 +712,7 @@ function showNotes() {
 
         if (note.bookmarked) {
             bookmarkedNotesList.appendChild(noteObject);
+
         } else {
             notesList.appendChild(noteObject);
         }
@@ -762,7 +763,6 @@ function renderTags() {
 
     const tags = JSON.parse(localStorage.getItem('tags')) || [];
 
-    //! the below does the exact same thing as forEach but and i guess is somewhat easier to read but since I've used forEach elsehwere in this file multiple times idk if it would cause an issue at some point while i'm dealing with this whole tags feature nonsense ffs (see https://stackoverflow.com/questions/50844095/should-one-use-for-of-or-foreach-when-iterating-through-an-array for reference)
     for (const tag of tags) {
         for (const dropdown of tagListDropdowns) {
             const tagButton = document.createElement('li');
@@ -1002,7 +1002,6 @@ function filterByTag(tagName) {
         if (deleteButton) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
-
             refreshFilterPopup(tagName, null);
         }
     });
@@ -1012,6 +1011,7 @@ function filterByTag(tagName) {
         if (bookmarkButton) {
             const noteId = bookmarkButton.getAttribute('data-id');
             bookmarkNote(noteId);
+            refreshFilterPopup(tagName, null);
         }
     });
 }
@@ -1141,7 +1141,6 @@ function filterByPriority(priorityValue) {
         if (deleteButton) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
-
             refreshFilterPopup(null, priorityValue);
         }
     });
@@ -1151,6 +1150,7 @@ function filterByPriority(priorityValue) {
         if (bookmarkButton) {
             const noteId = bookmarkButton.getAttribute('data-id');
             bookmarkNote(noteId);
+            refreshFilterPopup(null, priorityValue);
         }
     });
 }
@@ -1296,7 +1296,7 @@ function refreshFilterPopup(tagName, priorityValue) {
             const noteId = bookmarkButton.getAttribute('data-id');
             bookmarkNote(noteId);
         }
-    })
+    });
 }
 
 function deleteNote(noteId) {
