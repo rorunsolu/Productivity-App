@@ -137,10 +137,6 @@ div {
 
     color: white;
 
-    text-transform: capitalize;
-
-    cursor: pointer;
-
     transition: var(--transition);
 
     i {
@@ -157,8 +153,6 @@ div {
         border-radius: var(--border-radius);
 
         color: var(--text-color-btn-del);
-
-        //pointer-events: none;
 
         transition: var(--transition);
 
