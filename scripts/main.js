@@ -1038,7 +1038,7 @@ function filterByPriority(priorityValue) {
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="images/priority-icon.png">
+                            <img src="priority-icon.png">
                             <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
                         </div>
                         <button type="button" class="popup-filter__close-btn">
