@@ -233,14 +233,11 @@ function popupCreateTag() {
 
         tagItem.appendChild(icon);
         tagsList.appendChild(tagItem);
-
-        //*upon opening the popup the script will display the existing tags so yes I do need to "do this" twice plus ion have to do another function like showNotes since i won't be assigning an ID for any of the tags
     });
 
     tagsInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             const tag = tagsInput.value.trim();
-            //* this tag is just THE TEXT of the tag not the actual tag object/item itself so don't get confused 
 
             if (tag && !tags.includes(tag)) {
                 tags.unshift(tag);
@@ -252,7 +249,6 @@ function popupCreateTag() {
                 tagsList.appendChild(tagItem);
                 tagsInput.value = '';
 
-                //* "'tags'"" is the JS array --> it gets converted to a JSON string --> the JSON string gets stored as the value of a key (key: value) --> the key gets it's name from the inside of "stringify(tags)"
                 localStorage.setItem('tags', JSON.stringify(tags));
 
                 tagsInput.value = '';
@@ -648,8 +644,6 @@ function createNote() {
     }
 }
 
-//! Bookmarking doesn't work yet for filtered notes but should be relitevly simple to get done
-
 function showNotes() {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const notesList = document.querySelector('.notes-list');
@@ -792,7 +786,6 @@ function setupTagButtons() {
 
                 tagsBtnOpen.textContent = tag;
                 tagsBtnList.style.display = 'none';
-                //! there is a noticeable delay if I change the tags in quick succession so i'm assuming this is where it would be better to delegate the event listener to the parent element of the tag buttons (tagsBtnList)
             });
         }
     } else {
@@ -866,7 +859,6 @@ function saveChangesToNote(originalTagName, originalPriority) {
 
         if (noteFilteringPopup) {
             refreshFilterPopup(originalTagName, originalPriority);
-            //noteEditingPopup.remove();
         } else {
             document.body.style.overflow = 'auto';
 
@@ -876,8 +868,6 @@ function saveChangesToNote(originalTagName, originalPriority) {
         showNotes();
     }
 }
-
-//! Planning on combining the 2 functions below into one function that will be able to handle both filtering by tag and priority 
 
 function filterByTag(tagName) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
