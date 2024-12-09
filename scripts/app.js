@@ -335,24 +335,24 @@ function noteCreation() {
                 
                     <div class="popup__priorities">
 
-                        <button class="popup__priorities-open-btn"><i class="ri-bookmark-fill"></i>Priority</button>
+                        <button class="popup__priorities-open-btn"><i class="ri-circle-fill"></i>Priority</button>
 
                         <ul class="popup__priorities-btn-list">
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-bookmark-fill"></i>Priority 1</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-circle-fill"></i>Priority 1</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-2" data-priority="2"><i class="ri-bookmark-fill"></i>Priority 2</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-2" data-priority="2"><i class="ri-circle-fill"></i>Priority 2</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-3" data-priority="3"><i class="ri-bookmark-fill"></i>Priority 3</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-3" data-priority="3"><i class="ri-circle-fill"></i>Priority 3</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-4" data-priority="4"><i class="ri-bookmark-fill"></i>Priority 4</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-4" data-priority="4"><i class="ri-circle-fill"></i>Priority 4</button>
                             </li>
 
                         </ul>
@@ -452,25 +452,25 @@ function popupEdit(noteId, originalTagName, originalPriority) {
                     <div class="popup-edit__priorities">
 
                         <button class="popup-edit__priorities-open-btn">
-                            <i class="ri-bookmark-fill"></i>${notePriority}
+                            <i class="ri-circle-fill"></i>${notePriority}
                         </button>
 
                         <ul class="popup-edit__priorities-btn-list">
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-bookmark-fill"></i>Priority 1</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-circle-fill"></i>Priority 1</button>
                             </li>
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-2" data-priority="2"><i class="ri-bookmark-fill"></i>Priority 2</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-2" data-priority="2"><i class="ri-circle-fill"></i>Priority 2</button>
                             </li>
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-3" data-priority="3"><i class="ri-bookmark-fill"></i>Priority 3</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-3" data-priority="3"><i class="ri-circle-fill"></i>Priority 3</button>
                             </li>
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-bookmark-fill"></i>Priority 4</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-circle-fill"></i>Priority 4</button>
                             </li>
 
                         </ul>
@@ -999,7 +999,6 @@ function filterByTag(tagName) {
             const noteId = deleteButton.getAttribute('data-id');
             deleteNote(noteId);
 
-            //refreshFilterByTagPopup(tagName);
             refreshFilterPopup(tagName, null);
         }
     });
@@ -1227,7 +1226,6 @@ function refreshFilterPopup(tagName, priorityValue) {
     const noteEditingPopup = document.querySelector('.note-editing-popup');
 
     if (noteEditingPopup) {
-        //noteEditingPopup.classList.add('hidden');
         noteEditingPopup.remove();
     }
 
