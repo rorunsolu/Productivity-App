@@ -1,12 +1,16 @@
-import '/styles/style.scss';
-import '/styles/button.scss';
-import '/styles/note.scss';
-import '/styles/popup.scss';
-import '/styles/popup-edit.scss';
-import '/styles/popup-tags.scss';
-import '/styles/sidebar.scss';
-import '/styles/filter.scss';
-import '/styles/popup-filter.scss';
+import '../styles/style.scss';
+import '../styles/button.scss';
+import '../styles/note.scss';
+import '../styles/popup.scss';
+import '../styles/popup-edit.scss';
+import '../styles/popup-tags.scss';
+import '../styles/sidebar.scss';
+import '../styles/filter.scss';
+import '../styles/popup-filter.scss';
+
+import tagsImage from '../images/tags_image.png';
+import priorityImage from '../images/priority_image.png';
+import notepadImage from '../images/notepad_image.png';
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.custom__select-trigger').forEach(trigger => {
@@ -190,7 +194,7 @@ function popupCreateTag() {
             
                 <div class="popup-tags__context">
 
-                    <img src="images/tags-icon.png">
+                    <img src="${tagsImage}" alt="Tags Icon">
 
                     <h3 class="popup-tags__header">Tags</h3>
 
@@ -322,7 +326,7 @@ function noteCreation() {
 
                     <div class="popup__note-context">
 
-                        <img src="images/notepad-icon.png">
+                        <img src="${notepadImage}" alt="Image of Notepad">
                     
                         <h3 class="popup__header">New Note</h3>
 
@@ -435,7 +439,7 @@ function popupEdit(noteId, originalTagName, originalPriority) {
 
                     <div class="popup-edit__note-context">
 
-                        <img src="images/notepad-icon.png">
+                        <img src="${notepadImage}" alt="Image of a notepad">
                     
                         <h3 class="popup-edit__header">Edit Note</h3>
 
@@ -899,7 +903,7 @@ function filterByTag(tagName) {
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="images/tags-icon.png">
+                            <img src="${tagsImage}" alt="Image of a tag icon">
                             <h3 class="popup-filter__header">Notes with the Tag ${tagName}</h3>
                         </div>
                         <button type="button" class="popup-filter__close-btn">
@@ -1041,7 +1045,7 @@ function filterByPriority(priorityValue) {
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="priority-icon.png" alt="Priority icon">
+                            <img src="${priorityImage}" alt="Image of a priority icon">
                             <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
                         </div>
                         <button type="button" class="popup-filter__close-btn">
@@ -1186,7 +1190,7 @@ function refreshFilterPopup(tagName, priorityValue) {
     console.log('Filtered notes:', filteredNotes);
     console.log('The HTML element that displays the filtered notes:', noteFilteringPopupAfterChangesSaved);
 
-    const imgSrc = tagName ? 'images/tags-icon.png' : 'images/priority-icon.png';
+    const imgSrc = tagName ? tagsImage : priorityImage;
 
     const popupFilterHTML = `
                 <div class="popup-filter">
