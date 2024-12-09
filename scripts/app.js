@@ -877,6 +877,8 @@ function saveChangesToNote(originalTagName, originalPriority) {
     }
 }
 
+//! Planning on combining the 2 functions below into one function that will be able to handle both filtering by tag and priority 
+
 function filterByTag(tagName) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
