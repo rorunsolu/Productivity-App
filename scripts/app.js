@@ -648,6 +648,8 @@ function createNote() {
     }
 }
 
+//! Bookmarking doesn't work yet for filtered notes but should be relitevly simple to get done
+
 function showNotes() {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const notesList = document.querySelector('.notes-list');
