@@ -1020,6 +1020,9 @@ function filterByTag(tagName) {
     });
 }
 
+//! Deal with cross browser compatibility
+//* Remove images in general
+
 function filterByPriority(priorityValue) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const filteredNotes = notes.filter(note => note.priority == priorityValue);
@@ -1038,7 +1041,7 @@ function filterByPriority(priorityValue) {
                 <div class="popup-filter">
                     <div class="popup-filter__top">
                         <div class="popup-filter__context">
-                            <img src="priority-icon.png">
+                            <img src="priority-icon.png" alt="Priority icon">
                             <h3 class="popup-filter__header">Notes with ${priorityValue}</h3>
                         </div>
                         <button type="button" class="popup-filter__close-btn">
