@@ -1006,6 +1006,14 @@ function filterByTag(tagName) {
             refreshFilterPopup(tagName, null);
         }
     });
+
+    filteredNotesList.addEventListener('click', (event) => {
+        const bookmarkButton = event.target.closest('.btn-bookmark-note');
+        if (bookmarkButton) {
+            const noteId = bookmarkButton.getAttribute('data-id');
+            bookmarkNote(noteId);
+        }
+    });
 }
 
 function filterByPriority(priorityValue) {
@@ -1135,6 +1143,14 @@ function filterByPriority(priorityValue) {
             deleteNote(noteId);
 
             refreshFilterPopup(null, priorityValue);
+        }
+    });
+
+    filteredNotesList.addEventListener('click', (event) => {
+        const bookmarkButton = event.target.closest('.btn-bookmark-note');
+        if (bookmarkButton) {
+            const noteId = bookmarkButton.getAttribute('data-id');
+            bookmarkNote(noteId);
         }
     });
 }
@@ -1273,6 +1289,14 @@ function refreshFilterPopup(tagName, priorityValue) {
             refreshFilterPopup(tagName, priorityValue);
         }
     });
+
+    filteredNotesList.addEventListener('click', (event) => {
+        const bookmarkButton = event.target.closest('.btn-bookmark-note');
+        if (bookmarkButton) {
+            const noteId = bookmarkButton.getAttribute('data-id');
+            bookmarkNote(noteId);
+        }
+    })
 }
 
 function deleteNote(noteId) {
