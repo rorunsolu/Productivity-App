@@ -414,7 +414,7 @@ function noteCreation() {
 
 function popupEdit(noteId, originalTagName, originalPriority) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const noteToEdit = notes.find(note => String(note.id) === String(noteId));
+    const noteToEdit = notes.find(note => note.id === noteId);
     const noteTitle = noteToEdit ? noteToEdit.title : "";
     const noteContent = noteToEdit ? noteToEdit.content : "";
     const notePriority = noteToEdit ? noteToEdit.priority : "";
@@ -673,7 +673,7 @@ function showNotes() {
     notes.forEach(note => {
         const noteObject = document.createElement('div');
         noteObject.classList.add('note');
-        noteObject.setAttribute('data-id', String(note.id));
+        noteObject.setAttribute('data-id', note.id);
 
         const creationDate = new Date(note.creationDate);
         const formattedDate = creationDate.toLocaleDateString('en-uk', {
@@ -827,7 +827,7 @@ function setupTagButtons() {
 
 function bookmarkNote(noteId) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const note = notes.find(note => String(note.id) === String(noteId));
+    const note = notes.find(note => note.id === noteId);
 
     if (note) {
         note.bookmarked = !note.bookmarked;
@@ -855,7 +855,7 @@ function saveChangesToNote(originalTagName, originalPriority) {
         const noteId = noteEditingPopup.getAttribute('data-id');
 
         const noteMap = notes.map(note => {
-            if (String(note.id) === String(noteId)) {
+            if (note.id === noteId) {
                 const updatedNote = {
                     ...note,
                     title: noteTitle,
@@ -1313,7 +1313,7 @@ function refreshFilterPopup(tagName, priorityValue) {
 function deleteNote(noteId) {
     let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-    notes = notes.filter(note => String(note.id) !== String(noteId));
+    notes = notes.filter(note => note.id !== noteId);
 
     localStorage.setItem('notes', JSON.stringify(notes));
 
