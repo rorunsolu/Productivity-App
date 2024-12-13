@@ -105,12 +105,10 @@
 
     &__options-wrapper {
         display: flex;
-        gap: 1rem;
-
-        //margin-bottom: 1rem;
+        gap: 0.5rem;
 
         i {
-            margin-right: 0.25rem;
+            margin-right: 0.45rem;
         }
     }
 
@@ -118,6 +116,8 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        position: relative;
 
         &-open-btn {
             border: var(--border-primary);
@@ -131,17 +131,23 @@
         }
 
         &-btn-list {
+            position: absolute;
+            top: 2.75rem;
+
             border: var(--border-primary);
             border-radius: var(--border-radius);
 
             width: fit-content;
+            width: 140px;
+
+            background-color: var(--bg-color-note);
 
             button {
                 color: var(--text-color-primary);
             }
         }
 
-        &-btn {
+        &-btn-item {
             &:hover {
                 background: var(--bg-color-modal-hover);
             }
@@ -152,6 +158,8 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        position: relative;
 
         &-open-btn {
             display: flex;
@@ -168,12 +176,16 @@
         }
 
         &-btn-list {
+            position: absolute;
+            top: 2.75rem;
+
             border: var(--border-primary);
             border-radius: var(--border-radius);
 
-            width: 100px;
+            width: fit-content;
+            width: 150px;
 
-            background: var(--bg-color-note);
+            background-color: var(--bg-color-note);
         }
     }
 }
@@ -192,10 +204,4 @@
 
 #popup__priority-btn-4 > i {
     color: rgb(0, 89, 255);
-}
-
-.popup__priority-btn {
-    &:hover {
-        background: var(--bg-color-modal-hover);
-    }
 }

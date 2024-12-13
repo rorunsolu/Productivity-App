@@ -167,6 +167,10 @@ svg {
     height: 1.5rem;
 }
 
+li {
+    transition: var(--transition);
+}
+
 .popup-container {
     display: grid;
     place-items: center;
@@ -259,12 +263,7 @@ body {
     width: 65%;
 }
 
-.notes-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
+.notes-list,
 .bookmarked-notes-list {
     display: flex;
     flex-direction: column;
@@ -276,8 +275,7 @@ body {
 }
 
 .bookmarked-note-count,
-.note-count,
-.tag-count {
+.note-count {
     display: grid;
     place-items: center;
 
