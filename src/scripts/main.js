@@ -666,6 +666,7 @@ function showNotes() {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const notesList = document.querySelector('.notes-list');
     const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
+    const noteWrapper = document.querySelector('.note-wrapper');
 
     notesList.innerHTML = '';
     bookmarkedNotesList.innerHTML = '';
@@ -730,48 +731,42 @@ function showNotes() {
         }
     });
 
-    const notesToOpen = document.querySelectorAll('.note');
-    notesToOpen.forEach(note => {
-        note.addEventListener('click', (event) => {
-            if (
-                event.target.closest('.btn-delete-note') ||
-                event.target.closest('.btn-bookmark-note')
-            ) {
+    if (!noteWrapper._hasClickListener) {
+        noteWrapper.addEventListener('click', (event) => {
+            const bookmarkBtn = event.target.closest('.btn-bookmark-note');
+            const deleteBtn = event.target.closest('.btn-delete-note');
+            const note = event.target.closest('.note');
+
+            if (bookmarkBtn) {
+                const noteId = bookmarkBtn.getAttribute('data-id');
+                bookmarkNote(noteId);
+                console.log('Bookmarked note:', noteId);
                 return;
             }
 
-            const noteId = note.getAttribute('data-id');
-            popupEdit(String(noteId));
-            console.log('Note to open:', noteId);
-        });
-    });
-
-    const bookmarkButtons = document.querySelectorAll('.btn-bookmark-note');
-    bookmarkButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const noteId = event.target.closest('button').getAttribute('data-id');
-            bookmarkNote(String(noteId));
-        });
-    });
-
-    const deleteNoteButtons = document.querySelectorAll('.btn-delete-note');
-    deleteNoteButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            if (event.target.classList.contains('btn-delete-note')) {
-                const noteId = event.target.getAttribute('data-id');
+            if (deleteBtn) {
+                const noteId = deleteBtn.getAttribute('data-id');
                 deleteNote(noteId);
-                console.log('Delete button clicked. Note ID to delete:', noteId);
+                console.log('Deleted note:', noteId);
+                return;
+            }
+
+            if (note && !event.target.closest('.note__options')) {
+                const noteId = note.getAttribute('data-id');
+                popupEdit(noteId);
+                console.log('Currently editing note:', noteId);
+                return;
             }
         });
-    });
+        noteWrapper._hasClickListener = true;
+        console.log('Note wrapper event listener added.');
+    }
 }
 
 function renderTags() {
-    const tagsBtnOpen = document.querySelectorAll('.popup__tags-open-btn, .popup-edit__tags-open-btn');
-    console.log('Classes for toggling tag list:', tagsBtnOpen);
+    //const tagsBtnOpen = document.querySelectorAll('.popup__tags-open-btn, .popup-edit__tags-open-btn');
 
     const tagListDropdowns = document.querySelectorAll('.popup__tags-btn-list, .popup-edit__tags-btn-list');
-    console.log('Classes for tag list dropdowns:', tagListDropdowns);
 
     const tags = JSON.parse(localStorage.getItem('tags')) || [];
 
@@ -795,7 +790,6 @@ function setupTagButtons() {
 
     if (tagsBtnOpen && tagsBtnList) {
         let tagButtons = tagsBtnList.querySelectorAll('.btn-tag');
-        console.log('HTML elements for every tag button:', tagButtons);
 
         for (const button of tagButtons) {
             button.addEventListener('click', () => {
@@ -987,45 +981,43 @@ function filterByTag(tagName) {
 
     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const note = event.target.closest('.popup-filter__note');
+    if (!filteredNotesList._hasClickListener) {
+        filteredNotesList.addEventListener('click', (event) => {
+            const bookmarkBtn = event.target.closest('.btn-bookmark-note');
+            const deleteBtn = event.target.closest('.btn-delete-note');
+            const note = event.target.closest('.popup-filter__note');
 
-        if (!note || !filteredNotesList.contains(note)) {
-            return;
-        }
 
-        if (
-            event.target.closest('.btn-delete-note') ||
-            event.target.closest('.btn-bookmark-note')
-        ) {
-            return;
-        }
+            if (bookmarkBtn) {
+                const noteId = bookmarkBtn.getAttribute('data-id');
+                bookmarkNote(noteId);
+                refreshFilterPopup(tagName, null);
+                console.log('Bookmarked note:', noteId);
+                return;
+            }
 
-        const noteId = note.getAttribute('data-id');
-        popupEdit(noteId, tagName);
-    });
+            if (deleteBtn) {
+                const noteId = deleteBtn.getAttribute('data-id');
+                deleteNote(noteId);
+                console.log('Deleted filtered note:', noteId);
+                refreshFilterPopup(tagName, null);
+                console.log('Filtered note list refreshed');
+                return;
+            }
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const deleteButton = event.target.closest('.btn-delete-note');
-        if (deleteButton) {
-            const noteId = deleteButton.getAttribute('data-id');
-            deleteNote(noteId);
-            refreshFilterPopup(tagName, null);
-        }
-    });
+            if (note && !event.target.closest('.note__options')) {
+                const noteId = note.getAttribute('data-id');
+                popupEdit(noteId, tagName);
+                console.log('Currently editing note:', noteId);
+                return;
+            }
+        });
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const bookmarkButton = event.target.closest('.btn-bookmark-note');
-        if (bookmarkButton) {
-            const noteId = bookmarkButton.getAttribute('data-id');
-            bookmarkNote(noteId);
-            refreshFilterPopup(tagName, null);
-        }
-    });
+        filteredNotesList._hasClickListener = true;
+    }
 }
 
 //! Deal with cross browser compatibility
-//* Remove images in general
 
 function filterByPriority(priorityValue) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -1129,41 +1121,40 @@ function filterByPriority(priorityValue) {
 
     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const note = event.target.closest('.popup-filter__note');
+    if (!filteredNotesList._hasClickListener) {
+        filteredNotesList.addEventListener('click', (event) => {
+            const bookmarkBtn = event.target.closest('.btn-bookmark-note');
+            const deleteBtn = event.target.closest('.btn-delete-note');
+            const note = event.target.closest('.popup-filter__note');
 
-        if (!note || !filteredNotesList.contains(note)) {
-            return;
-        }
 
-        if (
-            event.target.closest('.btn-delete-note') ||
-            event.target.closest('.btn-bookmark-note')
-        ) {
-            return;
-        }
+            if (bookmarkBtn) {
+                const noteId = bookmarkBtn.getAttribute('data-id');
+                bookmarkNote(noteId);
+                refreshFilterPopup(null, priorityValue);
+                console.log('Bookmarked note:', noteId);
+                return;
+            }
 
-        const noteId = note.getAttribute('data-id');
-        popupEdit(noteId, null, priorityValue);
-    });
+            if (deleteBtn) {
+                const noteId = deleteBtn.getAttribute('data-id');
+                deleteNote(noteId);
+                console.log('Deleted filtered note:', noteId);
+                refreshFilterPopup(null, priorityValue);
+                console.log('Filtered note list refreshed');
+                return;
+            }
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const deleteButton = event.target.closest('.btn-delete-note');
-        if (deleteButton) {
-            const noteId = deleteButton.getAttribute('data-id');
-            deleteNote(noteId);
-            refreshFilterPopup(null, priorityValue);
-        }
-    });
+            if (note && !event.target.closest('.note__options')) {
+                const noteId = note.getAttribute('data-id');
+                popupEdit(noteId, null, priorityValue);
+                console.log('Currently editing note:', noteId);
+                return;
+            }
+        });
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const bookmarkButton = event.target.closest('.btn-bookmark-note');
-        if (bookmarkButton) {
-            const noteId = bookmarkButton.getAttribute('data-id');
-            bookmarkNote(noteId);
-            refreshFilterPopup(null, priorityValue);
-        }
-    });
+        filteredNotesList._hasClickListener = true;
+    }
 }
 
 function refreshFilterPopup(tagName, priorityValue) {
@@ -1187,8 +1178,7 @@ function refreshFilterPopup(tagName, priorityValue) {
     const noteFilteringPopupAfterChangesSaved = document.createElement('div');
     noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
 
-    console.log('Filtered notes:', filteredNotes);
-    console.log('The HTML element that displays the filtered notes:', noteFilteringPopupAfterChangesSaved);
+    console.log('Notes found to be filtered:', filteredNotes);
 
     const imgSrc = tagName ? tagsImage : priorityImage;
 
@@ -1273,41 +1263,40 @@ function refreshFilterPopup(tagName, priorityValue) {
 
     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const note = event.target.closest('.popup-filter__note');
+    if (!filteredNotesList._hasClickListener) {
+        filteredNotesList.addEventListener('click', (event) => {
+            const bookmarkBtn = event.target.closest('.btn-bookmark-note');
+            const deleteBtn = event.target.closest('.btn-delete-note');
+            const note = event.target.closest('.popup-filter__note');
 
-        if (!note || !filteredNotesList.contains(note)) {
-            return;
-        }
 
-        if (
-            event.target.closest('.btn-delete-note') ||
-            event.target.closest('.btn-bookmark-note')
-        ) {
-            return;
-        }
+            if (bookmarkBtn) {
+                const noteId = bookmarkBtn.getAttribute('data-id');
+                bookmarkNote(noteId);
+                refreshFilterPopup(tagName, priorityValue);
+                console.log('Bookmarked note:', noteId);
+                return;
+            }
 
-        const noteId = note.getAttribute('data-id');
-        popupEdit(noteId, tagName, priorityValue);
-    });
+            if (deleteBtn) {
+                const noteId = deleteBtn.getAttribute('data-id');
+                deleteNote(noteId);
+                console.log('Deleted filtered note:', noteId);
+                refreshFilterPopup(tagName, priorityValue);
+                console.log('Filtered note list refreshed');
+                return;
+            }
 
-    filteredNotesList.addEventListener('click', (event) => {
-        const deleteButton = event.target.closest('.btn-delete-note');
-        if (deleteButton) {
-            const noteId = deleteButton.getAttribute('data-id');
-            deleteNote(noteId);
+            if (note && !event.target.closest('.note__options')) {
+                const noteId = note.getAttribute('data-id');
+                popupEdit(noteId, tagName, priorityValue);
+                console.log('Currently editing note:', noteId);
+                return;
+            }
+        });
 
-            refreshFilterPopup(tagName, priorityValue);
-        }
-    });
-
-    filteredNotesList.addEventListener('click', (event) => {
-        const bookmarkButton = event.target.closest('.btn-bookmark-note');
-        if (bookmarkButton) {
-            const noteId = bookmarkButton.getAttribute('data-id');
-            bookmarkNote(noteId);
-        }
-    });
+        filteredNotesList._hasClickListener = true;
+    }
 }
 
 function deleteNote(noteId) {
@@ -1368,6 +1357,3 @@ function autoResize() {
 showNotes();
 updateNoteCount();
 updateBookmarkedNoteCount();
-
-
-//! If Vercel throws an error regarding "rollup failed to resolve" then it's because i tried to push a commit for main.js where I've imported a new scss file but have yet to push the actually scss file so Vercel woudn't see it in my repo because it only exists on my local machine NOT the repo. So I have to push the scss file first then push the main.js file.
