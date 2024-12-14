@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //* I wanna add drag to drop functionality to the notes so that they can be rearranged in the list and/or moved from the unbookmarked list to the bookmarked list and vice versa. See (https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) for more info.
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     let customizationPopup = document.querySelector('.custom');
     customizationPopup.style.display = 'none';
 
@@ -28,13 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const parent = element.parentElement;
 
             if (!element.contains(event.target) && !parent.contains(event.target)) {
-                //element.classList.add('hidden');
                 element.style.display = 'none';
             }
         });
     });
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     const notesLists = document.querySelectorAll('.notes-list, .bookmarked-notes-list');
     const listViewBtn = document.getElementById('list-view-btn');
@@ -77,46 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     listViewBtn.addEventListener('click', () => setLayout('list-layout'));
     gridViewBtn.addEventListener('click', () => setLayout('grid-layout'));
-
-    // function setNoteStyling(savedLayout) {
-    //     const aboutDivs = document.querySelectorAll('.note__about');
-    //     const contentDivs = document.querySelectorAll('.note__content');
-    //     //? not sure how I would handle the default view stuff tho
-
-    //     if (savedLayout === 'list-layout') {
-    //         aboutDivs.forEach(div => {
-    //             if (div) {
-    //                 div.classList.add('note-about-list-view');
-    //                 div.classList.remove('note-about-grid-view');
-    //             }
-    //         });
-
-    //         contentDivs.forEach(div => {
-    //             if (div) {
-    //                 div.classList.add('note-content-list-view');
-    //                 div.classList.remove('note-content-grid-view');
-    //             }
-    //         });
-    //     }
-
-    //     else if (savedLayout === 'grid-layout') {
-    //         aboutDivs.forEach(div => {
-    //             if (div) {
-    //                 div.classList.add('note-about-grid-view');
-    //                 div.classList.remove('note-about-list-view');
-    //             }
-    //         });
-
-    //         contentDivs.forEach(div => {
-    //             if (div) {
-    //                 div.classList.add('note-content-grid-view');
-    //                 div.classList.remove('note-content-list-view');
-    //             }
-    //         });
-    //     }
-    // }
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     document.querySelectorAll('.custom__select-trigger').forEach(trigger => {
         trigger.addEventListener('click', (event) => {
@@ -185,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     }
 
     function sortByDate(sortValue) {
@@ -207,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     }
 
     function sortByPriority(sortValue) {
@@ -235,16 +188,18 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     }
 
-    document.querySelector('.btn-new-note').addEventListener('click', noteCreation);
+    document.querySelector('.btn-new-note').addEventListener('click', () => {
+        noteCreation();
+    });
 
-    document.querySelector('.btn-new-tag').addEventListener('click', popupCreateTag);
+    document.querySelector('.btn-new-tag').addEventListener('click', () => {
+        popupCreateTag();
+    });
 
     document.querySelector('.btn-toggle-options').addEventListener('click', () => {
         const filterTab = document.querySelector('.custom');
-        //filterTab.classList.toggle('hidden');
         filterTab.style.display = filterTab.style.display === 'none' ? 'block' : 'none';
     });
 
@@ -341,6 +296,7 @@ function popupCreateTag() {
     `;
 
     document.body.appendChild(tagCreatingPopup);
+    document.body.style.overflow = 'hidden';
 
     const tagsList = document.querySelector('.popup-tags__list');
     const tagsInput = document.getElementById('popup-tags__input');
@@ -417,8 +373,20 @@ function popupCreateTag() {
         }
     });
 
-    document.querySelector('.popup-tags__close-btn').addEventListener('click', () => {
+    tagCreatingPopup.querySelector('.popup-tags__close-btn').addEventListener('click', () => {
         tagCreatingPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Tag creation popup closed.');
+    });
+
+    tagCreatingPopup.addEventListener('click', () => {
+        tagCreatingPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Tag creation popup closed.');
+    });
+
+    tagCreatingPopup.querySelector('.popup-tags').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 }
 
@@ -514,7 +482,23 @@ function noteCreation() {
     tagsBtnList.style.display = 'none';
 
     noteCreationPopup.querySelector('.popup__save-btn').addEventListener('click', createNote);
-    noteCreationPopup.querySelector('.popup__close-btn').addEventListener('click', () => noteCreationPopup.remove());
+
+    noteCreationPopup.querySelector('.popup__close-btn').addEventListener('click', () => {
+        noteCreationPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Note creation popup closed.');
+    });
+
+    noteCreationPopup.addEventListener('click', () => {
+        noteCreationPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Note creation popup closed.');
+    });
+
+    noteCreationPopup.querySelector('.popup').addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
     noteCreationPopup.querySelector('.popup__priorities-open-btn').addEventListener('click', togglePriorityOptions);
     noteCreationPopup.querySelector('.popup__tags-open-btn').addEventListener('click', toggleTagOptions);
 
@@ -639,9 +623,20 @@ function popupEdit(noteId, originalTagName, originalPriority) {
         saveChangesToNote(originalTagName, originalPriority);
     });
 
+    noteEditingPopup.addEventListener('click', () => {
+        noteEditingPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Note editing popup closed.');
+    });
+
     noteEditingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', () => {
         noteEditingPopup.remove();
         document.body.style.overflow = 'auto';
+        console.log('Note editing popup closed.');
+    });
+
+    noteEditingPopup.querySelector('.popup-edit').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
     setupPriorityButtons();
@@ -914,8 +909,6 @@ function showNotes() {
 }
 
 function renderTags() {
-    //const tagsBtnOpen = document.querySelectorAll('.popup__tags-open-btn, .popup-edit__tags-open-btn');
-
     const tagListDropdowns = document.querySelectorAll('.popup__tags-btn-list, .popup-edit__tags-btn-list');
 
     const tags = JSON.parse(localStorage.getItem('tags')) || [];
@@ -980,7 +973,7 @@ function bookmarkNote(noteId) {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
+
         updateNoteCount();
         updateBookmarkedNoteCount();
     } else {
@@ -1035,12 +1028,6 @@ function saveChangesToNote(originalTagName, originalPriority) {
 function filterByTag(tagName) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const filteredNotes = notes.filter(note => note.tags && note.tags.includes(tagName));
-    const notesList = document.querySelector('.notes-list');
-    const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
-
-    if (notesList && bookmarkedNotesList) {
-        document.body.querySelector('.note-app').classList.add('hidden');
-    }
 
     const noteFilteringPopup = document.createElement('div');
 
@@ -1124,10 +1111,20 @@ function filterByTag(tagName) {
     document.body.appendChild(noteFilteringPopup);
     document.body.style.overflow = 'hidden';
 
+    noteFilteringPopup.addEventListener('click', () => {
+        noteFilteringPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Note filtering popup closed.');
+    });
+
     noteFilteringPopup.querySelector('.popup-filter__close-btn').addEventListener('click', () => {
         noteFilteringPopup.remove();
         document.body.style.overflow = 'auto';
-        document.body.querySelector('.note-app').classList.remove('hidden');
+        console.log('Note filtering popup closed.');
+    });
+
+    noteFilteringPopup.querySelector('.popup-filter').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
@@ -1174,13 +1171,6 @@ function filterByPriority(priorityValue) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const filteredNotes = notes.filter(note => note.priority == priorityValue);
     console.log('Notes found with priority:', priorityValue, filteredNotes);
-
-    const notesList = document.querySelector('.notes-list');
-    const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
-
-    if (notesList && bookmarkedNotesList) {
-        document.body.querySelector('.note-app').classList.add('hidden');
-    }
 
     const noteFilteringPopup = document.createElement('div');
 
@@ -1267,7 +1257,17 @@ function filterByPriority(priorityValue) {
     noteFilteringPopup.querySelector('.popup-filter__close-btn').addEventListener('click', () => {
         noteFilteringPopup.remove();
         document.body.style.overflow = 'auto';
-        document.body.querySelector('.note-app').classList.remove('hidden');
+        console.log('Note filtering popup closed.');
+    });
+
+    noteFilteringPopup.addEventListener('click', () => {
+        noteFilteringPopup.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Note filtering popup closed.');
+    });
+
+    noteFilteringPopup.querySelector('.popup-filter').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
@@ -1402,14 +1402,27 @@ function refreshFilterPopup(tagName, priorityValue) {
     }
 
     noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
-        document.body.querySelector('.note-app').classList.remove('hidden');
-
         noteFilteringPopupAfterChangesSaved.remove();
         document.body.style.overflow = 'auto';
+        console.log('Note filtering popup closed.');
 
         if (noteEditingPopup) {
             noteEditingPopup.remove();
         }
+    });
+
+    noteFilteringPopupAfterChangesSaved.addEventListener('click', () => {
+        noteFilteringPopupAfterChangesSaved.remove();
+        document.body.style.overflow = 'auto';
+        console.log('Note filtering popup closed.');
+
+        if (noteEditingPopup) {
+            noteEditingPopup.remove();
+        }
+    });
+
+    noteFilteringPopupAfterChangesSaved.querySelector('.popup-filter').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
     const filteredNotesList = document.querySelector('.popup-filter__notes-list');
@@ -1460,7 +1473,7 @@ function deleteNote(noteId) {
     document.body.style.overflow = 'auto';
 
     showNotes();
-    //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
+
     updateNoteCount();
     updateBookmarkedNoteCount();
 }
