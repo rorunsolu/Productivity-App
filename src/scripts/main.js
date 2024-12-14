@@ -211,14 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (notesList) {
                 notesList.classList.toggle('hidden');
-                console.log('Toggled regular notes list:', notesList);
                 return;
             }
 
             const bookmarkedNotesList = button.closest('.category').querySelector('.bookmarked-notes-list');
             if (bookmarkedNotesList) {
                 bookmarkedNotesList.classList.toggle('hidden');
-                console.log('Toggled bookmarked notes list:', bookmarkedNotesList);
             }
         });
     });
@@ -228,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (clickedTag.classList.contains('sidebar__tag-item')) {
             const tagName = clickedTag.textContent.trim();
-            console.log('Clicked Tag:', tagName);
             filterByTag(tagName);
         }
     });
@@ -238,7 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (clickedPriority.classList.contains('sidebar__priority-item')) {
             const priorityValue = clickedPriority.textContent.trim();
-            console.log('Clicked Priority:', priorityValue);
             filterByPriority(priorityValue);
         }
     });
@@ -337,9 +333,6 @@ function popupCreateTag() {
 
                 tagsInput.value = '';
 
-                console.log('Tag Created:', tag);
-                console.log('Tags in localStorage:', tags);
-
                 updateSidebarTagList();
             }
         }
@@ -357,9 +350,6 @@ function popupCreateTag() {
 
                 tagItem.remove();
 
-                console.log('Tag Deleted:', tag);
-                console.log('Updated list of tags in localStorage:', tags);
-
                 const sidebarTags = document.querySelectorAll('.sidebar__tag-item');
                 sidebarTags.forEach(sidebarTag => {
                     if (sidebarTag.textContent.trim() === tag) {
@@ -376,13 +366,11 @@ function popupCreateTag() {
     tagCreatingPopup.querySelector('.popup-tags__close-btn').addEventListener('click', () => {
         tagCreatingPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Tag creation popup closed.');
     });
 
     tagCreatingPopup.addEventListener('click', () => {
         tagCreatingPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Tag creation popup closed.');
     });
 
     tagCreatingPopup.querySelector('.popup-tags').addEventListener('click', (event) => {
@@ -486,13 +474,11 @@ function noteCreation() {
     noteCreationPopup.querySelector('.popup__close-btn').addEventListener('click', () => {
         noteCreationPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note creation popup closed.');
     });
 
     noteCreationPopup.addEventListener('click', () => {
         noteCreationPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note creation popup closed.');
     });
 
     noteCreationPopup.querySelector('.popup').addEventListener('click', (event) => {
@@ -626,13 +612,11 @@ function popupEdit(noteId, originalTagName, originalPriority) {
     noteEditingPopup.addEventListener('click', () => {
         noteEditingPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note editing popup closed.');
     });
 
     noteEditingPopup.querySelector('.popup-edit__close-btn').addEventListener('click', () => {
         noteEditingPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note editing popup closed.');
     });
 
     noteEditingPopup.querySelector('.popup-edit').addEventListener('click', (event) => {
@@ -711,7 +695,7 @@ function setupPriorityButtons() {
                 });
             });
         } else {
-            console.log('prioritiesBtnListEdit is null');
+            console.error('prioritiesBtnListEdit is null');
         }
     }
 }
@@ -755,10 +739,6 @@ function createNote() {
         showNotes();
         updateNoteCount();
         updateBookmarkedNoteCount();
-
-        console.log('Properties of the created note:', note);
-        console.log('Notes in localStorage after creation:', storedNotes);
-
     }
 
     else {
@@ -883,21 +863,18 @@ function showNotes() {
             if (bookmarkBtn) {
                 const noteId = bookmarkBtn.getAttribute('data-id');
                 bookmarkNote(noteId);
-                console.log('Bookmarked note:', noteId);
                 return;
             }
 
             if (deleteBtn) {
                 const noteId = deleteBtn.getAttribute('data-id');
                 deleteNote(noteId);
-                console.log('Deleted note:', noteId);
                 return;
             }
 
             if (note && !event.target.closest('.note__options')) {
                 const noteId = note.getAttribute('data-id');
                 popupEdit(noteId);
-                console.log('Currently editing note:', noteId);
                 return;
             }
         });
@@ -937,7 +914,6 @@ function setupTagButtons() {
         for (const button of tagButtons) {
             button.addEventListener('click', () => {
                 let tag = button.textContent;
-                console.log('Tag:', tag);
 
                 tagsBtnOpen.textContent = tag;
                 tagsBtnList.style.display = 'none';
@@ -952,7 +928,6 @@ function setupTagButtons() {
             for (const button of tagButtons) {
                 button.addEventListener('click', () => {
                     let tag = button.textContent;
-                    console.log('Tag:', tag);
 
                     tagsBtnOpenEdit.textContent = tag;
                     tagsBtnListEdit.style.display = 'none';
@@ -968,16 +943,14 @@ function bookmarkNote(noteId) {
 
     if (note) {
         note.bookmarked = !note.bookmarked;
-        console.log(`Bookmark toggled for Note ID: ${noteId}, New State: ${note.bookmarked}`);
 
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
-
         updateNoteCount();
         updateBookmarkedNoteCount();
     } else {
-        console.log('Something went wrong with the bookmarking function.');
+        console.error('Something went wrong with the bookmarking function.');
     }
 }
 
@@ -1003,7 +976,6 @@ function saveChangesToNote(originalTagName, originalPriority) {
                     tags: tagsBtnOpen
                 };
 
-                console.log('12. Updating note:', updatedNote);
                 return updatedNote;
             }
             return note;
@@ -1114,13 +1086,11 @@ function filterByTag(tagName) {
     noteFilteringPopup.addEventListener('click', () => {
         noteFilteringPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note filtering popup closed.');
     });
 
     noteFilteringPopup.querySelector('.popup-filter__close-btn').addEventListener('click', () => {
         noteFilteringPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note filtering popup closed.');
     });
 
     noteFilteringPopup.querySelector('.popup-filter').addEventListener('click', (event) => {
@@ -1140,23 +1110,19 @@ function filterByTag(tagName) {
                 const noteId = bookmarkBtn.getAttribute('data-id');
                 bookmarkNote(noteId);
                 refreshFilterPopup(tagName, null);
-                console.log('Bookmarked note:', noteId);
                 return;
             }
 
             if (deleteBtn) {
                 const noteId = deleteBtn.getAttribute('data-id');
                 deleteNote(noteId);
-                console.log('Deleted filtered note:', noteId);
                 refreshFilterPopup(tagName, null);
-                console.log('Filtered note list refreshed');
                 return;
             }
 
             if (note && !event.target.closest('.note__options')) {
                 const noteId = note.getAttribute('data-id');
                 popupEdit(noteId, tagName);
-                console.log('Currently editing note:', noteId);
                 return;
             }
         });
@@ -1257,13 +1223,11 @@ function filterByPriority(priorityValue) {
     noteFilteringPopup.querySelector('.popup-filter__close-btn').addEventListener('click', () => {
         noteFilteringPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note filtering popup closed.');
     });
 
     noteFilteringPopup.addEventListener('click', () => {
         noteFilteringPopup.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note filtering popup closed.');
     });
 
     noteFilteringPopup.querySelector('.popup-filter').addEventListener('click', (event) => {
@@ -1283,23 +1247,19 @@ function filterByPriority(priorityValue) {
                 const noteId = bookmarkBtn.getAttribute('data-id');
                 bookmarkNote(noteId);
                 refreshFilterPopup(null, priorityValue);
-                console.log('Bookmarked note:', noteId);
                 return;
             }
 
             if (deleteBtn) {
                 const noteId = deleteBtn.getAttribute('data-id');
                 deleteNote(noteId);
-                console.log('Deleted filtered note:', noteId);
                 refreshFilterPopup(null, priorityValue);
-                console.log('Filtered note list refreshed');
                 return;
             }
 
             if (note && !event.target.closest('.note__options')) {
                 const noteId = note.getAttribute('data-id');
                 popupEdit(noteId, null, priorityValue);
-                console.log('Currently editing note:', noteId);
                 return;
             }
         });
@@ -1317,7 +1277,6 @@ function refreshFilterPopup(tagName, priorityValue) {
     } else if (priorityValue) {
         filteredNotes = notes.filter(note => note.priority == priorityValue);
     } else {
-        console.error('No tagName or priorityValue provided for filtering.');
         return;
     }
 
@@ -1328,8 +1287,6 @@ function refreshFilterPopup(tagName, priorityValue) {
 
     const noteFilteringPopupAfterChangesSaved = document.createElement('div');
     noteFilteringPopupAfterChangesSaved.classList.add('note-filtering-popup');
-
-    console.log('Notes found to be filtered:', filteredNotes);
 
     const imgSrc = tagName ? tagsImage : priorityImage;
 
@@ -1404,7 +1361,6 @@ function refreshFilterPopup(tagName, priorityValue) {
     noteFilteringPopupAfterChangesSaved.querySelector('#popup-filter__close-btn').addEventListener('click', () => {
         noteFilteringPopupAfterChangesSaved.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note filtering popup closed.');
 
         if (noteEditingPopup) {
             noteEditingPopup.remove();
@@ -1414,7 +1370,6 @@ function refreshFilterPopup(tagName, priorityValue) {
     noteFilteringPopupAfterChangesSaved.addEventListener('click', () => {
         noteFilteringPopupAfterChangesSaved.remove();
         document.body.style.overflow = 'auto';
-        console.log('Note filtering popup closed.');
 
         if (noteEditingPopup) {
             noteEditingPopup.remove();
@@ -1438,23 +1393,19 @@ function refreshFilterPopup(tagName, priorityValue) {
                 const noteId = bookmarkBtn.getAttribute('data-id');
                 bookmarkNote(noteId);
                 refreshFilterPopup(tagName, priorityValue);
-                console.log('Bookmarked note:', noteId);
                 return;
             }
 
             if (deleteBtn) {
                 const noteId = deleteBtn.getAttribute('data-id');
                 deleteNote(noteId);
-                console.log('Deleted filtered note:', noteId);
                 refreshFilterPopup(tagName, priorityValue);
-                console.log('Filtered note list refreshed');
                 return;
             }
 
             if (note && !event.target.closest('.note__options')) {
                 const noteId = note.getAttribute('data-id');
                 popupEdit(noteId, tagName, priorityValue);
-                console.log('Currently editing note:', noteId);
                 return;
             }
         });
