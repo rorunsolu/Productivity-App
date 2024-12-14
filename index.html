@@ -31,7 +31,7 @@
 
             <button class="btn-toggle-options" type="button"><i class="ri-menu-line"></i></button>
 
-            <div class="custom hidden">
+            <div class="custom" data-toggle="visibility">
 
               <header class="custom__top">
 
@@ -42,9 +42,9 @@
                   </div>
 
                   <div class="custom__view-btn-wrapper">
-                    <button class="custom__view-btn" type="button" data="list"><i
+                    <button class="custom__view-btn" id="list-view-btn" type="button" data-value="list-layout"><i
                          class="ri-list-view"></i>List</button>
-                    <button class="custom__view-btn" type="button" data="grid"><i
+                    <button class="custom__view-btn" id="grid-view-btn" type="button" data-value="grid-layout"><i
                          class="ri-layout-grid-line"></i>Grid</button>
                   </div>
 
@@ -149,7 +149,7 @@
 
             </div>
 
-            <div class="notes-list"></div>
+            <div class="notes-list list-layout"></div>
 
           </div>
 
@@ -172,7 +172,7 @@
 
             </div>
 
-            <div class="bookmarked-notes-list"></div>
+            <div class="bookmarked-notes-list list-layout"></div>
 
           </div>
 
