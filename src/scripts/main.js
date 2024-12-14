@@ -35,6 +35,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    const notesLists = document.querySelectorAll('.notes-list, .bookmarked-notes-list');
+    const listViewBtn = document.getElementById('list-view-btn');
+    const gridViewBtn = document.getElementById('grid-view-btn');
+    const storedLayout = 'notesLayout';
+
+    function applySavedLayout() {
+        const savedLayout = localStorage.getItem(storedLayout) || 'list-layout';
+
+        notesLists.forEach(list => {
+            list.classList.remove('list-layout', 'grid-layout');
+            list.classList.add(savedLayout);
+        });
+
+        updateActiveButtonStyle(savedLayout);
+    }
+
+    function updateActiveButtonStyle(savedLayout) {
+        [listViewBtn, gridViewBtn].forEach(button => {
+            if (button.dataset.value === savedLayout) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    function setLayout(layout) {
+        notesLists.forEach(list => {
+            list.classList.remove('list-layout', 'grid-layout');
+            list.classList.add(layout);
+        });
+
+        localStorage.setItem(storedLayout, layout);
+
+        updateActiveButtonStyle(layout);
+    }
+
+    listViewBtn.addEventListener('click', () => setLayout('list-layout'));
+    gridViewBtn.addEventListener('click', () => setLayout('grid-layout'));
     document.querySelectorAll('.custom__select-trigger').forEach(trigger => {
         trigger.addEventListener('click', (event) => {
             const dropdown = trigger.nextElementSibling;
