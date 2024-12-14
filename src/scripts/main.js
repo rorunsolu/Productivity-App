@@ -75,6 +75,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     listViewBtn.addEventListener('click', () => setLayout('list-layout'));
     gridViewBtn.addEventListener('click', () => setLayout('grid-layout'));
+
+    function setNoteStyling(savedLayout) {
+
+        //? not sure how I would handle the default view stuff tho
+
+        if (savedLayout === 'list-layout') {
+            //* .note__about (add display: flex;, justify-content: space-between;, align-items: center;, margin-top: 1.5rem;)
+            
+        }
+
+        else if (savedLayout === 'grid-layout') {
+            //* .note__about (remove all styles. It will look as intended with NO styles at all since children are stacked)
+        }
+
+        // ! Use the below to handle the clearing of styles
+        const notes = document.querySelectorAll('.note');
+        notes.forEach(note => {
+            note.style.cssText = '';
+        });
+
+        //! The above wont workl for my usecase since im not using incline styles for the specific elements that need their styles changed based on the active view setting. Butttttttt, I could just style those elements with inline styles and use that above method anyway which does the job. I've looked into other methods and they're too tedious for this.
+
+        //* When I say inline styles I mean like where I have used JS like " note.style.border = 'none'; " to set a property. Normally I would use a class and toggle it but that wont work unless I do the same for both thingymagigs. I know what I mean as i'm typing this at 1:32am 14th Dec but yh i migh forget what i meant the next time I read this.
+
+        //* Although maybe I could just have this function add/remove classlists (each would need to be a utility function right? Or could i just use the one class but have multiple properties? since it would mean less lines of code and I guess complexity)
+    }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     document.querySelectorAll('.custom__select-trigger').forEach(trigger => {
         trigger.addEventListener('click', (event) => {
             const dropdown = trigger.nextElementSibling;
