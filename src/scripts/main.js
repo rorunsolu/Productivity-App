@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateSidebarTagList();
+    applySavedLayout();
 });
 
 function popupCreateTag() {
@@ -773,7 +774,7 @@ function showNotes() {
             minute: 'numeric',
             hour: 'numeric',
             day: 'numeric',
-            weekday: 'long',
+            weekday: 'short',
             month: 'short',
             hour12: true,
         });
