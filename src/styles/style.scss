@@ -171,22 +171,6 @@ li {
     transition: var(--transition);
 }
 
-.popup-container {
-    display: grid;
-    place-items: center;
-
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-
-    background-color: hsla(0, 0%, 0%, 0.7);
-}
-
 .note-creation-popup,
 .note-editing-popup,
 .note-filtering-popup,
@@ -234,8 +218,6 @@ body {
     width: 85%;
 
     padding: 1rem 0;
-
-    //background-color: var(--bg-color-body);
 
     &__title {
         display: flex;
@@ -356,8 +338,6 @@ body {
 
         &:focus {
             border: 1px solid white;
-
-            //box-shadow: 0 0 0.1px white;
         }
 
         &:not(:placeholder-shown) + .input-label,
@@ -394,8 +374,6 @@ textarea {
 
     &:focus {
         border: 1px solid white;
-
-        //box-shadow: 0 0 0.1px white;
     }
 }
 
