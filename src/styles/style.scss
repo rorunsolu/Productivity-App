@@ -195,6 +195,7 @@ li {
     place-items: center;
 
     position: fixed;
+    z-index: 1100;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -217,6 +218,7 @@ body {
     align-items: center;
 
     max-width: 1000px;
+    max-width: 1500px;
     width: 95%;
 }
 
@@ -228,6 +230,7 @@ body {
     z-index: 1000;
 
     max-width: 1000px;
+    max-width: 1500px;
     width: 85%;
 
     padding: 1rem 0;
@@ -251,6 +254,7 @@ body {
 .main {
     display: flex;
     justify-content: space-between;
+    gap: 2rem;
 
     width: 100%;
 
@@ -258,9 +262,10 @@ body {
 }
 
 .note-wrapper {
-    max-width: 700px;
-    min-width: 550px;
-    width: 65%;
+    //max-width: 700px;
+    //min-width: 550px;
+    //width: 65%;
+    width: 100%;
 }
 
 .notes-list,
@@ -314,8 +319,8 @@ body {
 
 .note__about {
     //display: flex;
-    flex-direction: column;
-    align-items: left;
+    //flex-direction: column;
+    //align-items: left;
 }
 
 .hidden {
@@ -472,4 +477,20 @@ textarea {
 
 .blue-p4 .ri-circle-fill {
     color: rgb(0, 89, 255);
+}
+
+//! The below will get toggled when the user switches between list and grid view
+
+.note-about-list-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 1.5rem;
+}
+
+.note-about-grid-view {
+    display: block;
+
+    margin-top: 1.5rem;
 }
