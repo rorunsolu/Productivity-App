@@ -227,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('.btn-toggle-options').addEventListener('click', () => {
         const filterTab = document.querySelector('.custom');
-        filterTab.classList.toggle('hidden');
+        //filterTab.classList.toggle('hidden');
+        filterTab.style.display = filterTab.style.display === 'none' ? 'block' : 'none';
     });
 
     document.querySelectorAll('.category__dropdown-btn').forEach(button => {
@@ -442,7 +443,7 @@ function noteCreation() {
 
                         <button class="popup__priorities-open-btn"><i class="ri-circle-fill"></i>Priority</button>
 
-                        <ul class="popup__priorities-btn-list">
+                        <ul class="popup__priorities-btn-list" data-toggle="visibility">
 
                             <li class="popup__priorities-btn-item">
                                 <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-circle-fill"></i>Priority 1</button>
@@ -468,7 +469,7 @@ function noteCreation() {
 
                         <button class="popup__tags-open-btn"><i class="ri-price-tag-3-fill"></i>Tags</button>
 
-                        <ul class="popup__tags-btn-list">
+                        <ul class="popup__tags-btn-list" data-toggle="visibility">
                         </ul>
 
                     </div>
@@ -560,7 +561,7 @@ function popupEdit(noteId, originalTagName, originalPriority) {
                             <i class="ri-circle-fill"></i>${notePriority}
                         </button>
 
-                        <ul class="popup-edit__priorities-btn-list">
+                        <ul class="popup-edit__priorities-btn-list" data-toggle="visibility">
 
                             <li class="popup-edit__priorities-btn-item">
                                 <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-circle-fill"></i>Priority 1</button>
@@ -586,7 +587,7 @@ function popupEdit(noteId, originalTagName, originalPriority) {
 
                         <button class="popup-edit__tags-open-btn"><i class="ri-price-tag-3-fill"></i>${noteTag}</button>
 
-                        <ul class="popup-edit__tags-btn-list">
+                        <ul class="popup-edit__tags-btn-list" data-toggle="visibility">
                             
                         </ul>
 
@@ -635,7 +636,7 @@ function togglePriorityOptions() {
 
     if (prioritiesBtnList) {
         prioritiesBtnList.style.display = prioritiesBtnList.style.display === 'none' ? 'block' : 'none';
-    } else {
+    } else if (prioritiesBtnListEdit) {
         prioritiesBtnListEdit.style.display = prioritiesBtnListEdit.style.display === 'none' ? 'block' : 'none';
     }
 }
