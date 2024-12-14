@@ -15,6 +15,26 @@ import notepadImage from '../images/notepad_image.png';
 document.addEventListener('DOMContentLoaded', () => {
 
     //* I wanna add drag to drop functionality to the notes so that they can be rearranged in the list and/or moved from the unbookmarked list to the bookmarked list and vice versa. See (https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) for more info.
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    let customizationPopup = document.querySelector('.custom');
+    customizationPopup.style.display = 'none';
+
+    document.addEventListener('click', function (event) {
+        const toggleTargetElements = document.querySelectorAll('[data-toggle="visibility"]');
+
+        toggleTargetElements.forEach(element => {
+            const parent = element.parentElement;
+
+            if (!element.contains(event.target) && !parent.contains(event.target)) {
+                //element.classList.add('hidden');
+                element.style.display = 'none';
+            }
+        });
+    });
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     document.querySelectorAll('.custom__select-trigger').forEach(trigger => {
         trigger.addEventListener('click', (event) => {
             const dropdown = trigger.nextElementSibling;
