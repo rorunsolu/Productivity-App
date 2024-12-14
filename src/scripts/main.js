@@ -78,28 +78,43 @@ document.addEventListener('DOMContentLoaded', () => {
     listViewBtn.addEventListener('click', () => setLayout('list-layout'));
     gridViewBtn.addEventListener('click', () => setLayout('grid-layout'));
 
-    function setNoteStyling(savedLayout) {
-        const aboutDivs = document.querySelectorAll('.note__about');
-        //? not sure how I would handle the default view stuff tho
+    // function setNoteStyling(savedLayout) {
+    //     const aboutDivs = document.querySelectorAll('.note__about');
+    //     const contentDivs = document.querySelectorAll('.note__content');
+    //     //? not sure how I would handle the default view stuff tho
 
-        if (savedLayout === 'list-layout') {
-            aboutDivs.forEach(div => {
-                if (div) {
-                    div.classList.add('note-about-list-view');
-                    div.classList.remove('note-about-grid-view');
-                }
-            });
-        }
+    //     if (savedLayout === 'list-layout') {
+    //         aboutDivs.forEach(div => {
+    //             if (div) {
+    //                 div.classList.add('note-about-list-view');
+    //                 div.classList.remove('note-about-grid-view');
+    //             }
+    //         });
 
-        else if (savedLayout === 'grid-layout') {
-            aboutDivs.forEach(div => {
-                if (div) {
-                    div.classList.add('note-about-grid-view');
-                    div.classList.remove('note-about-list-view');
-                }
-            });
-        }
-    }
+    //         contentDivs.forEach(div => {
+    //             if (div) {
+    //                 div.classList.add('note-content-list-view');
+    //                 div.classList.remove('note-content-grid-view');
+    //             }
+    //         });
+    //     }
+
+    //     else if (savedLayout === 'grid-layout') {
+    //         aboutDivs.forEach(div => {
+    //             if (div) {
+    //                 div.classList.add('note-about-grid-view');
+    //                 div.classList.remove('note-about-list-view');
+    //             }
+    //         });
+
+    //         contentDivs.forEach(div => {
+    //             if (div) {
+    //                 div.classList.add('note-content-grid-view');
+    //                 div.classList.remove('note-content-list-view');
+    //             }
+    //         });
+    //     }
+    // }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -170,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
+        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     }
 
     function sortByDate(sortValue) {
@@ -191,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
+        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     }
 
     function sortByPriority(sortValue) {
@@ -218,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
+        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     }
 
     document.querySelector('.btn-new-note').addEventListener('click', noteCreation);
@@ -754,6 +772,44 @@ function createNote() {
     }
 }
 
+function setNoteStyling(savedLayout) {
+    const aboutDivs = document.querySelectorAll('.note__about');
+    const contentDivs = document.querySelectorAll('.note__content');
+    //? not sure how I would handle the default view stuff tho
+
+    if (savedLayout === 'list-layout') {
+        aboutDivs.forEach(div => {
+            if (div) {
+                div.classList.add('note-about-list-view');
+                div.classList.remove('note-about-grid-view');
+            }
+        });
+
+        contentDivs.forEach(div => {
+            if (div) {
+                div.classList.add('note-content-list-view');
+                div.classList.remove('note-content-grid-view');
+            }
+        });
+    }
+
+    else if (savedLayout === 'grid-layout') {
+        aboutDivs.forEach(div => {
+            if (div) {
+                div.classList.add('note-about-grid-view');
+                div.classList.remove('note-about-list-view');
+            }
+        });
+
+        contentDivs.forEach(div => {
+            if (div) {
+                div.classList.add('note-content-grid-view');
+                div.classList.remove('note-content-list-view');
+            }
+        });
+    }
+}
+
 function showNotes() {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const notesList = document.querySelector('.notes-list');
@@ -853,6 +909,8 @@ function showNotes() {
         noteWrapper._hasClickListener = true;
         console.log('Note wrapper event listener added.');
     }
+
+    setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
 }
 
 function renderTags() {
@@ -922,6 +980,7 @@ function bookmarkNote(noteId) {
         localStorage.setItem('notes', JSON.stringify(notes));
 
         showNotes();
+        //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
         updateNoteCount();
         updateBookmarkedNoteCount();
     } else {
@@ -1401,6 +1460,7 @@ function deleteNote(noteId) {
     document.body.style.overflow = 'auto';
 
     showNotes();
+    //setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
     updateNoteCount();
     updateBookmarkedNoteCount();
 }

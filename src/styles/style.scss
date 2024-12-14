@@ -279,50 +279,6 @@ body {
     gap: 1rem;
 }
 
-.note__content {
-    display: none;
-}
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-.list-layout,
-.grid-layout {
-    transition:
-        gap 0.3s ease,
-        transform 0.3s ease;
-}
-
-.list-layout {
-    display: flex;
-    flex-direction: column;
-
-    gap: 1.5rem;
-}
-
-.grid-layout {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.active {
-    background: var(--bg-color-btn-add);
-    color: hsl(0, 0%, 100%);
-}
-
-.custom__view-btn.active {
-    background: var(--bg-color-btn-add);
-    color: hsl(0, 0%, 100%);
-}
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-.note__about {
-    //display: flex;
-    //flex-direction: column;
-    //align-items: left;
-}
-
 .hidden {
     display: none;
 }
@@ -481,6 +437,49 @@ textarea {
 
 //! The below will get toggled when the user switches between list and grid view
 
+.category {
+    container-type: inline-size;
+}
+
+.list-layout {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+    transition:
+        gap 0.3s ease,
+        transform 0.3s ease;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    transition:
+        gap 0.3s ease,
+        transform 0.3s ease;
+
+        @container (min-width: 800px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+            @container (max-width: 525px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.active {
+    background: var(--bg-color-btn-add);
+    color: hsl(0, 0%, 100%);
+}
+
+.custom__view-btn.active {
+    background: var(--bg-color-btn-add);
+    color: hsl(0, 0%, 100%);
+}
+
 .note-about-list-view {
     display: flex;
     justify-content: space-between;
@@ -490,7 +489,17 @@ textarea {
 }
 
 .note-about-grid-view {
-    display: block;
+    //display: block;
+    display: flex;
+    flex-direction: column;
 
     margin-top: 1.5rem;
+}
+
+.note-content-list-view {
+    display: block;
+}
+
+.note-content-grid-view {
+    display: none;
 }
