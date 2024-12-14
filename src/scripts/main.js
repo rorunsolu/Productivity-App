@@ -205,18 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.category__dropdown-btn').forEach(button => {
         button.addEventListener('click', () => {
-            const notesList = button.closest('.category').querySelector('.notes-list');
+            const category = button.closest('.category');
+            const notesList = category.querySelector('.notes-list') || category.querySelector('.bookmarked-notes-list');
 
             button.classList.toggle('rotate');
-
             if (notesList) {
                 notesList.classList.toggle('hidden');
-                return;
-            }
-
-            const bookmarkedNotesList = button.closest('.category').querySelector('.bookmarked-notes-list');
-            if (bookmarkedNotesList) {
-                bookmarkedNotesList.classList.toggle('hidden');
             }
         });
     });
