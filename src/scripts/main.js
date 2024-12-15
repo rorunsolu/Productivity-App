@@ -101,6 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const savedSortOption = localStorage.getItem('sortOption');
+
+    if (savedSortOption) {
+        document.querySelectorAll('.custom__select-choice').forEach(choice => {
+            if (choice.getAttribute('data-value') === savedSortOption) {
+                const trigger = choice.closest('.custom__select').querySelector('.custom__select-trigger');
+                trigger.textContent = choice.textContent;
+            }
+        });
+    }
+
     document.querySelectorAll('.custom__select-choice').forEach(choice => {
         choice.addEventListener('click', () => {
             const trigger = choice.closest('.custom__select').querySelector('.custom__select-trigger');
@@ -110,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdown.classList.add('hidden');
 
             const sortValue = choice.getAttribute('data-value');
+
+            localStorage.setItem('sortOption', sortValue);
 
             if (sortValue === 'ascending-name' || sortValue === 'descending-name') {
                 sortByTitle(sortValue);
