@@ -246,35 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function dragAndDrop() {
-        //const notesToDrag = JSON.parse(localStorage.getItem('notes')) || [];
-        const notesToDrag = document.querySelectorAll('.note');
-        console.log('Notes to drag:', notesToDrag);
-
-        notesToDrag.forEach(note => {
-            note.addEventListener('dragstart', function (event) {
-                console.log('Drag started:', event.target);
-            });
-        });
-
-        const dropZones = document.querySelectorAll('.notes-list, .bookmarked-notes-list');
-        console.log('Drop zones:', dropZones);
-
-        dropZones.forEach(dropzone => {
-            dropzone.addEventListener('dragover', function (event) {
-                event.preventDefault();
-            });
-        });
-
-        dropZones.forEach(dropzone => {
-            dropzone.addEventListener('drop', function (event) {
-                dropzone.prepend(event.target);
-                console.log('Dragged item dropped into', dropzone);
-            });
-        });
-    }
-
-    dragAndDrop();
     updateSidebarTagList();
     applySavedLayout();
 });
@@ -920,6 +891,36 @@ function showNotes() {
     }
 
     setNoteStyling(localStorage.getItem('notesLayout') || 'list-layout');
+    dragAndDrop();
+}
+
+function dragAndDrop() {
+    const notesToDrag = document.querySelectorAll('.note');
+    console.log('Notes to drag:', notesToDrag);
+
+    notesToDrag.forEach(note => {
+        note.addEventListener('dragstart', function (event) {
+            console.log('Drag started:', event.target);
+        });
+    });
+
+    const dropZones = document.querySelectorAll('.notes-list, .bookmarked-notes-list');
+    console.log('Drop zones:', dropZones);
+
+    dropZones.forEach(dropzone => {
+        dropzone.addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+    });
+
+    dropZones.forEach(dropzone => {
+        dropzone.addEventListener('drop', function (event) {
+            dropzone.prepend(event.target);
+            console.log('Dragged item dropped into', dropzone);
+        });
+    });
+
+    //* Placing the function here so that the notes can accurately be detected by the dragAndDrop function since it only gets called when the showNotes function renders the notes.
 }
 
 function renderTags() {
