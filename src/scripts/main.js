@@ -805,6 +805,7 @@ function showNotes() {
         const noteObject = document.createElement('div');
         noteObject.classList.add('note');
         noteObject.setAttribute('data-id', note.id);
+        noteObject.draggable = true;
 
         const creationDate = new Date(note.creationDate);
         const formattedDate = creationDate.toLocaleDateString('en-uk', {
