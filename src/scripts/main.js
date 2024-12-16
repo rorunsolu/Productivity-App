@@ -246,6 +246,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const notesToDrag = document.querySelectorAll('.note');
+
+    if (notesToDrag) {
+        notesToDrag.forEach(note => {
+            note.addEventListener('dragstart', function (event) {
+                console.log('Drag started:', event.target);
+            });
+        });
+    }
+
+    const dropZones = notesLists;
+
+    dropZones.forEach(dropzone => {
+        dropzone.addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+    });
+
+    dropZones.forEach(dropzone => {
+        dropzone.addEventListener('drop', function (event) {
+            dropzone.prepend(event.target);
+            console.log('Dragged item dropped into', dropzone);
+        });
+    });
+
     updateSidebarTagList();
     applySavedLayout();
 });
