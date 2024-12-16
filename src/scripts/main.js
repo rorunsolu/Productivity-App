@@ -246,31 +246,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const notesToDrag = document.querySelectorAll('.note');
+    function dragAndDrop() {
+        //const notesToDrag = JSON.parse(localStorage.getItem('notes')) || [];
+        const notesToDrag = document.querySelectorAll('.note');
+        console.log('Notes to drag:', notesToDrag);
 
-    if (notesToDrag) {
         notesToDrag.forEach(note => {
             note.addEventListener('dragstart', function (event) {
                 console.log('Drag started:', event.target);
             });
         });
+
+        const dropZones = document.querySelectorAll('.notes-list, .bookmarked-notes-list');
+        console.log('Drop zones:', dropZones);
+
+        dropZones.forEach(dropzone => {
+            dropzone.addEventListener('dragover', function (event) {
+                event.preventDefault();
+            });
+        });
+
+        dropZones.forEach(dropzone => {
+            dropzone.addEventListener('drop', function (event) {
+                dropzone.prepend(event.target);
+                console.log('Dragged item dropped into', dropzone);
+            });
+        });
     }
 
-    const dropZones = notesLists;
-
-    dropZones.forEach(dropzone => {
-        dropzone.addEventListener('dragover', function (event) {
-            event.preventDefault();
-        });
-    });
-
-    dropZones.forEach(dropzone => {
-        dropzone.addEventListener('drop', function (event) {
-            dropzone.prepend(event.target);
-            console.log('Dragged item dropped into', dropzone);
-        });
-    });
-
+    dragAndDrop();
     updateSidebarTagList();
     applySavedLayout();
 });
