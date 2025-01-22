@@ -5,13 +5,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet">
+
     <script type="module" src="/src/scripts/main.js"></script>
+
     <title>Notepad v2</title>
+
   </head>
 
   <body>
@@ -24,99 +28,7 @@
 
         <div class="navbar__btn-wrapper">
 
-            <div class="notes-list grid-layout">
-
-
-            <div class="bookmarked-notes-list grid-layout"></div>
-
-              <header class="custom__top">
-
-                <div class="custom__view">
-
-                  <div class="custom__view-top">
-                    <h3 class="custom__view-title">View</h3>
-                  </div>
-
-                  <div class="custom__view-btn-wrapper">
-                    <button class="custom__view-btn" id="list-view-btn" type="button" data-value="list-layout"><i
-                         class="ri-list-view"></i>List</button>
-                    <button class="custom__view-btn" id="grid-view-btn" type="button" data-value="grid-layout"><i
-                         class="ri-layout-grid-line"></i>Grid</button>
-                  </div>
-
-                </div>
-
-              </header>
-
-              <section class="custom__sort">
-
-                <h3 class="custom__sort-title">Sort by</h3>
-
-                <div class="custom__sort-main">
-
-                  <div class="custom__sort-options">
-
-                    <div>
-                      <i class="ri-calendar-line"></i>
-                      <label class="custom__label">Date</label>
-                    </div>
-
-                    <div class="custom__select">
-
-                      <div class="custom__select-trigger">Not set</div>
-                      <ul class="custom__select-options hidden">
-                        <li class="custom__select-choice" data-value="latest-date">Newest to Oldest</li>
-                        <li class="custom__select-choice" data-value="oldest-date">Oldest to Newest</li>
-                      </ul>
-
-                    </div>
-
-                  </div>
-
-                  <div class="custom__sort-options">
-
-                    <div>
-                      <i class="ri-sort-alphabet-desc"></i>
-                      <label class="custom__label">Name</label>
-                    </div>
-
-                    <div class="custom__select">
-
-                      <div class="custom__select-trigger">Not set</div>
-                      <ul class="custom__select-options hidden">
-                        <li class="custom__select-choice" data-value="ascending-name">Ascending (Z-A)</li>
-                        <li class="custom__select-choice" data-value="descending-name">Descending (A-Z)</li>
-                      </ul>
-
-                    </div>
-
-                  </div>
-
-                  <div class="custom__sort-options">
-
-                    <div>
-                      <i class="ri-sort-number-asc"></i>
-                      <label class="custom__label">Priority</label>
-                    </div>
-
-                    <div class="custom__select">
-
-                      <div class="custom__select-trigger">Not set</div>
-                      <ul class="custom__select-options hidden">
-                        <li class="custom__select-choice" data-value="descending-priority">Descending (1-9)</li>
-                        <li class="custom__select-choice" data-value="ascending-priority">Ascending (9-1)</li>
-                      </ul>
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </section>
-
-            </div>
-
-          </div>
+          <button class="btn-sidebar-open" type="button"><i class="ri-side-bar-line"></i></button>
 
         </div>
 
@@ -145,7 +57,9 @@
 
             </div>
 
-            <div class="notes-list list-layout"></div>
+            <div class="notes-list grid-layout">
+
+            </div>
 
           </div>
 
@@ -168,39 +82,138 @@
 
             </div>
 
-            <div class="bookmarked-notes-list list-layout"></div>
+            <div class="bookmarked-notes-list grid-layout"></div>
 
           </div>
 
         </div>
 
-        <div class="sidebar">
+        <div class="sidebar-wrapper">
 
-          <div class="sidebar__priority">
+          <div class="sidebar">
 
-            <h2 class="sidebar__header">Priorities</h2>
+            <div class="sidebar__btn-wrapper">
+              <button class="btn-sidebar-close"><i class="ri-close-line"></i></button>
+            </div>
 
-            <ul class="sidebar__priority-list">
+            <div class="custom">
 
-              <li class="sidebar__priority-item red-p1"><i class="ri-circle-fill"></i></i>Priority 1</li>
+              <header class="custom__top">
 
-              <li class="sidebar__priority-item orange-p2"><i class="ri-circle-fill"></i></i>Priority 2</li>
+                <div class="custom__view">
 
-              <li class="sidebar__priority-item yellow-p3"><i class="ri-circle-fill"></i></i>Priority 3</li>
+                  <div class="custom__view-top">
+                    <div class="custom__view-title">View</div>
+                  </div>
 
-              <li class="sidebar__priority-item blue-p4"><i class="ri-circle-fill"></i></i>Priority 4</li>
+                  <div class="custom__view-btn-wrapper">
+                    <button class="custom__view-btn" id="list-view-btn" type="button" data-value="list-layout"><i
+                         class="ri-list-view"></i>List</button>
+                    <button class="custom__view-btn" id="grid-view-btn" type="button" data-value="grid-layout"><i
+                         class="ri-layout-grid-line"></i>Grid</button>
+                  </div>
 
-            </ul>
+                </div>
 
-          </div>
+              </header>
 
-          <div class="sidebar__tag">
+              <section class="custom__sort">
 
-            <h2 class="sidebar__header">Tags</h2>
+                <div class="custom__sort-title">Sort by</div>
 
-            <ul class="sidebar__tag-list">
+                <div class="custom__sort-main">
 
-            </ul>
+                  <div class="custom__sort-options">
+
+                    <div class="custom__sort-label-wrapper">
+                      <i class="ri-calendar-line"></i>
+                    </div>
+
+                    <div class="custom__select">
+
+                      <div class="custom__select-trigger">Not set</div>
+                      <ul class="custom__select-options hidden">
+                        <li class="custom__select-choice" data-value="latest-date">Newest to Oldest</li>
+                        <li class="custom__select-choice" data-value="oldest-date">Oldest to Newest</li>
+                      </ul>
+
+                    </div>
+
+                  </div>
+
+                  <div class="custom__sort-options">
+
+                    <div class="custom__sort-label-wrapper">
+                      <i class="ri-sort-alphabet-desc"></i>
+                    </div>
+
+                    <div class="custom__select">
+
+                      <div class="custom__select-trigger">Not set</div>
+                      <ul class="custom__select-options hidden">
+                        <li class="custom__select-choice" data-value="ascending-name">Ascending (Z-A)</li>
+                        <li class="custom__select-choice" data-value="descending-name">Descending (A-Z)</li>
+                      </ul>
+
+                    </div>
+
+                  </div>
+
+                  <div class="custom__sort-options">
+
+                    <div class="custom__sort-label-wrapper">
+                      <i class="ri-sort-number-asc"></i>
+                    </div>
+
+                    <div class="custom__select">
+
+                      <div class="custom__select-trigger">Not set</div>
+                      <ul class="custom__select-options hidden">
+                        <li class="custom__select-choice" data-value="descending-priority">Descending (1-9)</li>
+                        <li class="custom__select-choice" data-value="ascending-priority">Ascending (9-1)</li>
+                      </ul>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+            </div>
+
+            <div class="sidebar__priority">
+
+              <div class="sidebar__header-wrapper">
+                <h2 class="sidebar__header">Priorities</h2>
+              </div>
+
+              <ul class="sidebar__priority-list">
+
+                <li class="sidebar__priority-item red-p1"><i class="ri-circle-line"></i></i>Priority 1</li>
+
+                <li class="sidebar__priority-item orange-p2"><i class="ri-circle-line"></i></i>Priority 2</li>
+
+                <li class="sidebar__priority-item yellow-p3"><i class="ri-circle-line"></i></i>Priority 3</li>
+
+                <li class="sidebar__priority-item blue-p4"><i class="ri-circle-line"></i></i>Priority 4</li>
+
+              </ul>
+
+            </div>
+
+            <div class="sidebar__tag">
+
+              <div class="sidebar__header-wrapper">
+                <h2 class="sidebar__header">Tags</h2>
+                <button class="btn-new-tag" type="button"><i class="ri-price-tag-3-line"></i></button>
+              </div>
+
+              <ul class="sidebar__tag-list">
+
+              </ul>
+
+            </div>
 
           </div>
 

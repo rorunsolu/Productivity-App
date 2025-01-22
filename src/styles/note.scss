@@ -1,42 +1,101 @@
-.note {
-    //min-width: 200px;
+.new-note-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     min-width: 250px;
-    max-width: 800px;
+    //!max-width: 800px;
+    height: 150px;
+
+    border: var(--border-primary);
+    border-radius: var(--border-radius);
+    padding: var(--padding-note);
+
+    transition: var(--transition);
+
+    @media (width > 800px) {
+        height: 200px;
+    }
+
+    i {
+        font-size: 3rem;
+        color: #85888e;
+        transition: var(--transition);
+    }
+
+    &:hover {
+        background: var(--bg-primary-hover);
+        cursor: pointer;
+
+        i {
+            color: white;
+        }
+    }
+
+    &:focus {
+        border: 1px solid var(--brand-color);
+    }
+}
+
+.note {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-width: 250px;
+    //!max-width: 800px;
+    height: 150px;
 
     border: (var(--border-primary));
     border-radius: var(--border-radius);
     padding: var(--padding-note);
 
-    background: var(--bg-color-note);
     color: var(--text-color-primary);
     font-size: var(--font-size-heading-note);
 
+    background: var(--bg-primary);
+
+        @media (width > 800px) {
+        height: 200px;
+    }
+
     &:hover {
         cursor: pointer;
+
+        background: var(--bg-primary-hover);
+    }
+
+    span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+
+        color: var(--text-color);
     }
 
     &__details {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 2rem;
+    }
 
-        margin-bottom: 0.75rem;
+    &__about {
     }
 
     &__content {
-        //display: none;
     }
 
     &__title {
         max-height: 2.25rem;
-        //max
 
         overflow-y: hidden;
         overflow-x: hidden;
 
-        color: var(--text-color-primary);
-        font-size: var(--font-size-note-title);
         text-transform: capitalize;
+
+        color: var(--heading-color);
     }
 
     &__text {
@@ -74,14 +133,11 @@
     }
 
     &__date {
-        //padding: 0.35rem;
 
         color: var(--text-color-muted);
-        //font-size: var(--font-size-body);
     }
 
     &__priority {
-        //font-size: var(--font-size-body);
 
         i {
             position: relative;

@@ -6,7 +6,7 @@
     width: 90%;
     max-width: 800px;
 
-    background-color: var(--bg-color-modal);
+    background: var(--bg-primary);
 
     label {
         font-size: 0.95rem;
@@ -21,14 +21,29 @@
     &__note-top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         margin-bottom: 1rem;
     }
 
     &__note-context {
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: 0.75rem;
+
+        i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 2rem;
+            height: 2rem;
+
+            font-size: 1.75rem;
+
+            color: var(--brand-color);
+        }
     }
 
     &__header {
@@ -41,49 +56,25 @@
         gap: 0.75rem;
     }
 
-    &__close-btn {
-        border: var(--border-primary);
-        border-radius: var(--border-radius);
-
-        width: 3rem;
-        height: 3rem;
-
-        padding: 0;
-
-        color: var(--text-color-primary);
-
-        &:hover {
-            background: var(--bg-color-modal-hover);
-        }
-
-        i {
-            position: relative;
-            top: 0.09rem;
-
-            font-size: 1.5rem;
-        }
-    }
-
+    &__close-btn,
     &__save-btn {
         border: var(--border-primary);
         border-radius: var(--border-radius);
 
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
 
         padding: 0;
 
+        background: var(--bg-primary);
         color: var(--text-color-primary);
 
         &:hover {
-            background: var(--bg-color-modal-hover);
+            background: var(--bg-primary-hover);
         }
 
         i {
-            position: relative;
-            top: 0.09rem;
-
-            font-size: 1.5rem;
+            font-size: 1.15rem;
         }
     }
 
@@ -195,7 +186,6 @@
 
             width: fit-content;
 
-            //background: var(--bg-color-note);
         }
     }
 }

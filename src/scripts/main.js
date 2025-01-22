@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //* I wanna add drag to drop functionality to the notes so that they can be rearranged in the list and/or moved from the unbookmarked list to the bookmarked list and vice versa. See (https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) for more info.
 
-    let customizationPopup = document.querySelector('.custom');
-    customizationPopup.style.display = 'none';
 
     document.addEventListener('click', function (event) {
         const toggleTargetElements = document.querySelectorAll('[data-toggle="visibility"]');
@@ -203,17 +201,28 @@ document.addEventListener('DOMContentLoaded', () => {
         showNotes();
     }
 
-    document.querySelector('.btn-new-note').addEventListener('click', () => {
-        noteCreation();
-    });
-
     document.querySelector('.btn-new-tag').addEventListener('click', () => {
         popupCreateTag();
     });
 
-    document.querySelector('.btn-toggle-options').addEventListener('click', () => {
-        const filterTab = document.querySelector('.custom');
-        filterTab.style.display = filterTab.style.display === 'none' ? 'block' : 'none';
+    document.querySelector('.btn-sidebar-open').addEventListener('click', () => {
+        const sidebar = document.querySelector('.sidebar-wrapper');
+        sidebar.classList.add('in-view');
+        document.body.style.overflow = 'hidden';
+    });
+
+    document.querySelector('.btn-sidebar-close').addEventListener('click', () => {
+        const sidebar = document.querySelector('.sidebar-wrapper');
+        sidebar.classList.remove('in-view');
+        document.body.style.overflow = 'auto';
+    });
+
+    document.querySelector('.sidebar-wrapper').addEventListener('click', (event) => {
+        const sidebar = document.querySelector('.sidebar-wrapper');
+        if (event.target === sidebar) {
+            sidebar.classList.remove('in-view');
+            document.body.style.overflow = 'auto';
+        }
     });
 
     document.querySelectorAll('.category__dropdown-btn').forEach(button => {
@@ -399,7 +408,7 @@ function noteCreation() {
 
                     <div class="popup__note-context">
 
-                        <img src="${notepadImage}" alt="Image of Notepad">
+                        <i class="ri-booklet-line"></i>
                     
                         <h3 class="popup__header">New Note</h3>
 
@@ -422,24 +431,24 @@ function noteCreation() {
                 
                     <div class="popup__priorities">
 
-                        <button class="popup__priorities-open-btn"><i class="ri-circle-fill"></i>Priority</button>
+                        <button class="popup__priorities-open-btn"><i class="ri-circle-line"></i>Priority</button>
 
                         <ul class="popup__priorities-btn-list" data-toggle="visibility">
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-circle-fill"></i>Priority 1</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-1" data-priority="1"><i class="ri-circle-line"></i>Priority 1</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-2" data-priority="2"><i class="ri-circle-fill"></i>Priority 2</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-2" data-priority="2"><i class="ri-circle-line"></i>Priority 2</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-3" data-priority="3"><i class="ri-circle-fill"></i>Priority 3</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-3" data-priority="3"><i class="ri-circle-line"></i>Priority 3</button>
                             </li>
 
                             <li class="popup__priorities-btn-item">
-                                <button class="popup__priority-btn" id="popup__priority-btn-4" data-priority="4"><i class="ri-circle-fill"></i>Priority 4</button>
+                                <button class="popup__priority-btn" id="popup__priority-btn-4" data-priority="4"><i class="ri-circle-line"></i>Priority 4</button>
                             </li>
 
                         </ul>
@@ -448,7 +457,7 @@ function noteCreation() {
                 
                     <div class="popup__tags">
 
-                        <button class="popup__tags-open-btn"><i class="ri-price-tag-3-fill"></i>Tags</button>
+                        <button class="popup__tags-open-btn"><i class="ri-price-tag-3-line"></i>Tags</button>
 
                         <ul class="popup__tags-btn-list" data-toggle="visibility">
                         </ul>
@@ -526,7 +535,7 @@ function popupEdit(noteId, originalTagName, originalPriority) {
 
                     <div class="popup-edit__note-context">
 
-                        <img src="${notepadImage}" alt="Image of a notepad">
+                        <i class="ri-booklet-line"></i>
                     
                         <h3 class="popup-edit__header">Edit Note</h3>
 
@@ -553,25 +562,25 @@ function popupEdit(noteId, originalTagName, originalPriority) {
                     <div class="popup-edit__priorities">
 
                         <button class="popup-edit__priorities-open-btn">
-                            <i class="ri-circle-fill"></i>${notePriority}
+                            <i class="ri-circle-line"></i>${notePriority}
                         </button>
 
                         <ul class="popup-edit__priorities-btn-list" data-toggle="visibility">
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-circle-fill"></i>Priority 1</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-1" data-priority="1"><i class="ri-circle-line"></i>Priority 1</button>
                             </li>
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-2" data-priority="2"><i class="ri-circle-fill"></i>Priority 2</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-2" data-priority="2"><i class="ri-circle-line"></i>Priority 2</button>
                             </li>
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-3" data-priority="3"><i class="ri-circle-fill"></i>Priority 3</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-3" data-priority="3"><i class="ri-circle-line"></i>Priority 3</button>
                             </li>
 
                             <li class="popup-edit__priorities-btn-item">
-                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-circle-fill"></i>Priority 4</button>
+                                <button class="popup-edit__priority-btn" id="popup-edit__priority-btn-4" data-priority="4"><i class="ri-circle-line"></i>Priority 4</button>
                             </li>
 
                         </ul>
@@ -580,7 +589,7 @@ function popupEdit(noteId, originalTagName, originalPriority) {
 
                     <div class="popup-edit__tags">
 
-                        <button class="popup-edit__tags-open-btn"><i class="ri-price-tag-3-fill"></i>${noteTag}</button>
+                        <button class="popup-edit__tags-open-btn"><i class="ri-price-tag-3-line"></i>${noteTag}</button>
 
                         <ul class="popup-edit__tags-btn-list" data-toggle="visibility">
                             
@@ -757,7 +766,6 @@ function createNote() {
 function setNoteStyling(savedLayout) {
     const aboutDivs = document.querySelectorAll('.note__about');
     const contentDivs = document.querySelectorAll('.note__content');
-    //? not sure how I would handle the default view stuff tho
 
     if (savedLayout === 'list-layout') {
         aboutDivs.forEach(div => {
@@ -798,6 +806,8 @@ function showNotes() {
     const bookmarkedNotesList = document.querySelector('.bookmarked-notes-list');
     const noteWrapper = document.querySelector('.note-wrapper');
 
+    console.log('Notes Refreshed:', notes);
+
     notesList.innerHTML = '';
     bookmarkedNotesList.innerHTML = '';
 
@@ -837,12 +847,12 @@ function showNotes() {
         <div class="note__about">
 
             <span class="note__priority">
-                <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+                <i class="ri-circle-line" style="color: ${note.priorityColor}"></i>
                 ${note.priority}
             </span>
 
             <span class="note__tag ${note.tags ? '' : 'hidden'}">
-                <i class="ri-price-tag-3-fill ${note.tags ? '' : 'hidden'}"></i>
+                <i class="ri-price-tag-3-line${note.tags ? '' : 'hidden'}"></i>
                 ${note.tags || ''}
             </span>
 
@@ -860,6 +870,20 @@ function showNotes() {
         } else {
             notesList.appendChild(noteObject);
         }
+    });
+
+    const newNoteDivForNotes = document.createElement('div');
+    newNoteDivForNotes.classList.add('new-note-div');
+    newNoteDivForNotes.innerHTML = `<i class="ri-add-line"></i>`;
+    notesList.appendChild(newNoteDivForNotes);
+
+    const newNoteDivForBookmarked = document.createElement('div');
+    newNoteDivForBookmarked.classList.add('new-note-div');
+    newNoteDivForBookmarked.innerHTML = `<i class="ri-add-line"></i>`;
+    bookmarkedNotesList.appendChild(newNoteDivForBookmarked);
+
+    [newNoteDivForNotes, newNoteDivForBookmarked].forEach(div => {
+        div.addEventListener('click', noteCreation);
     });
 
     if (!noteWrapper._hasClickListener) {
@@ -895,6 +919,7 @@ function showNotes() {
 }
 
 function dragAndDrop() {
+    // nvm i should have the showNotes function call this function with the notes as a parameter and then assign the noteElemnt variable const noteElement = document.getElementById(note.id);
     const notesToDrag = document.querySelectorAll('.note');
     console.log('Notes to drag:', notesToDrag);
 
@@ -911,12 +936,13 @@ function dragAndDrop() {
         dropzone.addEventListener('dragover', function (event) {
             event.preventDefault();
         });
-    });
 
-    dropZones.forEach(dropzone => {
         dropzone.addEventListener('drop', function (event) {
-            dropzone.prepend(event.target);
+            dropzone.prepend(event.target.getAttribute('data-id'));
             console.log('Dragged item dropped into', dropzone);
+            console.log('Dropped item:', event.target);
+
+            showNotes();
         });
     });
 
@@ -1090,12 +1116,12 @@ function filterByTag(tagName) {
                             <div class="popup-filter__note-about">
 
                                 <span class="popup-filter__note-priority">
-                                    <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+                                    <i class="ri-circle-line" style="color: ${note.priorityColor}"></i>
                                     ${note.priority}
                                 </span>
 
                                 <span class="popup-filter__note-tag">
-                                    <i class="ri-price-tag-3-fill"></i>
+                                    <i class="ri-price-tag-3-line"></i>
                                     ${note.tags}
                                 </span>
 
@@ -1227,12 +1253,12 @@ function filterByPriority(priorityValue) {
                             <div class="popup-filter__note-about">
 
                                 <span class="popup-filter__note-priority">
-                                    <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+                                    <i class="ri-circle-line" style="color: ${note.priorityColor}"></i>
                                     ${note.priority}
                                 </span>
 
                                 <span class="popup-filter__note-tag">
-                                    <i class="ri-price-tag-3-fill"></i>
+                                    <i class="ri-price-tag-3-line"></i>
                                     ${note.tags}
                                 </span>
 
@@ -1367,11 +1393,11 @@ function refreshFilterPopup(tagName, priorityValue) {
                             </div>
                             <div class="popup-filter__note-about">
                                 <span class="popup-filter__note-priority">
-                                    <i class="ri-circle-fill" style="color: ${note.priorityColor}"></i>
+                                    <i class="ri-circle-line" style="color: ${note.priorityColor}"></i>
                                     ${note.priority}
                                 </span>
                                 <span class="popup-filter__note-tag">
-                                    <i class="ri-price-tag-3-fill"></i>
+                                    <i class="ri-price-tag-3-line"></i>
                                     ${note.tags}
                                 </span>
                                 <span class="popup-filter__note-date">

@@ -6,7 +6,7 @@
     width: 90%;
     max-width: 800px;
 
-    background-color: var(--bg-color-modal);
+    background-color: var(--bg-primary);
 
     &__note {
         width: 100%;
@@ -15,14 +15,29 @@
     &__note-top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         margin-bottom: 1rem;
     }
 
     &__note-context {
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: 0.75rem;
+
+        i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 2rem;
+            height: 2rem;
+
+            font-size: 1.75rem;
+
+            color: var(--brand-color);
+        }
     }
 
     &__header {
@@ -35,49 +50,25 @@
         gap: 0.75rem;
     }
 
-    &__close-btn {
-        border: var(--border-primary);
-        border-radius: var(--border-radius);
-
-        width: 3rem;
-        height: 3rem;
-
-        padding: 0;
-
-        color: var(--text-color-primary);
-
-        &:hover {
-            background: var(--bg-color-modal-hover);
-        }
-
-        i {
-            position: relative;
-            top: 0.09rem;
-
-            font-size: 1.5rem;
-        }
-    }
-
+    &__close-btn,
     &__save-btn {
         border: var(--border-primary);
         border-radius: var(--border-radius);
 
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
 
         padding: 0;
 
+        background: var(--bg-primary);
         color: var(--text-color-primary);
 
         &:hover {
-            background: var(--bg-color-modal-hover);
+            background: var(--bg-primary-hover);
         }
 
         i {
-            position: relative;
-            top: 0.09rem;
-
-            font-size: 1.5rem;
+            font-size: 1.15rem;
         }
     }
 
@@ -106,7 +97,6 @@
         max-height: 20rem;
 
         margin-bottom: 1rem;
-        padding-top: 0.25rem;
         padding-bottom: 0.25rem;
     }
 
@@ -127,6 +117,8 @@
         position: relative;
 
         &-open-btn {
+            width: 120px;
+
             border: var(--border-primary);
             border-radius: var(--border-radius);
 
@@ -147,7 +139,9 @@
             width: fit-content;
             width: 140px;
 
-            background-color: var(--bg-color-note);
+            overflow: hidden;
+
+            background: var(--bg-primary);
 
             button {
                 color: var(--text-color-primary);
@@ -156,7 +150,7 @@
 
         &-btn-item {
             &:hover {
-                background: var(--bg-color-modal-hover);
+                background: var(--bg-primary-hover);
             }
         }
     }
@@ -192,7 +186,9 @@
             width: fit-content;
             width: 150px;
 
-            background-color: var(--bg-color-note);
+            overflow: hidden;
+
+            background: var(--bg-primary);
         }
     }
 }

@@ -1,15 +1,22 @@
 .btn-new-tag,
 .btn-new-note,
-.btn-toggle-options {
+.btn-toggle-options,
+.btn-sidebar-open,
+.btn-sidebar-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 3rem;
     width: 3rem;
 
+    border: var(--border-primary);
     border-radius: var(--border-radius);
-    background: var(--bg-color-btn-add);
+
     color: var(--text-color-btn-add);
 
     &:hover {
-        background: var(--bg-color-btn-add-hover);
+        background: var(--bg-primary-hover);
     }
 
     i {
@@ -17,10 +24,9 @@
     }
 }
 
-.btn-new-tag {
+.btn-sidebar-open {
     i {
-        position: relative;
-        bottom: -0.05rem;
+        transform: rotate(180deg);
     }
 }
 
@@ -43,7 +49,7 @@
     transition: var(--transition);
 
     &:hover {
-        background: var(--bg-color-modal-hover);
+        background: var(--bg-primary-hover);
     }
 
     i {
@@ -51,25 +57,12 @@
     }
 }
 
-.btn-new-note {
-    height: 3rem;
-    width: 3rem;
-
-    background: var(--bg-color-btn-add);
-    color: var(--text-color-btn-add);
-
-    &:hover {
-        background: var(--bg-color-btn-add-hover);
-    }
-
-    i {
-        font-size: 1.5rem;
-    }
-}
-
 .btn-edit-note,
 .btn-delete-note,
 .btn-bookmark-note {
+    height: 2rem;
+    width: 2rem;
+
     border: var(--border-primary);
     border-radius: var(--border-radius);
 
