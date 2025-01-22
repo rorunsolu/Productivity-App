@@ -1,27 +1,33 @@
-.sidebar-wrapper.in-view {
-    transform: translateX(0);
-}
-
 .sidebar-wrapper {
     position: fixed;
     top: 0;
-    right: -100%;
     left: 0;
     z-index: 990;
-
-    transform: translateX(100%);
 
     width: 100%;
     height: 100%;
 
-    transition: transform 0.2s ease-in-out;
-
-    transition: background 0.2s ease-in-out;
     background: hsla(0, 0%, 0%, 0.7);
 
-    @media (min-width: 300px) {
-        transform: translateX(350%);
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+
+    transition:
+        transform 0.2s ease-in-out,
+        -webkit-transform 0.2s ease-in-out;
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+    -o-transition: transform 0.2s ease-in-out;
+
+    @media (width < 300px) {
+        transform: translateX(550%);
     }
+}
+
+.sidebar-wrapper.in-view {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
 }
 
 .btn-new-tag,
@@ -108,7 +114,7 @@
             transition: var(--transition);
 
             &:hover {
-                background: var(--bg-color-modal-hover);
+                background: var(--bg-primary-hover);
             }
 
             i {
@@ -152,7 +158,7 @@
             transition: var(--transition);
 
             &:hover {
-                background: var(--bg-color-modal-hover);
+                background: var(--bg-primary-hover);
             }
 
             i {

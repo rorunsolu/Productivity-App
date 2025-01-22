@@ -6,7 +6,7 @@
     width: 90%;
     max-width: 300px;
 
-    background-color: var(--bg-color-modal);
+    background-color: var(--bg-primary);
 
     &__top {
         display: flex;
@@ -39,7 +39,7 @@
         color: var(--text-color-primary);
 
         &:hover {
-            background: var(--bg-color-modal-hover);
+            background: var(--bg-primary-hover);
         }
 
         i {
@@ -50,7 +50,6 @@
         }
     }
     &__middle {
-
     }
     &__input {
     }

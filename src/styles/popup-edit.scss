@@ -71,6 +71,7 @@
 
         &:hover {
             background: var(--bg-primary-hover);
+            //background: blue;
         }
 
         i {
@@ -127,7 +128,7 @@
             color: var(--text-color-primary);
 
             &:hover {
-                background: var(--bg-color-modal-hover);
+                background: var(--bg-primary-hover);
             }
         }
 
@@ -156,7 +157,7 @@
             transition: var(--transition);
 
             &:hover {
-                background: var(--bg-color-modal-hover);
+                background: var(--bg-primary-hover);
             }
         }
     }
@@ -176,7 +177,7 @@
             color: var(--text-color-primary);
 
             &:hover {
-                background: var(--bg-color-modal-hover);
+                background: var(--bg-primary-hover);
             }
         }
 
@@ -185,7 +186,6 @@
             border-radius: var(--border-radius);
 
             width: fit-content;
-
         }
     }
 }

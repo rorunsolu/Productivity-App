@@ -3,8 +3,7 @@
     justify-content: center;
     align-items: center;
 
-    min-width: 250px;
-    //!max-width: 800px;
+    min-width: 220px;
     height: 150px;
 
     border: var(--border-primary);
@@ -24,7 +23,6 @@
     }
 
     &:hover {
-        background: var(--bg-primary-hover);
         cursor: pointer;
 
         i {
@@ -42,8 +40,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-    min-width: 250px;
-    //!max-width: 800px;
+    min-width: 220px;
     height: 150px;
 
     border: (var(--border-primary));
@@ -55,14 +52,12 @@
 
     background: var(--bg-primary);
 
-        @media (width > 800px) {
+    @media (width > 800px) {
         height: 200px;
     }
 
     &:hover {
         cursor: pointer;
-
-        background: var(--bg-primary-hover);
     }
 
     span {
@@ -133,12 +128,10 @@
     }
 
     &__date {
-
         color: var(--text-color-muted);
     }
 
     &__priority {
-
         i {
             position: relative;
             bottom: 0.0067rem;

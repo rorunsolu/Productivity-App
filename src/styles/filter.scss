@@ -97,6 +97,8 @@
     }
 
     &__select {
+        position: relative;
+
         width: 180px;
         width: 100%;
 
@@ -119,14 +121,24 @@
 
         &-options {
             position: absolute;
-
+            top: 32px;
+            left: -0.6px;
+            z-index: 300;
+           
             border: var(--border-primary);
+            border-bottom: 0;
             border-radius: var(--border-radius);
+            //padding: 0.25rem;
+
+            overflow: hidden;
 
             background: var(--bg-primary);
         }
 
         &-choice {
+            // border: var(--border-primary);
+            border-bottom: var(--border-primary);
+            //border-radius: var(--border-radius);
             padding: 0.25rem 0.5rem;
 
             color: white;
